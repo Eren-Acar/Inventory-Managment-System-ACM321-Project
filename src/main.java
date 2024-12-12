@@ -8,6 +8,7 @@ public class main {
 		System.out.println("Example3");
 		System.out.println("Try git entegration for eclipse");
 		System.out.print("Deneme");
+		System.out.println("Deneme2");
 	}
 
 }
