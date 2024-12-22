@@ -14,12 +14,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JPasswordField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class LoginPage extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private JTextField emailTextField;
 	private JLabel lblNewLabel_3;
 	private JPasswordField passwordField;
 
@@ -29,6 +31,7 @@ public class LoginPage extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+			
 				try {
 					LoginPage frame = new LoginPage();
 					frame.setVisible(true);
@@ -43,6 +46,7 @@ public class LoginPage extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginPage() {
+		setTitle("Inventory Management System");	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 684, 341);
 		contentPane = new JPanel();
@@ -51,22 +55,22 @@ public class LoginPage extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("WELCOME\n");
-		lblNewLabel.setBounds(19, 6, 88, 26);
-		contentPane.add(lblNewLabel);
+		JLabel welcomeText = new JLabel("WELCOME\n");
+		welcomeText.setBounds(19, 6, 88, 26);
+		contentPane.add(welcomeText);
 		
-		JLabel lblNewLabel_1 = new JLabel("Email");
-		lblNewLabel_1.setBounds(47, 50, 61, 16);
-		contentPane.add(lblNewLabel_1);
+		JLabel emailText = new JLabel("Email");
+		emailText.setBounds(47, 50, 61, 16);
+		contentPane.add(emailText);
 		
-		textField = new JTextField();
-		textField.setBounds(47, 67, 130, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		emailTextField = new JTextField();
+		emailTextField.setBounds(47, 67, 130, 26);
+		contentPane.add(emailTextField);
+		emailTextField.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Password");
-		lblNewLabel_2.setBounds(47, 105, 61, 16);
-		contentPane.add(lblNewLabel_2);
+		JLabel passwordText = new JLabel("Password");
+		passwordText.setBounds(47, 105, 61, 16);
+		contentPane.add(passwordText);
 		
 		lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setBackground(new Color(254, 255, 255));
@@ -74,22 +78,28 @@ public class LoginPage extends JFrame {
 		lblNewLabel_3.setBounds(276, 0, 418, 319);
 		contentPane.add(lblNewLabel_3);
 		
-		JButton btnNewButton = new JButton("Login ");
-		btnNewButton.setBounds(76, 160, 117, 29);
-		contentPane.add(btnNewButton);
-		
-		JButton btnNewButton_1 = new JButton("Register");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton loginButton = new JButton("Login ");
+		loginButton.setBackground(Color.BLUE);
+		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_1.setBounds(76, 192, 117, 29);
-		contentPane.add(btnNewButton_1);
+		loginButton.setBackground(new Color(254, 255, 255));
+		loginButton.setBounds(19, 162, 234, 34);
+		contentPane.add(loginButton);
 		
-		JLabel lblNewLabel_4 = new JLabel("Organize Your Kitchenware World!");
-		lblNewLabel_4.setFont(new Font("Lucida Grande", Font.PLAIN, 8));
-		lblNewLabel_4.setBounds(19, 32, 234, 16);
-		contentPane.add(lblNewLabel_4);
+		JButton registerButton = new JButton("Register");
+		registerButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		registerButton.setBounds(19, 208, 234, 34);
+		contentPane.add(registerButton);
+		
+		JLabel slogan = new JLabel("Organize Your Kitchenware World!");
+		slogan.setFont(new Font("Lucida Grande", Font.PLAIN, 8));
+		slogan.setBounds(19, 32, 234, 16);
+		contentPane.add(slogan);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(47, 121, 130, 26);
