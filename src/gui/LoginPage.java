@@ -71,7 +71,6 @@ public class LoginPage extends JFrame {
 		JLabel passwordText = new JLabel("Password");
 		passwordText.setBounds(47, 105, 61, 16);
 		contentPane.add(passwordText);
-		contentPane.add(welcomeText);
 		
 		lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setBackground(new Color(254, 255, 255));
