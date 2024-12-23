@@ -20,10 +20,10 @@ public class RegisterPage extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_1;
+	private JTextField firstNameTextField;
+	private JTextField emailTextField;
+	private JTextField phoneTextField;
+	private JTextField lastNameTextField;
 	private JPasswordField passwordField;
 
 	/**
@@ -60,76 +60,76 @@ public class RegisterPage extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setIcon(new ImageIcon(RegisterPage.class.getResource("/resourcess/loginPageImage.png")));
-		lblNewLabel.setBounds(6, 6, 298, 539);
-		panel.add(lblNewLabel);
+		JLabel image = new JLabel("New label");
+		image.setIcon(new ImageIcon(RegisterPage.class.getResource("/resourcess/loginPageImage.png")));
+		image.setBounds(6, 6, 298, 539);
+		panel.add(image);
 		
-		JLabel lblNewLabel_1 = new JLabel("Register");
-		lblNewLabel_1.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(389, 47, 119, 22);
-		panel.add(lblNewLabel_1);
+		JLabel registerText = new JLabel("Register");
+		registerText.setFont(new Font("Lucida Grande", Font.PLAIN, 18));
+		registerText.setBounds(389, 47, 119, 22);
+		panel.add(registerText);
 		
-		JLabel lblNewLabel_2 = new JLabel("First name");
-		lblNewLabel_2.setBounds(389, 143, 104, 22);
-		panel.add(lblNewLabel_2);
+		JLabel firstNameText = new JLabel("First name");
+		firstNameText.setBounds(389, 143, 104, 22);
+		panel.add(firstNameText);
 		
-		JLabel lblNewLabel_3 = new JLabel("Last name");
-		lblNewLabel_3.setBounds(651, 145, 91, 19);
-		panel.add(lblNewLabel_3);
+		JLabel lastNameText = new JLabel("Last name");
+		lastNameText.setBounds(651, 145, 91, 19);
+		panel.add(lastNameText);
 		
-		textField = new JTextField();
-		textField.setBackground(new Color(204, 204, 204));
-		textField.setBounds(389, 168, 184, 50);
-		panel.add(textField);
-		textField.setColumns(10);
+		firstNameTextField = new JTextField();
+		firstNameTextField.setBackground(new Color(204, 204, 204));
+		firstNameTextField.setBounds(389, 168, 184, 50);
+		panel.add(firstNameTextField);
+		firstNameTextField.setColumns(10);
 		
-		JLabel lblNewLabel_4 = new JLabel("Email");
-		lblNewLabel_4.setBounds(389, 230, 61, 16);
-		panel.add(lblNewLabel_4);
+		JLabel emailText = new JLabel("Email");
+		emailText.setBounds(389, 230, 61, 16);
+		panel.add(emailText);
 		
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
-		textField_2.setBackground(new Color(204, 204, 204));
-		textField_2.setBounds(389, 250, 184, 50);
-		panel.add(textField_2);
+		emailTextField = new JTextField();
+		emailTextField.setColumns(10);
+		emailTextField.setBackground(new Color(204, 204, 204));
+		emailTextField.setBounds(389, 250, 184, 50);
+		panel.add(emailTextField);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBackground(new Color(204, 204, 204));
-		textField_3.setBounds(651, 250, 184, 50);
-		panel.add(textField_3);
+		phoneTextField = new JTextField();
+		phoneTextField.setColumns(10);
+		phoneTextField.setBackground(new Color(204, 204, 204));
+		phoneTextField.setBounds(651, 250, 184, 50);
+		panel.add(phoneTextField);
 		
-		JLabel lblNewLabel_5 = new JLabel("Phone");
-		lblNewLabel_5.setBounds(651, 230, 61, 16);
-		panel.add(lblNewLabel_5);
+		JLabel phoneText = new JLabel("Phone");
+		phoneText.setBounds(651, 230, 61, 16);
+		panel.add(phoneText);
 		
-		JLabel lblNewLabel_6 = new JLabel("Password");
-		lblNewLabel_6.setBounds(531, 323, 61, 16);
-		panel.add(lblNewLabel_6);
+		JLabel passwordText = new JLabel("Password");
+		passwordText.setBounds(531, 323, 61, 16);
+		panel.add(passwordText);
 		
-		JButton btnNewButton = new JButton("Sign Up");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton signUpButton = new JButton("Sign Up");
+		signUpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(480, 433, 312, 29);
-		panel.add(btnNewButton);
+		signUpButton.setBounds(480, 433, 312, 29);
+		panel.add(signUpButton);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBackground(new Color(204, 204, 204));
-		textField_1.setBounds(651, 168, 184, 50);
-		panel.add(textField_1);
+		lastNameTextField = new JTextField();
+		lastNameTextField.setColumns(10);
+		lastNameTextField.setBackground(new Color(204, 204, 204));
+		lastNameTextField.setBounds(651, 168, 184, 50);
+		panel.add(lastNameTextField);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBackground(Color.LIGHT_GRAY);
 		passwordField.setBounds(531, 351, 211, 42);
 		panel.add(passwordField);
 		
-		JLabel lblNewLabel_7 = new JLabel("Manage all your inventory efficiently");
-		lblNewLabel_7.setFont(new Font("Lao MN", Font.PLAIN, 11));
-		lblNewLabel_7.setBounds(389, 81, 263, 16);
-		panel.add(lblNewLabel_7);
+		JLabel slogan2 = new JLabel("Manage all your inventory efficiently");
+		slogan2.setFont(new Font("Lao MN", Font.PLAIN, 11));
+		slogan2.setBounds(389, 81, 263, 16);
+		panel.add(slogan2);
 	}
 }
