@@ -6,8 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="resources/" kind="src" path="src"/>
-	<classpathentry kind="lib" path="/Users/raufkutayakyildiz/Downloads/slf4j-api-1.7.36.jar"/>
-	<classpathentry kind="lib" path="/Users/raufkutayakyildiz/Downloads/slf4j-simple-1.7.36.jar"/>
-	<classpathentry kind="lib" path="/Users/raufkutayakyildiz/Downloads/sqlite-jdbc-3.43.0.0.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-api-1.7.36.jar"/>
+	<classpathentry kind="lib" path="libs/slf4j-simple-1.7.36.jar"/>
+	<classpathentry kind="lib" path="libs/sqlite-jdbc-3.43.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
