@@ -29,7 +29,12 @@ public class Main {
             new DataBaseConfigure(connection);
 
             // Tüm tabloları temizleme. Eğer test etmek istiyorsan ve hali hazırda tablo varsa önce bu kodu çalıştır.
+            System.out.println(" ");
+            System.out.println("----------------------------------------------------------------------------");
+            System.out.println("Silme İşlemleri (DatabaseCleaner):");
+            System.out.println("----------------------------------------------------------------------------");
             DatabaseCleaner.clearAllTables(connection);
+            System.out.println(" ");
 
             // DAO sınıflarını oluştur
             CustomerDAO customerDAO = new CustomerDAO(connection);
@@ -39,6 +44,13 @@ public class Main {
             ListOfItemsDAO listOfItemsDAO = new ListOfItemsDAO(connection);
 
             // --- CRUD İşlemleri Testi ---
+            
+            System.out.println(" ");
+            System.out.println("----------------------------------------------------------------------------");
+            System.out.println("CRUD İşlemleri (ClassİsimleriDAO.java):");
+            System.out.println("----------------------------------------------------------------------------");
+            System.out.println(" ");
+            
 
             // 1. Müşteri işlemleri
             Customer customer = new Customer(1, "Eren Acar", "Eren'in Adresi", "İstanbul", "Kartal");
@@ -63,10 +75,20 @@ public class Main {
             invoiceDAO.addInvoice(invoice);
             System.out.println("Fatura eklendi: " + invoiceDAO.getInvoiceById(1));
 
-            // Tabloları tekrar temizle. 
+            // Tabloları tekrar temizle -gerekliyse-. 
             //DatabaseCleaner.clearAllTables(connection);
         } catch (SQLException e) {
             System.out.println("Veritabanı hatası: " + e.getMessage());
         }
+        System.out.println(" ");
+        System.out.println("----------------------------------------------------------------------------");
+        System.out.println("Detay Gösterme İşlemleri: (ShowDetails)");
+        System.out.println("----------------------------------------------------------------------------");
+        System.out.println(" ");
+        
+        // ShowDetails sınıfını çağırarak tabloları göster
+        ShowDetails showDetails = new ShowDetails();
+        showDetails.printAllTableCounts();
+        
     }
 }

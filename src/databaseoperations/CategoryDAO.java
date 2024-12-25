@@ -45,7 +45,8 @@ public class CategoryDAO {
     public List<Category> getAllCategories() throws SQLException {
         String sql = "SELECT * FROM CategoryTable";
         List<Category> categories = new ArrayList<>();
-        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+        try (Statement stmt = connection.createStatement(); 
+        		ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 categories.add(new Category(
                     rs.getInt("CategoryID"),
