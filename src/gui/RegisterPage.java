@@ -34,6 +34,7 @@ public class RegisterPage extends JFrame {
 			public void run() {
 				try {
 					RegisterPage frame = new RegisterPage();
+					frame.setResizable(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,7 +57,7 @@ public class RegisterPage extends JFrame {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(6, 6, 959, 551);
+		panel.setBounds(0, 0, 971, 557);
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
