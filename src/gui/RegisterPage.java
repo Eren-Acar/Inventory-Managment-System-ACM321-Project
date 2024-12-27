@@ -112,6 +112,9 @@ public class RegisterPage extends JFrame {
 		JButton signUpButton = new JButton("Sign Up");
 		signUpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MainPage mainPage = new MainPage();
+				mainPage.setVisible(true);
+				dispose();
 			}
 		});
 		signUpButton.setBounds(480, 433, 312, 29);

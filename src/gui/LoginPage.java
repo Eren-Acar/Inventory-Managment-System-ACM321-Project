@@ -83,6 +83,9 @@ public class LoginPage extends JFrame {
 		loginButton.setBackground(Color.BLUE);
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MainPage mainPage = new MainPage();
+				mainPage.setVisible(true);
+				dispose();
 			}
 		});
 		loginButton.setBackground(new Color(254, 255, 255));
@@ -92,6 +95,9 @@ public class LoginPage extends JFrame {
 		JButton registerButton = new JButton("Register");
 		registerButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				RegisterPage registerPage = new RegisterPage();
+		        registerPage.setVisible(true);  
+		        dispose(); 
 			}
 		});
 		registerButton.setBounds(19, 208, 234, 34);
