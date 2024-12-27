@@ -34,6 +34,7 @@ public class LoginPage extends JFrame {
 			
 				try {
 					LoginPage frame = new LoginPage();
+					frame.setResizable(false);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -46,7 +47,7 @@ public class LoginPage extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginPage() {
-		setTitle("Inventory Management System");	
+		setTitle("Inventory Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 684, 341);
 		contentPane = new JPanel();
