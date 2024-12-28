@@ -100,8 +100,11 @@ import panels.OrderAddPanel;
 	        surnameTextView.setBounds(82, 229, 74, 23);
 	        leftPanel.add(surnameTextView);
 	
-	        JButton productButton = new JButton("PRODUCT");
-	        productButton.setBounds(23, 323, 194, 51);
+	        JButton productButton = new JButton("  PRODUCT");
+	        productButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+	        productButton.setHorizontalAlignment(SwingConstants.LEADING);
+	        productButton.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/product 1.png")));
+	        productButton.setBounds(25, 314, 194, 51);
 	        productButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e ) {
 					updateMainPanel("Product");
@@ -110,7 +113,10 @@ import panels.OrderAddPanel;
 	        leftPanel.add(productButton);
 	
 	        JButton categoriesButton = new JButton("CATEGORIES");
-	        categoriesButton.setBounds(23, 377, 196, 51);
+	        categoriesButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+	        categoriesButton.setHorizontalAlignment(SwingConstants.LEADING);
+	        categoriesButton.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/category 1.png")));
+	        categoriesButton.setBounds(25, 368, 196, 51);
 	        categoriesButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					 updateMainPanel("Category");
@@ -118,8 +124,11 @@ import panels.OrderAddPanel;
 			});
 	        leftPanel.add(categoriesButton);
 	
-	        JButton customersButton = new JButton("CUSTOMERS");
-	        customersButton.setBounds(23, 431, 194, 51);
+	        JButton customersButton = new JButton(" CUSTOMERS");
+	        customersButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+	        customersButton.setHorizontalAlignment(SwingConstants.LEADING);
+	        customersButton.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/usersss 1.png")));
+	        customersButton.setBounds(25, 420, 194, 51);
 			customersButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					updateMainPanel("Customer");
@@ -127,8 +136,11 @@ import panels.OrderAddPanel;
 			});
 	        leftPanel.add(customersButton);
 	
-	        JButton ordersButton = new JButton("ORDERS");
-	        ordersButton.setBounds(23, 484, 194, 51);
+	        JButton ordersButton = new JButton("  ORDERS");
+	        ordersButton.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
+	        ordersButton.setHorizontalAlignment(SwingConstants.LEADING);
+	        ordersButton.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/orderIcon.png")));
+	        ordersButton.setBounds(25, 472, 194, 51);
 	        ordersButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					 updateMainPanel("Orders");
@@ -137,7 +149,10 @@ import panels.OrderAddPanel;
 	        leftPanel.add(ordersButton);
 	
 	        JButton dashboardButton = new JButton("DASHBOARD");
-	        dashboardButton.setBounds(23, 274, 194, 47);
+	        dashboardButton.setHorizontalAlignment(SwingConstants.LEADING);
+	        dashboardButton.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/dashboardIcon 1.png")));
+	        dashboardButton.setFont(new Font("Lucida Grande", Font.PLAIN, 13));
+	        dashboardButton.setBounds(23, 260, 194, 51);
 	        dashboardButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					updateMainPanel("Dashboard");
@@ -146,7 +161,7 @@ import panels.OrderAddPanel;
 	        leftPanel.add(dashboardButton);
 	
 	        JPanel bottomPanel = new JPanel();
-	        bottomPanel.setBackground(new Color(81, 81, 81));
+	        bottomPanel.setBackground(new Color(126, 170, 253));
 	        bottomPanel.setBounds(-12, 536, 1006, 70);
 	        panel.add(bottomPanel);
 	        bottomPanel.setLayout(null);
@@ -158,6 +173,7 @@ import panels.OrderAddPanel;
 	        lblNewLabel_2.setFont(new Font("Apple Chancery", Font.PLAIN, 12));
 	        
 	        JButton btnNewButton = new JButton("Log Out");
+	        btnNewButton.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/logOutIcon.png")));
 	        btnNewButton.addActionListener(new ActionListener() {
 	        	public void actionPerformed(ActionEvent e) {
 	        		LoginPage loginPage = new LoginPage();

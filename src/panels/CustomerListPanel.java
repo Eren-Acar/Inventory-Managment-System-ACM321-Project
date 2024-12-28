@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 public class CustomerListPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JTable table;
+    private JTable customerTable;
 
     public CustomerListPanel(DefaultTableModel tableModel) {
         setLayout(null);
@@ -22,7 +22,7 @@ public class CustomerListPanel extends JPanel {
         scrollPane.setBounds(21, 71, 750, 310);
         panel.add(scrollPane);
 
-        table = new JTable(tableModel); // Aynı tableModel kullanılıyor.
-        scrollPane.setViewportView(table);
+        customerTable = new JTable(tableModel); 
+        scrollPane.setViewportView(customerTable);
     }
 }

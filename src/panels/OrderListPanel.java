@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
 
 public class OrderListPanel extends JPanel {
 
@@ -18,10 +19,16 @@ public class OrderListPanel extends JPanel {
         panel.setLayout(null);
         
         JScrollPane cartScrollPane = new JScrollPane();
-        cartScrollPane.setBounds(20, 89, 750, 252);
+        cartScrollPane.setBounds(20, 67, 515, 274);
         panel.add(cartScrollPane);
 
         JTable cartTable = new JTable(cartModel);
         cartScrollPane.setViewportView(cartTable);
+        
+        JButton btnNewButton = new JButton("Print");
+        btnNewButton.setBounds(613, 185, 117, 29);
+        panel.add(btnNewButton);
+        
+        
     }
 }

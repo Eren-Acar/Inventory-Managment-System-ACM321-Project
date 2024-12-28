@@ -2,6 +2,7 @@ package panels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ProductAddPanel extends JPanel {
@@ -73,14 +74,43 @@ public class ProductAddPanel extends JPanel {
         textField_4.setColumns(10);
 
         JButton btnAdd = new JButton("Add");
-        btnAdd.addActionListener(e -> addProduct());
         btnAdd.setBounds(462, 365, 117, 29);
         panel.add(btnAdd);
+        
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = textField.getText();
+                String quantity = textField_3.getText();
+                String price = textField_2.getText();
+                String description = textField_1.getText();
+                String category = textField_4.getText();
+
+                tableModel.addRow(new Object[]{name, quantity, price, description, category});
+
+                textField.setText("");
+                textField_3.setText("");
+                textField_2.setText("");
+                textField_1.setText("");
+                textField_4.setText("");
+            }
+        });
 
         JButton btnDelete = new JButton("Delete");
-        btnDelete.addActionListener(e -> deleteProduct());
         btnDelete.setBounds(615, 365, 117, 29);
         panel.add(btnDelete);
+        
+        btnDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow != -1) {
+                    tableModel.removeRow(selectedRow);
+                } else {
+                    System.out.println("Please select a product to delete.");
+                }
+            }
+        });
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(6, 27, 450, 431);
@@ -92,30 +122,5 @@ public class ProductAddPanel extends JPanel {
         JLabel lblNewLabel_1 = new JLabel("ProductAddPanel");
         lblNewLabel_1.setBounds(6, 6, 117, 16);
         panel.add(lblNewLabel_1);
-    }
-
-    private void addProduct() {
-        String name = textField.getText();
-        String quantity = textField_3.getText();
-        String price = textField_2.getText();
-        String description = textField_1.getText();
-        String category = textField_4.getText();
-
-        tableModel.addRow(new Object[]{name, quantity, price, description, category});
-
-        textField.setText("");
-        textField_3.setText("");
-        textField_2.setText("");
-        textField_1.setText("");
-        textField_4.setText("");
-    }
-
-    private void deleteProduct() {
-        int selectedRow = table.getSelectedRow();
-        if (selectedRow != -1) {
-            tableModel.removeRow(selectedRow);
-        } else {
-            System.out.println("Please select a product to delete.");
-        }
     }
 }

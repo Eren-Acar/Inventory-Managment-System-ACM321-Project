@@ -21,7 +21,7 @@ public class CustomerAddPanel extends JPanel {
     private DefaultTableModel tableModel;
 
     public CustomerAddPanel(DefaultTableModel tableModel) {
-        this.tableModel = tableModel; // Tablo modelini dışarıdan alıyoruz.
+        this.tableModel = tableModel; 
         setLayout(null);
 
         JPanel panel = new JPanel();
@@ -73,7 +73,6 @@ public class CustomerAddPanel extends JPanel {
         btnAdd.setBounds(448, 352, 117, 29);
         btnAdd.addActionListener(new ActionListener() {
             private int idCounter = 1;
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = textFieldName.getText();
@@ -98,9 +97,8 @@ public class CustomerAddPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
-                if (selectedRow != -1) {
-                    tableModel.removeRow(selectedRow);
-                }
+                tableModel.removeRow(selectedRow);
+                
             }
         });
 

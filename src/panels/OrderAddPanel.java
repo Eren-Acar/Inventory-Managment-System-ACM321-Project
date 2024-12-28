@@ -15,14 +15,11 @@ public class OrderAddPanel extends JPanel {
 
         setLayout(null);
         
-        String[] customerColumns = { "Customer ID", "Name" };
-        DefaultTableModel customerModel = new DefaultTableModel(customerColumns, 0);
-        customerModel.addRow(new Object[] { "1", "John Doe" });
-        customerModel.addRow(new Object[] { "2", "Jane Smith" });
-        JTable customerTable = new JTable(customerModel);
-        JScrollPane customerScrollPane = new JScrollPane(customerTable);
-        customerScrollPane.setBounds(10, 53, 200, 252);
-        add(customerScrollPane);
+        String[] cartColumns = { "Product Name", "Quantity", "Total Price" };
+        JTable cartTable = new JTable(cartModel);
+        JScrollPane cartScrollPane = new JScrollPane(cartTable);
+        cartScrollPane.setBounds(430, 53, 350, 252);
+        add(cartScrollPane);
 
         String[] productColumns = { "Product ID", "Name", "Price" };
         DefaultTableModel productModel = new DefaultTableModel(productColumns, 0);
@@ -33,13 +30,15 @@ public class OrderAddPanel extends JPanel {
         productScrollPane.setBounds(218, 53, 200, 252);
         add(productScrollPane);
 
+        String[] customerColumns = { "Customer ID", "Name" };
+        DefaultTableModel customerModel = new DefaultTableModel(customerColumns, 0);
+        customerModel.addRow(new Object[] { "1", "John Doe" });
+        customerModel.addRow(new Object[] { "2", "Jane Smith" });
+        JTable customerTable = new JTable(customerModel);
+        JScrollPane customerScrollPane = new JScrollPane(customerTable);
+        customerScrollPane.setBounds(10, 53, 200, 252);
+        add(customerScrollPane);
        
-        String[] cartColumns = { "Product Name", "Quantity", "Total Price" };
-        JTable cartTable = new JTable(cartModel);
-        JScrollPane cartScrollPane = new JScrollPane(cartTable);
-        cartScrollPane.setBounds(430, 53, 350, 252);
-        add(cartScrollPane);
-
         JButton addToCartButton = new JButton("Add to Cart");
         addToCartButton.setBounds(220, 420, 200, 30);
         addToCartButton.addActionListener(new ActionListener() {

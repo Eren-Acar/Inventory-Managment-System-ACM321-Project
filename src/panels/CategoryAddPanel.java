@@ -2,12 +2,14 @@ package panels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CategoryAddPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JTextField textField;
+    private JTextField nameTextField;
     private JTable table;
     private DefaultTableModel tableModel;
 
@@ -25,31 +27,36 @@ public class CategoryAddPanel extends JPanel {
         nameTextView.setBounds(523, 153, 115, 16);
         panel.add(nameTextView);
 
-        textField = new JTextField();
-        textField.setBounds(448, 181, 279, 26);
-        panel.add(textField);
-        textField.setColumns(10);
+        nameTextField = new JTextField();
+        nameTextField.setBounds(448, 181, 279, 26);
+        panel.add(nameTextField);
+        nameTextField.setColumns(10);
 
         JLabel lblNewLabel_1 = new JLabel("CategoryAddPanel");
         lblNewLabel_1.setBounds(6, 6, 200, 16);
         panel.add(lblNewLabel_1);
 
         JButton addButton = new JButton("Add");
-        addButton.addActionListener(e -> {
-            String name = textField.getText();
-            if (!name.isEmpty()) {
-                tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, name});
-                textField.setText("");
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String name = nameTextField.getText();
+                if (!name.isEmpty()) {
+                    tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, name});
+                    nameTextField.setText(""); 
+                } 
             }
         });
         addButton.setBounds(458, 232, 100, 46);
         panel.add(addButton);
 
         JButton deleteButton = new JButton("Delete");
-        deleteButton.addActionListener(e -> {
-            int selectedRow = table.getSelectedRow();
-            if (selectedRow != -1) {
+        deleteButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
                 tableModel.removeRow(selectedRow);
+                
             }
         });
         deleteButton.setBounds(618, 232, 94, 46);

@@ -17,6 +17,7 @@ public class DashboardPanel extends JPanel {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
+		panel.setBackground(new Color(196, 255, 187));
 		panel.setBounds(0, 0, 793, 493);
 		add(panel);
 		panel.setLayout(null);
@@ -27,9 +28,9 @@ public class DashboardPanel extends JPanel {
 		panel.add(CustomerNumbers);
 		CustomerNumbers.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Customer Summary \n\n");
-		lblNewLabel.setBounds(6, 6, 136, 32);
-		CustomerNumbers.add(lblNewLabel);
+		JLabel lblBaşlık = new JLabel("Customer Summary \n\n");
+		lblBaşlık.setBounds(6, 6, 136, 32);
+		CustomerNumbers.add(lblBaşlık);
 		
 		JLabel lblNewLabel_1 = new JLabel("Total Customer :\n");
 		lblNewLabel_1.setBounds(39, 50, 126, 16);
@@ -45,7 +46,7 @@ public class DashboardPanel extends JPanel {
 		CustomerNumbers.add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Eren Acar");
-		lblNewLabel_2_1.setBounds(162, 78, 95, 16);
+		lblNewLabel_2_1.setBounds(151, 79, 95, 16);
 		CustomerNumbers.add(lblNewLabel_2_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel(" Most Active :\n");
@@ -54,7 +55,7 @@ public class DashboardPanel extends JPanel {
 		CustomerNumbers.add(lblNewLabel_1_1_1);
 		
 		JLabel lblNewLabel_2_1_1 = new JLabel("Mehmet");
-		lblNewLabel_2_1_1.setBounds(162, 106, 95, 16);
+		lblNewLabel_2_1_1.setBounds(151, 107, 95, 16);
 		CustomerNumbers.add(lblNewLabel_2_1_1);
 		
 		 JLabel lblActiveCustomerRatio = new JLabel("Active Customer Ratio:");
@@ -78,9 +79,9 @@ public class DashboardPanel extends JPanel {
 		panel.add(ProductNumbers);
 		ProductNumbers.setLayout(null);
 		
-		JLabel lblProductSummary = new JLabel("Product Summary \n");
-		lblProductSummary.setBounds(6, 6, 136, 32);
-		ProductNumbers.add(lblProductSummary);
+		JLabel lblBaşlık2 = new JLabel("Product Summary \n");
+		lblBaşlık2.setBounds(6, 6, 136, 32);
+		ProductNumbers.add(lblBaşlık2);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("Total Product :\n");
 		lblNewLabel_1_2.setBounds(37, 62, 105, 16);
@@ -99,7 +100,7 @@ public class DashboardPanel extends JPanel {
 		lblNewLabel_2_1_2.setBounds(145, 90, 44, 16);
 		ProductNumbers.add(lblNewLabel_2_1_2);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Lost Added :\n");
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("Last Added :\n");
 		lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_1_1_1.setBounds(30, 118, 112, 16);
 		ProductNumbers.add(lblNewLabel_1_1_1_1);
@@ -108,29 +109,21 @@ public class DashboardPanel extends JPanel {
 		lblNewLabel_2_1_1_1.setBounds(145, 118, 44, 16);
 		ProductNumbers.add(lblNewLabel_2_1_1_1);
 		
-		JLabel lblNewLabel_3 = new JLabel("(150 units)");
-		lblNewLabel_3.setBounds(186, 90, 78, 16);
-		ProductNumbers.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("(wooden)");
-		lblNewLabel_4.setBounds(179, 118, 61, 16);
-		ProductNumbers.add(lblNewLabel_4);
-		
 		JPanel CategoriesNumber = new JPanel();
 		CategoriesNumber.setBackground(new Color(197, 232, 177));
 		CategoriesNumber.setBounds(35, 245, 322, 215);
 		panel.add(CategoriesNumber);
 		CategoriesNumber.setLayout(null);
 		
-		JLabel lblCategoriesSummary = new JLabel("Categories Summary \n");
-		lblCategoriesSummary.setBounds(6, 6, 165, 32);
-		CategoriesNumber.add(lblCategoriesSummary);
+		JLabel lblBaşlık3 = new JLabel("Categories Summary \n");
+		lblBaşlık3.setBounds(6, 6, 165, 32);
+		CategoriesNumber.add(lblBaşlık3);
 		
 		JLabel lblNewLabel_5 = new JLabel("Total Categories :");
 		lblNewLabel_5.setBounds(27, 71, 116, 16);
 		CategoriesNumber.add(lblNewLabel_5);
 		
-		JLabel lblNewLabel_5_1 = new JLabel("150");
+		JLabel lblNewLabel_5_1 = new JLabel("12");
 		lblNewLabel_5_1.setBounds(155, 71, 68, 16);
 		CategoriesNumber.add(lblNewLabel_5_1);
 		
@@ -138,7 +131,7 @@ public class DashboardPanel extends JPanel {
 		lblNewLabel_5_2.setBounds(27, 99, 116, 16);
 		CategoriesNumber.add(lblNewLabel_5_2);
 		
-		JLabel lblNewLabel_5_1_1 = new JLabel("10");
+		JLabel lblNewLabel_5_1_1 = new JLabel("Wooden");
 		lblNewLabel_5_1_1.setBounds(155, 99, 68, 16);
 		CategoriesNumber.add(lblNewLabel_5_1_1);
 		
@@ -157,32 +150,32 @@ public class DashboardPanel extends JPanel {
 		panel.add(TotalOrder);
 		TotalOrder.setLayout(null);
 		
-		JLabel lblOrderSummary = new JLabel("Order Summary");
-		lblOrderSummary.setBounds(6, 6, 165, 32);
-		TotalOrder.add(lblOrderSummary);
+		JLabel lblBaşlık4 = new JLabel("Order Summary");
+		lblBaşlık4.setBounds(6, 6, 165, 32);
+		TotalOrder.add(lblBaşlık4);
 		
-		JLabel lblNewLabel_5_3 = new JLabel("Total Categories :");
-		lblNewLabel_5_3.setBounds(35, 69, 116, 16);
+		JLabel lblNewLabel_5_3 = new JLabel("Total Cost :");
+		lblNewLabel_5_3.setBounds(56, 69, 95, 16);
 		TotalOrder.add(lblNewLabel_5_3);
 		
-		JLabel lblNewLabel_5_2_2 = new JLabel("Most Categories :");
-		lblNewLabel_5_2_2.setBounds(35, 97, 116, 16);
+		JLabel lblNewLabel_5_2_2 = new JLabel("Most Cost :");
+		lblNewLabel_5_2_2.setBounds(56, 97, 95, 16);
 		TotalOrder.add(lblNewLabel_5_2_2);
 		
-		JLabel lblNewLabel_5_2_1_1 = new JLabel("Last Added :");
+		JLabel lblNewLabel_5_2_1_1 = new JLabel("Last Order :");
 		lblNewLabel_5_2_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5_2_1_1.setBounds(35, 125, 116, 16);
 		TotalOrder.add(lblNewLabel_5_2_1_1);
 		
-		JLabel lblNewLabel_6 = new JLabel("New label");
+		JLabel lblNewLabel_6 = new JLabel("1500TL");
 		lblNewLabel_6.setBounds(163, 69, 61, 16);
 		TotalOrder.add(lblNewLabel_6);
 		
-		JLabel lblNewLabel_6_1 = new JLabel("New label");
+		JLabel lblNewLabel_6_1 = new JLabel("Wooden");
 		lblNewLabel_6_1.setBounds(164, 97, 61, 16);
 		TotalOrder.add(lblNewLabel_6_1);
 		
-		JLabel lblNewLabel_6_1_1 = new JLabel("New label");
+		JLabel lblNewLabel_6_1_1 = new JLabel("Kutay");
 		lblNewLabel_6_1_1.setBounds(164, 125, 61, 16);
 		TotalOrder.add(lblNewLabel_6_1_1);
 

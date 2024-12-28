@@ -6,7 +6,7 @@ import javax.swing.table.DefaultTableModel;
 public class CategoryListPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private JTable table;
+    private JTable categoryTable;
 
     public CategoryListPanel(DefaultTableModel tableModel) {
         setLayout(null);
@@ -20,8 +20,8 @@ public class CategoryListPanel extends JPanel {
         lblNewLabel.setBounds(6, 6, 200, 16);
         panel.add(lblNewLabel);
 
-        table = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(table);
+        categoryTable = new JTable(tableModel);
+        JScrollPane scrollPane = new JScrollPane(categoryTable);
         scrollPane.setBounds(85, 78, 614, 319);
         panel.add(scrollPane);
     }
