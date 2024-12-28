@@ -14,7 +14,8 @@
 	import panels.CategoryListPanel;
 	import panels.CustomerAddPanel;
 	import panels.CustomerListPanel;
-	import panels.OrderAddPanel;
+import panels.DashboardPanel;
+import panels.OrderAddPanel;
 	import panels.OrderListPanel;
 	import panels.ProductAddPanel;
 	import panels.ProductListPanel;
@@ -48,6 +49,7 @@
 	    ProductListPanel productListPanel;
 	    OrderAddPanel orderAddPanel;
 	    OrderListPanel orderListPanel;
+	    DashboardPanel dashboardPanel;
 	    private DefaultTableModel categoryTableModel,cartModel;
 	   
 	
@@ -205,14 +207,13 @@
 	        if (categoryName.equals("Dashboard")) {
 	            btnAdd.setVisible(false);
 	            btnList.setVisible(false);
-	
-	            JPanel dashboardPanel = new JPanel();
-	            dashboardPanel.add(new JLabel("Dashboard Content"));
+
+	            dashboardPanel = new DashboardPanel();
 	            mainContentPanel.add(dashboardPanel, "Dashboard");
 	            CardLayout cardLayout = (CardLayout) mainContentPanel.getLayout();
 	            cardLayout.show(mainContentPanel, "Dashboard");
-	
-	        } else if (categoryName.equals("Category")) {
+
+	        }  else if (categoryName.equals("Category")) {
 	        	categoryTableModel = new DefaultTableModel(new String[] { "ID", "Name" }, 0);
 	
 	            categoryAddPanel = new CategoryAddPanel(categoryTableModel);
