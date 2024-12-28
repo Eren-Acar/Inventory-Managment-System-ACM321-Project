@@ -5,6 +5,8 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import databaseoperations.CategoryDAO;
+import classes.Category;
 
 public class CategoryAddPanel extends JPanel {
 
@@ -13,8 +15,9 @@ public class CategoryAddPanel extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
 
-    public CategoryAddPanel(DefaultTableModel tableModel) {
+    public CategoryAddPanel(DefaultTableModel tableModel, CategoryDAO categoryDAO) {
         this.tableModel = tableModel; 
+        
         setLayout(null);
 
         JPanel panel = new JPanel();
@@ -42,8 +45,15 @@ public class CategoryAddPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String name = nameTextField.getText();
                 if (!name.isEmpty()) {
-                    tableModel.addRow(new Object[]{tableModel.getRowCount() + 1, name});
-                    nameTextField.setText(""); 
+                	try {
+                   Category category = new Category(0, name);
+                   categoryDAO.addCategory(category);
+                   tableModel.addRow(new Object[] {category.getCategoryID(), category.getName()});
+                   nameTextField.setText("");
+                	} catch (Exception ex) {
+                		JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+                	}
+                   
                 } 
             }
         });
@@ -55,7 +65,16 @@ public class CategoryAddPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
-                tableModel.removeRow(selectedRow);
+				if (selectedRow != -1) {
+					
+					try {
+						int categoryID = (int) tableModel.getValueAt(selectedRow, 0);
+						categoryDAO.deleteCategory(categoryID);
+						tableModel.removeRow(selectedRow);
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+					}
+				}
                 
             }
         });

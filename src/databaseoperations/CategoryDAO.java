@@ -18,13 +18,14 @@ public class CategoryDAO {
     }
 
     public void addCategory(Category category) throws SQLException {
-        String sql = "INSERT INTO CategoryTable (CategoryID, CategoryName) VALUES (?, ?)";
+        String sql = "INSERT INTO CategoryTable (CategoryName) VALUES (?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, category.getCategoryID());
-            pstmt.setString(2, category.getName());
+            pstmt.setString(1, category.getName());
             pstmt.executeUpdate();
         }
     }
+
+
 
     public Category getCategoryById(int categoryID) throws SQLException {
         String sql = "SELECT * FROM CategoryTable WHERE CategoryID = ?";

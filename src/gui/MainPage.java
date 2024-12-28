@@ -232,7 +232,7 @@ import panels.OrderAddPanel;
 	        }  else if (categoryName.equals("Category")) {
 	        	categoryTableModel = new DefaultTableModel(new String[] { "ID", "Name" }, 0);
 	
-	            categoryAddPanel = new CategoryAddPanel(categoryTableModel);
+	            categoryAddPanel = new CategoryAddPanel(categoryTableModel, null);
 	            mainContentPanel.add(categoryAddPanel, "CategoryAdd");
 	
 	            categoryListPanel= new CategoryListPanel(categoryTableModel);

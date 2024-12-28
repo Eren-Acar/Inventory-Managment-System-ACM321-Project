@@ -15,13 +15,12 @@ public class CustomerDAO {
     }
 
     public void addCustomer(Customer customer) throws SQLException {
-        String sql = "INSERT INTO CustomerTable (CustomerID, CustomerName, CustomerAdress, CustomerCity, CustomerCounty) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO CustomerTable (CustomerName, CustomerAdress, CustomerCity, CustomerCounty) VALUES (?, ?, ?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, customer.getCustomerID());
-            pstmt.setString(2, customer.getName());
-            pstmt.setString(3, customer.getAddress());
-            pstmt.setString(4, customer.getCity());
-            pstmt.setString(5, customer.getCounty());
+            pstmt.setString(1, customer.getName());
+            pstmt.setString(2, customer.getAddress());
+            pstmt.setString(3, customer.getCity());
+            pstmt.setString(4, customer.getCounty());
             pstmt.executeUpdate();
         }
     }

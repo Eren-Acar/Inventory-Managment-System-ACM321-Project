@@ -22,11 +22,10 @@ public class InvoiceDAO {
 
     // Add a new Invoice
     public void addInvoice(Invoice invoice) throws SQLException {
-        String sql = "INSERT INTO InvoiceTable (InvoiceID, CustomerID, Payment) VALUES (?, ?, ?)";
+    	String sql = "INSERT INTO InvoiceTable (CustomerID, Payment) VALUES (?, ?)";
         try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-            pstmt.setInt(1, invoice.getInvoiceID());
-            pstmt.setInt(2, invoice.getCustomer().getCustomerID());
-            pstmt.setDouble(3, invoice.getPayment());
+            pstmt.setInt(1, invoice.getCustomer().getCustomerID());
+            pstmt.setDouble(2, invoice.getPayment());
             pstmt.executeUpdate();
         }
     }

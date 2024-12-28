@@ -16,18 +16,18 @@ public class DataBaseConfigure {
     private void createTables() {
         try (Statement stmt = connection.createStatement()) {
             // Customer Table
-            String createCustomerTable = "CREATE TABLE IF NOT EXISTS CustomerTable ("
-                    + "CustomerID INTEGER PRIMARY KEY,"
-                    + "CustomerName TEXT NOT NULL,"
-                    + "CustomerAdress TEXT,"
-                    + "CustomerCity TEXT,"
-                    + "CustomerCounty TEXT"
-                    + ")";
+        	String createCustomerTable = "CREATE TABLE IF NOT EXISTS CustomerTable ("
+        	        + "CustomerID INTEGER AUTO_INCREMENT PRIMARY KEY,"
+        	        + "CustomerName TEXT NOT NULL,"
+        	        + "CustomerAdress TEXT,"
+        	        + "CustomerCity TEXT,"
+        	        + "CustomerCounty TEXT"
+        	        + ")";
             stmt.execute(createCustomerTable);
 
             // Category Table
             String createCategoryTable = "CREATE TABLE IF NOT EXISTS CategoryTable ("
-                    + "CategoryID INTEGER PRIMARY KEY,"
+                    + "CategoryID INTEGER AUTO_INCREMENT PRIMARY KEY,"
                     + "CategoryName TEXT NOT NULL"
                     + ")";
             stmt.execute(createCategoryTable);
@@ -46,11 +46,12 @@ public class DataBaseConfigure {
 
             // Invoice Table
             String createInvoiceTable = "CREATE TABLE IF NOT EXISTS InvoiceTable ("
-                    + "InvoiceID INTEGER PRIMARY KEY,"
+                    + "InvoiceID INTEGER AUTO_INCREMENT PRIMARY KEY,"
                     + "CustomerID INTEGER NOT NULL,"
                     + "Payment REAL NOT NULL,"
                     + "FOREIGN KEY (CustomerID) REFERENCES CustomerTable(CustomerID)"
                     + ")";
+
             stmt.execute(createInvoiceTable);
 
             // List of Items Table
