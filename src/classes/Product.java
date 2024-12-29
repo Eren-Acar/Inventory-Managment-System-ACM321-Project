@@ -1,31 +1,20 @@
 package classes;
 
 public class Product {
-    private int productID;
     private String productCode;
-    private String description;
-    private String category;
-    private double price;
-    private int quantity;
+    private String productDescription;
+    private double productPrice;
+    private int categoryID;
 
-    public Product(int productID, String productCode, String description, String category, double price,  int quantity) {
-        this.productID = productID;
+    // Constructor
+    public Product(String productCode, String productDescription, double productPrice, int categoryID) {
         this.productCode = productCode;
-        this.description = description;
-        this.category = category;
-        this.price = price;
-        this.quantity = quantity;
+        this.productDescription = productDescription;
+        this.productPrice = productPrice;
+        this.categoryID = categoryID;
     }
 
-    // Getter ve Setter metotları
-    public int getProductID() {
-        return productID;
-    }
-
-    public void setProductID(int productID) {
-        this.productID = productID;
-    }
-
+    // Getters and Setters
     public String getProductCode() {
         return productCode;
     }
@@ -34,57 +23,27 @@ public class Product {
         this.productCode = productCode;
     }
 
-    public String getDescription() {
-        return description;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
-    public String getCategory() {
-        return category;
+    public double getProductPrice() {
+        return productPrice;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
     }
 
-    public double getPrice() {
-        return price;
-    }
-    
-	public int getQuantity() {
-		return quantity;
-	}
-	
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-    public void setPrice(double price) {
-        this.price = price;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-	public void increaseQuantity(int quantity) {
-		if (quantity > 0)
-            this.quantity += quantity;
-        else
-            throw new IllegalArgumentException("Quantity must be greater than 0.");
-	}
-	
-	public void decreaseQuantity(int quantity) {
-		if (quantity > 0)
-			this.quantity -= quantity;
-		else
-			throw new IllegalArgumentException("Quantity must be greater than 0.");
-	}
-
-	@Override
-	public String toString() {
-		return "Product{" + "productID=" + productID + ", productCode='" + productCode + '\'' + ", description='"
-				+ description + '\'' + ", category='" + category + '\'' + ", price=" + price + '}';
-	}
-	
-	
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
 }

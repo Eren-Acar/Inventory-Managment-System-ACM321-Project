@@ -3,10 +3,11 @@ package panels;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
+import databaseoperations.CategoryDAO;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import databaseoperations.CategoryDAO;
-import classes.Category;
+import java.sql.Connection;
 
 public class CategoryAddPanel extends JPanel {
 
@@ -14,10 +15,11 @@ public class CategoryAddPanel extends JPanel {
     private JTextField nameTextField;
     private JTable table;
     private DefaultTableModel tableModel;
+    private CategoryDAO categoryDAO;
 
-    public CategoryAddPanel(DefaultTableModel tableModel, CategoryDAO categoryDAO) {
-        this.tableModel = tableModel; 
-        
+    public CategoryAddPanel(DefaultTableModel tableModel, Connection conn) {
+        this.tableModel = tableModel;
+        this.categoryDAO = new CategoryDAO(conn); // DAO connection
         setLayout(null);
 
         JPanel panel = new JPanel();
@@ -45,16 +47,19 @@ public class CategoryAddPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 String name = nameTextField.getText();
                 if (!name.isEmpty()) {
-                	try {
-                   Category category = new Category(0, name);
-                   categoryDAO.addCategory(category);
-                   tableModel.addRow(new Object[] {category.getCategoryID(), category.getName()});
-                   nameTextField.setText("");
-                	} catch (Exception ex) {
-                		JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-                	}
-                   
-                } 
+                    try {
+                        categoryDAO.addCategory(name);
+                        refreshTable();
+                        JOptionPane.showMessageDialog(null, "Category added successfully!");
+                        nameTextField.setText("");
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error adding category: " + ex.getMessage());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please enter a category name.");
+    
+                }
+               
             }
         });
         addButton.setBounds(458, 232, 100, 46);
@@ -65,17 +70,18 @@ public class CategoryAddPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
-				if (selectedRow != -1) {
-					
-					try {
-						int categoryID = (int) tableModel.getValueAt(selectedRow, 0);
-						categoryDAO.deleteCategory(categoryID);
-						tableModel.removeRow(selectedRow);
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
-					}
-				}
-                
+                if (selectedRow >= 0) {
+                    try {
+                        int categoryId = (int) tableModel.getValueAt(selectedRow, 0);
+                        categoryDAO.deleteCategory(categoryId); 
+                        tableModel.removeRow(selectedRow); 
+                        JOptionPane.showMessageDialog(null, "Category deleted successfully!");
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(null, "Error deleting category: " + ex.getMessage());
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a category to delete.");
+                }
             }
         });
         deleteButton.setBounds(618, 232, 94, 46);
@@ -83,9 +89,22 @@ public class CategoryAddPanel extends JPanel {
 
         String[] columnNames = {"ID", "Name"};
         table = new JTable(tableModel);
+        
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(19, 51, 407, 310);
         panel.add(scrollPane);
+    }
+    
+    
+    private void refreshTable() { // Refresh the table after adding or deleting a category
+        try {
+            tableModel.setRowCount(0); 
+            categoryDAO.getAllCategories().forEach(category ->
+                    tableModel.addRow(new Object[]{category.getCategoryID(), category.getCategoryName()})
+            );
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error loading categories: " + e.getMessage());
+        }
     }
 }

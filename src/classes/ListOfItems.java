@@ -2,21 +2,32 @@ package classes;
 
 
 public class ListOfItems {
-    private Product product;
+    private int invoiceID;
+    private String productCode;
     private int quantity;
 
-    public ListOfItems(Product product, int quantity) {
-        this.product = product;
+    // Constructor
+    public ListOfItems(int invoiceID, String productCode, int quantity) {
+        this.invoiceID = invoiceID;
+        this.productCode = productCode;
         this.quantity = quantity;
     }
 
-    // Getter and Setter
-    public Product getProduct() {
-        return product;
+    // Getters and Setters
+    public int getInvoiceID() {
+        return invoiceID;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setInvoiceID(int invoiceID) {
+        this.invoiceID = invoiceID;
+    }
+
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
     }
 
     public int getQuantity() {
@@ -24,22 +35,8 @@ public class ListOfItems {
     }
 
     public void setQuantity(int quantity) {
-        if (quantity > 0) {
-            this.quantity = quantity;
-        }
-		else if (product.getQuantity() < quantity) {
-			throw new IllegalArgumentException("Quantity is not enough");
-		}
-                else {
-                	throw new IllegalArgumentException("Quantity must be greater than 0");
-                }
-        }
-    @Override
-    public String toString() {
-        return "ListOfItems{" +
-                "product=" + product +
-                ", quantity=" + quantity +
-                '}';
+        this.quantity = quantity;
     }
 }
+
 

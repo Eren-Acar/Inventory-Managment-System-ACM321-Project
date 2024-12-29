@@ -2,14 +2,15 @@ package classes;
 
 public class Category {
     private int categoryID;
-    private String name;
+    private String categoryName;
 
-    public Category(int categoryID, String name) {
+    // Constructor
+    public Category(int categoryID, String categoryName) {
         this.categoryID = categoryID;
-        this.name = name;
+        this.categoryName = categoryName;
     }
 
-    // Getter and Setter
+    // Getters and Setters
     public int getCategoryID() {
         return categoryID;
     }
@@ -18,19 +19,11 @@ public class Category {
         this.categoryID = categoryID;
     }
 
-    public String getName() {
-        return name;
+    public String getCategoryName() {
+        return categoryName;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return "Category{" +
-                "categoryID=" + categoryID +
-                ", name='" + name + '\'' +
-                '}';
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

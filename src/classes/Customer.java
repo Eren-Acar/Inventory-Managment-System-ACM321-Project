@@ -2,21 +2,21 @@ package classes;
 
 public class Customer {
     private int customerID;
-    private String name;
-    private String address;
-    private String city;
-    private String county;
+    private String customerName;
+    private String customerAddress;
+    private String customerCity;
+    private String customerCounty;
 
     // Constructor
-    public Customer(int customerID, String name, String address, String city, String county) {
+    public Customer(int customerID, String customerName, String customerAddress, String customerCity, String customerCounty) {
         this.customerID = customerID;
-        this.name = name;
-        this.address = address;
-        this.city = city;
-        this.county = county;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerCity = customerCity;
+        this.customerCounty = customerCounty;
     }
 
-    // Getter and Setter
+    // Getters and Setters
     public int getCustomerID() {
         return customerID;
     }
@@ -25,46 +25,35 @@ public class Customer {
         this.customerID = customerID;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getAddress() {
-        return address;
+    public String getCustomerAddress() {
+        return customerAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
-    public String getCity() {
-        return city;
+    public String getCustomerCity() {
+        return customerCity;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCustomerCity(String customerCity) {
+        this.customerCity = customerCity;
     }
 
-    public String getCounty() {
-        return county;
+    public String getCustomerCounty() {
+        return customerCounty;
     }
 
-    public void setCounty(String county) {
-        this.county = county;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerID=" + customerID +
-                ", name='" + name + '\'' +
-                ", address='" + address + '\'' +
-                ", city='" + city + '\'' +
-                ", county='" + county + '\'' +
-                '}';
+    public void setCustomerCounty(String customerCounty) {
+        this.customerCounty = customerCounty;
     }
 }

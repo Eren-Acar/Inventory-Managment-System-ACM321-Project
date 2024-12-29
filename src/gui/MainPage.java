@@ -9,8 +9,9 @@
 	import javax.swing.border.EmptyBorder;
 	import javax.swing.plaf.basic.BasicTabbedPaneUI;
 	import javax.swing.table.DefaultTableModel;
-	
-	import panels.CategoryAddPanel;
+
+import databaseoperations.DatabaseConnection;
+import panels.CategoryAddPanel;
 	import panels.CategoryListPanel;
 	import panels.CustomerAddPanel;
 	import panels.CustomerListPanel;
@@ -32,7 +33,8 @@ import panels.OrderAddPanel;
 	import java.awt.Component;
 	import java.awt.SystemColor;
 	import java.awt.event.ActionListener;
-	import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.awt.event.ActionEvent;
 	import java.awt.CardLayout;
 	
 	public class MainPage extends JFrame {
@@ -51,6 +53,7 @@ import panels.OrderAddPanel;
 	    OrderListPanel orderListPanel;
 	    DashboardPanel dashboardPanel;
 	    private DefaultTableModel categoryTableModel,cartModel;
+	    Connection conn = DatabaseConnection.getConnection();
 	   
 	
 	    public static void main(String[] args) {
@@ -66,6 +69,10 @@ import panels.OrderAddPanel;
 	    }
 	
 	    public MainPage() {
+	    	//Call the method to database's main
+	    	DatabaseConnection.main(null);
+	    	
+	    	
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setBounds(100, 100, 1000, 640);
 	        contentPane = new JPanel();
@@ -232,10 +239,10 @@ import panels.OrderAddPanel;
 	        }  else if (categoryName.equals("Category")) {
 	        	categoryTableModel = new DefaultTableModel(new String[] { "ID", "Name" }, 0);
 	
-	            categoryAddPanel = new CategoryAddPanel(categoryTableModel, null);
+	            categoryAddPanel = new CategoryAddPanel(categoryTableModel, conn);
 	            mainContentPanel.add(categoryAddPanel, "CategoryAdd");
 	
-	            categoryListPanel= new CategoryListPanel(categoryTableModel);
+	            categoryListPanel= new CategoryListPanel(categoryTableModel, conn);
 	            mainContentPanel.add(categoryListPanel, "CategoryList");
 	
 	            btnAdd.setVisible(true);
