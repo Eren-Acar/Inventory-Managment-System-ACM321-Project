@@ -24,10 +24,18 @@ public class ProductListPanel extends JPanel {
         panel.add(lblNewLabel);
 
         JScrollPane scrollPane = new JScrollPane();
-        scrollPane.setBounds(75, 57, 652, 385);
+        scrollPane.setBounds(75, 57, 652, 307);
         panel.add(scrollPane);
 
         JTable table = new JTable(tableModel);
         scrollPane.setViewportView(table);
+        
+        JButton btnNewButton = new JButton("Import");
+        btnNewButton.setBounds(188, 402, 117, 29);
+        panel.add(btnNewButton);
+        
+        JButton btnNewButton_1 = new JButton("Export");
+        btnNewButton_1.setBounds(464, 402, 117, 29);
+        panel.add(btnNewButton_1);
     }
 }

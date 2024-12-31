@@ -29,8 +29,16 @@ public class CategoryListPanel extends JPanel {
 
         categoryTable = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(categoryTable);
-        scrollPane.setBounds(85, 78, 614, 319);
+        scrollPane.setBounds(85, 78, 614, 277);
         panel.add(scrollPane);
+        
+        JButton btnNewButton = new JButton("Import");
+        btnNewButton.setBounds(180, 390, 117, 29);
+        panel.add(btnNewButton);
+        
+        JButton btnNewButton_1 = new JButton("Export");
+        btnNewButton_1.setBounds(479, 390, 117, 29);
+        panel.add(btnNewButton_1);
         
         refreshTable();
     }

@@ -61,7 +61,7 @@ public class CustomerAddPanel extends JPanel {
         textFieldCity.setBounds(480, 228, 222, 33);
         panel.add(textFieldCity);
 
-        JLabel lblCountry = new JLabel("Country");
+        JLabel lblCountry = new JLabel("County");
         lblCountry.setBounds(480, 266, 61, 16);
         panel.add(lblCountry);
 

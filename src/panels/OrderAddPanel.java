@@ -1,4 +1,3 @@
-
 package panels;
 
 import javax.swing.*;
@@ -12,58 +11,85 @@ public class OrderAddPanel extends JPanel {
     private DefaultTableModel cartModel;
 
     public OrderAddPanel(DefaultTableModel cartModel) {
-        this.cartModel = cartModel; 
+        this.cartModel = cartModel;
 
         setLayout(null);
-        
-        String[] cartColumns = { "Product Name", "Quantity", "Total Price" };
+
+        // Sepet tablosu (Müşteri bilgisi dahil)
+        String[] cartColumns = { "Customer Name", "Product Name", "Quantity", "Total Price" };
+        cartModel.setColumnIdentifiers(cartColumns);
         JTable cartTable = new JTable(cartModel);
         JScrollPane cartScrollPane = new JScrollPane(cartTable);
-        cartScrollPane.setBounds(430, 53, 350, 252);
+        cartScrollPane.setBounds(44, 76, 400, 252);
         add(cartScrollPane);
 
-        String[] productColumns = { "Product ID", "Name", "Price" };
-        DefaultTableModel productModel = new DefaultTableModel(productColumns, 0);
-        productModel.addRow(new Object[] { "1", "Laptop", "$800" });
-        productModel.addRow(new Object[] { "2", "Chair", "$120" });
-        JTable productTable = new JTable(productModel);
-        JScrollPane productScrollPane = new JScrollPane(productTable);
-        productScrollPane.setBounds(218, 53, 200, 252);
-        add(productScrollPane);
+        // Ürün ve müşteri comboboxları
+        JLabel customerLabel = new JLabel("Customer:");
+        customerLabel.setBounds(460, 76, 100, 25);
+        add(customerLabel);
 
-        String[] customerColumns = { "Customer ID", "Name" };
-        DefaultTableModel customerModel = new DefaultTableModel(customerColumns, 0);
-        customerModel.addRow(new Object[] { "1", "John Doe" });
-        customerModel.addRow(new Object[] { "2", "Jane Smith" });
-        JTable customerTable = new JTable(customerModel);
-        JScrollPane customerScrollPane = new JScrollPane(customerTable);
-        customerScrollPane.setBounds(10, 53, 200, 252);
-        add(customerScrollPane);
-       
+        JComboBox<String> customerComboBox = new JComboBox<>();
+        customerComboBox.setBounds(560, 76, 200, 25);
+        customerComboBox.addItem("John Doe");
+        customerComboBox.addItem("Jane Smith");
+        add(customerComboBox);
+
+        JLabel productLabel = new JLabel("Product:");
+        productLabel.setBounds(460, 120, 100, 25);
+        add(productLabel);
+
+        JComboBox<String> productComboBox = new JComboBox<>();
+        productComboBox.setBounds(560, 120, 200, 25);
+        productComboBox.addItem("Laptop - $800");
+        productComboBox.addItem("Chair - $120");
+        add(productComboBox);
+
+        JLabel quantityLabel = new JLabel("Quantity:");
+        quantityLabel.setBounds(460, 164, 100, 25);
+        add(quantityLabel);
+
+        JTextField quantityTextField = new JTextField();
+        quantityTextField.setBounds(560, 164, 200, 25);
+        add(quantityTextField);
+
+        // Sepete ekleme butonu
         JButton addToCartButton = new JButton("Add to Cart");
-        addToCartButton.setBounds(220, 420, 200, 30);
+        addToCartButton.setBounds(460, 210, 140, 30);
         addToCartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int selectedRow = productTable.getSelectedRow();
-                if (selectedRow != -1) {
-                    String productName = productModel.getValueAt(selectedRow, 1).toString();
-                    String price = productModel.getValueAt(selectedRow, 2).toString();
-                    cartModel.addRow(new Object[] { productName, 1, price });
+                String selectedCustomer = (String) customerComboBox.getSelectedItem();
+                String selectedProduct = (String) productComboBox.getSelectedItem();
+                String quantityText = quantityTextField.getText();
+
+                if (selectedCustomer != null && selectedProduct != null && !quantityText.isEmpty()) {
+                    try {
+                        int quantity = Integer.parseInt(quantityText);
+                        String productName = selectedProduct.split(" - ")[0];
+                        double productPrice = Double.parseDouble(selectedProduct.split("\\$")[1]);
+                        double totalPrice = quantity * productPrice;
+
+                        cartModel.addRow(new Object[] { selectedCustomer, productName, quantity, "$" + totalPrice });
+                        JOptionPane.showMessageDialog(null, "Product added to cart successfully!");
+                    } catch (NumberFormatException ex) {
+                        JOptionPane.showMessageDialog(null, "Please enter a valid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a customer, a product, and enter quantity!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
         add(addToCartButton);
-        
+
+        // Siparişi tamamlama butonu
         JButton completeOrderButton = new JButton("Complete Order");
-        completeOrderButton.setBounds(430, 420, 350, 30);
+        completeOrderButton.setBounds(610, 210, 150, 30);
         completeOrderButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int selectedCustomerRow = customerTable.getSelectedRow();
-                if (selectedCustomerRow == -1 || cartModel.getRowCount() == 0) {
-                    JOptionPane.showMessageDialog(null, "Please select a customer and add products to the cart.");
+                if (cartModel.getRowCount() > 0) {
+                    JOptionPane.showMessageDialog(null, "Order completed successfully!");
+                    cartModel.setRowCount(0); // Sepeti temizle
                 } else {
-                    String customerName = customerModel.getValueAt(selectedCustomerRow, 1).toString();
-                    JOptionPane.showMessageDialog(null, "Order created for: " + customerName);
+                    JOptionPane.showMessageDialog(null, "Cart is empty. Please add products to complete the order.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });

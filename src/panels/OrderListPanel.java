@@ -19,15 +19,19 @@ public class OrderListPanel extends JPanel {
         panel.setLayout(null);
         
         JScrollPane cartScrollPane = new JScrollPane();
-        cartScrollPane.setBounds(20, 67, 515, 274);
+        cartScrollPane.setBounds(131, 70, 515, 274);
         panel.add(cartScrollPane);
 
         JTable cartTable = new JTable(cartModel);
         cartScrollPane.setViewportView(cartTable);
         
-        JButton btnNewButton = new JButton("Print");
-        btnNewButton.setBounds(613, 185, 117, 29);
+        JButton btnNewButton = new JButton("Import");
+        btnNewButton.setBounds(170, 396, 117, 29);
         panel.add(btnNewButton);
+        
+        JButton btnNewButton_1 = new JButton("Export");
+        btnNewButton_1.setBounds(464, 396, 117, 29);
+        panel.add(btnNewButton_1);
         
         
     }

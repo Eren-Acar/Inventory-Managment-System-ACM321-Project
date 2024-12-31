@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JButton;
 
 public class CustomerListPanel extends JPanel {
 
@@ -24,5 +25,13 @@ public class CustomerListPanel extends JPanel {
 
         customerTable = new JTable(tableModel); 
         scrollPane.setViewportView(customerTable);
+        
+        JButton btnNewButton = new JButton("Import");
+        btnNewButton.setBounds(174, 413, 117, 29);
+        panel.add(btnNewButton);
+        
+        JButton btnNewButton_1 = new JButton("Export");
+        btnNewButton_1.setBounds(491, 413, 117, 29);
+        panel.add(btnNewButton_1);
     }
 }
