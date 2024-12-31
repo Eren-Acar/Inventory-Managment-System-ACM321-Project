@@ -5,6 +5,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class OrderListPanel extends JPanel {
 
@@ -27,6 +29,22 @@ public class OrderListPanel extends JPanel {
         JTable cartTable = new JTable(orderListModel);
         cartScrollPane.setViewportView(cartTable);
         
+        // Hücre düzenleme engelle
+        cartTable.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
+        cartTable.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
+        cartTable.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+
+        // Çift tıklama engelle
+        cartTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    // Çift tıklama engelleniyor
+                    e.consume();
+                }
+            }
+        });
+
         // Import ve Export butonları
         JButton btnNewButton = new JButton("Import");
         btnNewButton.setBounds(170, 396, 117, 29);

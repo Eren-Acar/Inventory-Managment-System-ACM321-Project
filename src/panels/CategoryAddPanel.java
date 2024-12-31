@@ -1,13 +1,13 @@
-
 package panels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-
-import databaseoperations.CategoryDAO;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import databaseoperations.CategoryDAO;
 import java.sql.Connection;
 
 public class CategoryAddPanel extends JPanel {
@@ -58,9 +58,7 @@ public class CategoryAddPanel extends JPanel {
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Please enter a category name.");
-    
                 }
-               
             }
         });
         addButton.setBounds(458, 232, 100, 46);
@@ -74,8 +72,8 @@ public class CategoryAddPanel extends JPanel {
                 if (selectedRow >= 0) {
                     try {
                         int categoryId = (int) tableModel.getValueAt(selectedRow, 0);
-                        categoryDAO.deleteCategory(categoryId); 
-                        tableModel.removeRow(selectedRow); 
+                        categoryDAO.deleteCategory(categoryId);
+                        tableModel.removeRow(selectedRow);
                         JOptionPane.showMessageDialog(null, "Category deleted successfully!");
                     } catch (Exception ex) {
                         JOptionPane.showMessageDialog(null, "Error deleting category: " + ex.getMessage());
@@ -91,16 +89,30 @@ public class CategoryAddPanel extends JPanel {
         String[] columnNames = {"ID", "Name"};
         table = new JTable(tableModel);
         
+        // Hücre düzenleme engelle
+        table.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
+        table.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
+        table.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+
+        // Çift tıklama engelle
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    // Çift tıklama engelleniyor
+                    e.consume();
+                }
+            }
+        });
 
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(19, 51, 407, 310);
         panel.add(scrollPane);
     }
-    
-    
+
     private void refreshTable() { // Refresh the table after adding or deleting a category
         try {
-            tableModel.setRowCount(0); 
+            tableModel.setRowCount(0);
             categoryDAO.getAllCategories().forEach(category ->
                     tableModel.addRow(new Object[]{category.getCategoryID(), category.getCategoryName()})
             );

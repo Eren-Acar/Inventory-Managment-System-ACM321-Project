@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class OrderAddPanel extends JPanel {
 
@@ -22,6 +24,22 @@ public class OrderAddPanel extends JPanel {
         JScrollPane cartScrollPane = new JScrollPane(cartTable);
         cartScrollPane.setBounds(21, 45, 445, 303);
         add(cartScrollPane);
+
+        // Hücre düzenleme engelle
+        cartTable.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
+        cartTable.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
+        cartTable.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+
+        // Çift tıklama engelle
+        cartTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    // Çift tıklama engelleniyor
+                    e.consume();
+                }
+            }
+        });
 
         // Müşteri seçim alanı
         JLabel customerLabel = new JLabel("Customer:");

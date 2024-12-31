@@ -1,8 +1,9 @@
-
 package panels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ProductListPanel extends JPanel {
 
@@ -30,6 +31,22 @@ public class ProductListPanel extends JPanel {
         JTable table = new JTable(tableModel);
         scrollPane.setViewportView(table);
         
+        // Hücre düzenleme engelle
+        table.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
+        table.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
+        table.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+
+        // Çift tıklama engelle
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    // Çift tıklama engelleniyor
+                    e.consume();
+                }
+            }
+        });
+
         JButton btnNewButton = new JButton("Import");
         btnNewButton.setBounds(188, 402, 117, 29);
         panel.add(btnNewButton);

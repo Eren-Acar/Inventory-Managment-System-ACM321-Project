@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ProductAddPanel extends JPanel {
 
@@ -118,6 +120,22 @@ public class ProductAddPanel extends JPanel {
 
         table = new JTable(tableModel);
         scrollPane.setViewportView(table);
+
+        // Hücre düzenleme engelle
+        table.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
+        table.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
+        table.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+
+        // Çift tıklama engelle
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    // Çift tıklama engelleniyor
+                    e.consume();
+                }
+            }
+        });
 
         JLabel lblNewLabel_1 = new JLabel("ProductAddPanel");
         lblNewLabel_1.setBounds(6, 6, 117, 16);

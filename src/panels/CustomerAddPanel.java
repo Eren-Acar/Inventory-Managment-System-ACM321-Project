@@ -1,4 +1,3 @@
-
 package panels;
 
 import javax.swing.JPanel;
@@ -10,6 +9,8 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CustomerAddPanel extends JPanel {
 
@@ -98,8 +99,9 @@ public class CustomerAddPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
-                tableModel.removeRow(selectedRow);
-                
+                if (selectedRow != -1) {
+                    tableModel.removeRow(selectedRow);
+                }
             }
         });
 
@@ -110,6 +112,22 @@ public class CustomerAddPanel extends JPanel {
         panel.add(scrollPane);
 
         table = new JTable(tableModel);
+
+        table.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
+        table.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
+        table.setRowSelectionAllowed(true); // Sadece satır seçimine izin verir
+
         scrollPane.setViewportView(table);
+
+        // Çift tıklamayı engellemek için MouseListener ekle
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    // Çift tıklamayı engelle
+                    e.consume();
+                }
+            }
+        });
     }
 }
