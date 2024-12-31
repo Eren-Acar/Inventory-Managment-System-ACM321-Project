@@ -1,4 +1,3 @@
-
 package panels;
 
 import javax.swing.*;
@@ -13,9 +12,9 @@ public class ProductAddPanel extends JPanel {
     private JTextField textField_1;
     private JTextField textField_2;
     private JTextField textField_3;
-    private JTextField textField_4;
     private JTable table;
     private DefaultTableModel tableModel;
+    private JComboBox<String> categoryComboBox;
 
     /**
      * Create the panel.
@@ -69,15 +68,15 @@ public class ProductAddPanel extends JPanel {
         lblProductPrice.setBounds(488, 286, 141, 16);
         panel.add(lblProductPrice);
 
-        textField_4 = new JTextField();
-        textField_4.setBounds(488, 305, 224, 26);
-        panel.add(textField_4);
-        textField_4.setColumns(10);
+        // JComboBox for categories
+        categoryComboBox = new JComboBox<>(new String[]{"Electronics", "Clothing", "Food", "Books", "Furniture"});
+        categoryComboBox.setBounds(488, 305, 224, 26);
+        panel.add(categoryComboBox);
 
         JButton btnAdd = new JButton("Add");
         btnAdd.setBounds(462, 365, 117, 29);
         panel.add(btnAdd);
-        
+
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -85,7 +84,7 @@ public class ProductAddPanel extends JPanel {
                 String quantity = textField_3.getText();
                 String price = textField_2.getText();
                 String description = textField_1.getText();
-                String category = textField_4.getText();
+                String category = (String) categoryComboBox.getSelectedItem(); // Get selected category
 
                 tableModel.addRow(new Object[]{name, quantity, price, description, category});
 
@@ -93,14 +92,14 @@ public class ProductAddPanel extends JPanel {
                 textField_3.setText("");
                 textField_2.setText("");
                 textField_1.setText("");
-                textField_4.setText("");
+                categoryComboBox.setSelectedIndex(0); // Reset to first category
             }
         });
 
         JButton btnDelete = new JButton("Delete");
         btnDelete.setBounds(615, 365, 117, 29);
         panel.add(btnDelete);
-        
+
         btnDelete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
