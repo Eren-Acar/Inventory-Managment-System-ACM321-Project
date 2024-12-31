@@ -10,7 +10,7 @@ public class OrderListPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
 
-    public OrderListPanel(DefaultTableModel cartModel) {
+    public OrderListPanel(DefaultTableModel orderListModel) {
         setLayout(null);
 
         JPanel panel = new JPanel();
@@ -18,13 +18,16 @@ public class OrderListPanel extends JPanel {
         add(panel);
         panel.setLayout(null);
         
+        // Tabloyu görüntüleyecek ScrollPane
         JScrollPane cartScrollPane = new JScrollPane();
         cartScrollPane.setBounds(131, 70, 515, 274);
         panel.add(cartScrollPane);
 
-        JTable cartTable = new JTable(cartModel);
+        // Tabloyu oluştur
+        JTable cartTable = new JTable(orderListModel);
         cartScrollPane.setViewportView(cartTable);
         
+        // Import ve Export butonları
         JButton btnNewButton = new JButton("Import");
         btnNewButton.setBounds(170, 396, 117, 29);
         panel.add(btnNewButton);
@@ -32,7 +35,5 @@ public class OrderListPanel extends JPanel {
         JButton btnNewButton_1 = new JButton("Export");
         btnNewButton_1.setBounds(464, 396, 117, 29);
         panel.add(btnNewButton_1);
-        
-        
     }
 }

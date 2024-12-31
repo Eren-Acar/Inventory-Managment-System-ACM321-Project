@@ -319,22 +319,30 @@ import java.awt.event.ActionEvent;
 	                CardLayout cardLayout = (CardLayout) mainContentPanel.getLayout();
 	                cardLayout.show(mainContentPanel, "ProductAdd");
 	            } else if (categoryName.equals("Orders")) {
-	    
-	                String[] cartColumns = { "Product Name", "Quantity", "Total Price" };
-	                cartModel = new DefaultTableModel(cartColumns, 0);
+	                // 'Orders' kategorisi için OrderAddPanel ve OrderListPanel setup işlemleri
 
-	                orderAddPanel = new OrderAddPanel(cartModel); 
+	                // OrderAddPanel için model
+	                String[] cartColumns = { "Product Name", "Quantity", "Total Price" };
+	                DefaultTableModel orderAddModel = new DefaultTableModel(cartColumns, 0);
+
+	                // OrderListPanel için model (farklı sütunlar)
+	                String[] orderListColumns = { "Invoice Number", "Customer Number", "Total Price" };
+	                DefaultTableModel orderListModel = new DefaultTableModel(orderListColumns, 0);
+
+	                // OrderAddPanel ve OrderListPanel nesnelerini oluşturma
+	                orderAddPanel = new OrderAddPanel(orderAddModel); 
 	                mainContentPanel.add(orderAddPanel, "OrderAdd");
 
-	                orderListPanel = new OrderListPanel(cartModel); 
+	                orderListPanel = new OrderListPanel(orderListModel); 
 	                mainContentPanel.add(orderListPanel, "OrderList");
 
+	                // Butonların görünürlüğünü ayarlama
 	                btnAdd.setVisible(true); 
 	                btnList.setVisible(true); 
 	                btnAdd.setText("Order Add"); 
 	                btnList.setText("Order List");
 
-	               
+	                // Butonlara tıklama işlemleri
 	                btnAdd.addActionListener(e -> {
 	                    CardLayout cardLayout = (CardLayout) mainContentPanel.getLayout();
 	                    cardLayout.show(mainContentPanel, "OrderAdd"); 
@@ -345,7 +353,7 @@ import java.awt.event.ActionEvent;
 	                    cardLayout.show(mainContentPanel, "OrderList"); 
 	                });
 
-	             
+	                // Varsayılan olarak OrderAdd panelini göster
 	                CardLayout cardLayout = (CardLayout) mainContentPanel.getLayout();
 	                cardLayout.show(mainContentPanel, "OrderAdd"); 
 	            }

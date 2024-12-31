@@ -15,46 +15,48 @@ public class OrderAddPanel extends JPanel {
 
         setLayout(null);
 
-        // Sepet tablosu (Müşteri bilgisi dahil)
-        String[] cartColumns = { "Customer Name", "Product Name", "Quantity", "Total Price" };
+        // Tablo sütun başlıkları
+        String[] cartColumns = { "Invoice Number", "Customer Name", "Product Name", "Quantity", "Total Price" };
         cartModel.setColumnIdentifiers(cartColumns);
         JTable cartTable = new JTable(cartModel);
         JScrollPane cartScrollPane = new JScrollPane(cartTable);
-        cartScrollPane.setBounds(44, 76, 400, 252);
+        cartScrollPane.setBounds(21, 45, 445, 303);
         add(cartScrollPane);
 
-        // Ürün ve müşteri comboboxları
+        // Müşteri seçim alanı
         JLabel customerLabel = new JLabel("Customer:");
-        customerLabel.setBounds(460, 76, 100, 25);
+        customerLabel.setBounds(518, 75, 100, 25);
         add(customerLabel);
 
         JComboBox<String> customerComboBox = new JComboBox<>();
-        customerComboBox.setBounds(560, 76, 200, 25);
+        customerComboBox.setBounds(619, 76, 141, 25);
         customerComboBox.addItem("John Doe");
         customerComboBox.addItem("Jane Smith");
         add(customerComboBox);
 
+        // Ürün seçim alanı
         JLabel productLabel = new JLabel("Product:");
-        productLabel.setBounds(460, 120, 100, 25);
+        productLabel.setBounds(518, 119, 100, 25);
         add(productLabel);
 
         JComboBox<String> productComboBox = new JComboBox<>();
-        productComboBox.setBounds(560, 120, 200, 25);
+        productComboBox.setBounds(619, 120, 141, 25);
         productComboBox.addItem("Laptop - $800");
         productComboBox.addItem("Chair - $120");
         add(productComboBox);
 
+        // Miktar girişi
         JLabel quantityLabel = new JLabel("Quantity:");
-        quantityLabel.setBounds(460, 164, 100, 25);
+        quantityLabel.setBounds(518, 165, 100, 25);
         add(quantityLabel);
 
         JTextField quantityTextField = new JTextField();
-        quantityTextField.setBounds(560, 164, 200, 25);
+        quantityTextField.setBounds(619, 164, 141, 25);
         add(quantityTextField);
 
         // Sepete ekleme butonu
         JButton addToCartButton = new JButton("Add to Cart");
-        addToCartButton.setBounds(460, 210, 140, 30);
+        addToCartButton.setBounds(478, 210, 140, 30);
         addToCartButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String selectedCustomer = (String) customerComboBox.getSelectedItem();
@@ -68,7 +70,11 @@ public class OrderAddPanel extends JPanel {
                         double productPrice = Double.parseDouble(selectedProduct.split("\\$")[1]);
                         double totalPrice = quantity * productPrice;
 
-                        cartModel.addRow(new Object[] { selectedCustomer, productName, quantity, "$" + totalPrice });
+                        // Fatura numarasını dışarıdan alıyoruz
+                        String invoiceNumber = "YOUR_INVOICE_NUMBER"; // Bunu dışarıdan set edeceksiniz
+
+                        // Tabloya veri ekle
+                        cartModel.addRow(new Object[] { invoiceNumber, selectedCustomer, productName, quantity, "$" + totalPrice });
                         JOptionPane.showMessageDialog(null, "Product added to cart successfully!");
                     } catch (NumberFormatException ex) {
                         JOptionPane.showMessageDialog(null, "Please enter a valid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -80,14 +86,14 @@ public class OrderAddPanel extends JPanel {
         });
         add(addToCartButton);
 
-        // Siparişi tamamlama butonu
+        // Sipariş tamamlama butonu
         JButton completeOrderButton = new JButton("Complete Order");
-        completeOrderButton.setBounds(610, 210, 150, 30);
+        completeOrderButton.setBounds(629, 210, 141, 30);
         completeOrderButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (cartModel.getRowCount() > 0) {
                     JOptionPane.showMessageDialog(null, "Order completed successfully!");
-                    cartModel.setRowCount(0); // Sepeti temizle
+                    cartModel.setRowCount(0); // Tabloyu temizle
                 } else {
                     JOptionPane.showMessageDialog(null, "Cart is empty. Please add products to complete the order.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
