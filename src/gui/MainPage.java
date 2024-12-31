@@ -340,7 +340,7 @@ import java.awt.event.ActionEvent;
 	                btnAdd.setVisible(true); 
 	                btnList.setVisible(true); 
 	                btnAdd.setText("Order Add"); 
-	                btnList.setText("Order List");
+	                btnList.setText("Invoices ");
 
 	                // Butonlara tıklama işlemleri
 	                btnAdd.addActionListener(e -> {
