@@ -46,18 +46,18 @@ public class DashboardPanel extends JPanel {
 		lastAddedCustomerlbl.setBounds(39, 79, 100, 16);
 		CustomerNumbers.add(lastAddedCustomerlbl);
 		
-		JLabel lastAddedTextField = new JLabel("Eren Acar");
-		lastAddedTextField.setBounds(151, 79, 95, 16);
-		CustomerNumbers.add(lastAddedTextField);
+		JLabel lastCustomerAddedTextField = new JLabel("Eren Acar");
+		lastCustomerAddedTextField.setBounds(151, 79, 95, 16);
+		CustomerNumbers.add(lastCustomerAddedTextField);
 		
 		JLabel mostActivelbl = new JLabel(" Most Active :\n");
 		mostActivelbl.setHorizontalAlignment(SwingConstants.CENTER);
 		mostActivelbl.setBounds(30, 107, 112, 16);
 		CustomerNumbers.add(mostActivelbl);
 		
-		JLabel mostActiveTextField = new JLabel("Mehmet");
-		mostActiveTextField.setBounds(151, 107, 95, 16);
-		CustomerNumbers.add(mostActiveTextField);
+		JLabel mostActiveCustomerTextField = new JLabel("Mehmet");
+		mostActiveCustomerTextField.setBounds(151, 107, 95, 16);
+		CustomerNumbers.add(mostActiveCustomerTextField);
 		
 		 JLabel lblActiveCustomerRatio = new JLabel("Active Customer Ratio:");
 	        lblActiveCustomerRatio.setBounds(39, 140, 150, 16);
@@ -124,26 +124,26 @@ public class DashboardPanel extends JPanel {
 		lblNewLabel_5.setBounds(27, 71, 116, 16);
 		CategoriesNumber.add(lblNewLabel_5);
 		
-		JLabel lblNewLabel_5_1 = new JLabel("12");
-		lblNewLabel_5_1.setBounds(155, 71, 68, 16);
-		CategoriesNumber.add(lblNewLabel_5_1);
+		JLabel totalCategoriesTextField = new JLabel("12");
+		totalCategoriesTextField.setBounds(155, 71, 68, 16);
+		CategoriesNumber.add(totalCategoriesTextField);
 		
 		JLabel lblNewLabel_5_2 = new JLabel("Most Categories :");
 		lblNewLabel_5_2.setBounds(27, 99, 116, 16);
 		CategoriesNumber.add(lblNewLabel_5_2);
 		
-		JLabel lblNewLabel_5_1_1 = new JLabel("Wooden");
-		lblNewLabel_5_1_1.setBounds(155, 99, 68, 16);
-		CategoriesNumber.add(lblNewLabel_5_1_1);
+		JLabel mostCategoriesTextField = new JLabel("Wooden");
+		mostCategoriesTextField.setBounds(155, 99, 68, 16);
+		CategoriesNumber.add(mostCategoriesTextField);
 		
 		JLabel lblNewLabel_5_2_1 = new JLabel("Last Added :");
 		lblNewLabel_5_2_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5_2_1.setBounds(27, 127, 116, 16);
 		CategoriesNumber.add(lblNewLabel_5_2_1);
 		
-		JLabel lblNewLabel_5_1_1_1 = new JLabel("10");
-		lblNewLabel_5_1_1_1.setBounds(155, 127, 68, 16);
-		CategoriesNumber.add(lblNewLabel_5_1_1_1);
+		JLabel lastAddedCategoriesTextField = new JLabel("10");
+		lastAddedCategoriesTextField.setBounds(155, 127, 68, 16);
+		CategoriesNumber.add(lastAddedCategoriesTextField);
 		
 		JPanel TotalOrder = new JPanel();
 		TotalOrder.setBackground(new Color(230, 192, 212));
@@ -168,17 +168,17 @@ public class DashboardPanel extends JPanel {
 		lblNewLabel_5_2_1_1.setBounds(35, 125, 116, 16);
 		TotalOrder.add(lblNewLabel_5_2_1_1);
 		
-		JLabel lblNewLabel_6 = new JLabel("1500TL");
-		lblNewLabel_6.setBounds(163, 69, 61, 16);
-		TotalOrder.add(lblNewLabel_6);
+		JLabel totalCostTextField = new JLabel("1500TL");
+		totalCostTextField.setBounds(163, 69, 61, 16);
+		TotalOrder.add(totalCostTextField);
 		
-		JLabel lblNewLabel_6_1 = new JLabel("Wooden");
-		lblNewLabel_6_1.setBounds(164, 97, 61, 16);
-		TotalOrder.add(lblNewLabel_6_1);
+		JLabel mostCostOrderTextField = new JLabel("Wooden");
+		mostCostOrderTextField.setBounds(164, 97, 61, 16);
+		TotalOrder.add(mostCostOrderTextField);
 		
-		JLabel lblNewLabel_6_1_1 = new JLabel("Kutay");
-		lblNewLabel_6_1_1.setBounds(164, 125, 61, 16);
-		TotalOrder.add(lblNewLabel_6_1_1);
+		JLabel lastOrderTextField = new JLabel("Kutay");
+		lastOrderTextField.setBounds(164, 125, 61, 16);
+		TotalOrder.add(lastOrderTextField);
 
 	}
 }
