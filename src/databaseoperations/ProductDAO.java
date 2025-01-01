@@ -31,5 +31,14 @@ public class ProductDAO {
             stmt.executeUpdate();
         }
     }
+    //Delete
+    public void deleteProduct(String productCode) throws SQLException {
+        String sql = "DELETE FROM ProductTable WHERE ProductCode = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, productCode);
+            stmt.executeUpdate();
+        }
+    }
+
 
 }

@@ -158,12 +158,25 @@ public class ProductAddPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
-                    tableModel.removeRow(selectedRow);
+                    try {
+                       
+                        String productCode = (String) tableModel.getValueAt(selectedRow, 0); 
+                        productDAO.deleteProduct(productCode);
+
+                     
+                        tableModel.removeRow(selectedRow);
+
+                        JOptionPane.showMessageDialog(null, "Product deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "An error occurred while deleting the product: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
                 } else {
-                    System.out.println("Please select a product to delete.");
+                    JOptionPane.showMessageDialog(null, "Please select a product to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
+
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(6, 27, 450, 431);

@@ -25,4 +25,12 @@ public class CustomerDAO {
         }
     }
     
+    public void deleteCustomer(String name) throws SQLException {
+        String sql = "DELETE FROM CustomerTable WHERE Name = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, name);
+            stmt.executeUpdate();
+        }
+    }
+    
 }

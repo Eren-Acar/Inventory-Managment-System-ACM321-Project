@@ -2,15 +2,22 @@ package panels;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import databaseoperations.CustomerDAO;
+import databaseoperations.DatabaseConnection;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class CustomerAddPanel extends JPanel {
 
@@ -18,12 +25,16 @@ public class CustomerAddPanel extends JPanel {
     private JTextField textFieldName;
     private JTextField textFieldAddress;
     private JTextField textFieldCity;
-    private JTextField textFieldCountry;
+    private JTextField textFieldcounty;
     private JTable table;
     private DefaultTableModel tableModel;
+    private CustomerDAO customerDAO;
 
     public CustomerAddPanel(DefaultTableModel tableModel) {
         this.tableModel = tableModel; 
+        Connection connection = DatabaseConnection.getConnection();
+        customerDAO = new CustomerDAO(connection);
+        
         setLayout(null);
 
         JPanel panel = new JPanel();
@@ -62,14 +73,14 @@ public class CustomerAddPanel extends JPanel {
         textFieldCity.setBounds(480, 228, 222, 33);
         panel.add(textFieldCity);
 
-        JLabel lblCountry = new JLabel("County");
-        lblCountry.setBounds(480, 266, 61, 16);
-        panel.add(lblCountry);
+        JLabel lblcounty = new JLabel("County");
+        lblcounty.setBounds(480, 266, 61, 16);
+        panel.add(lblcounty);
 
-        textFieldCountry = new JTextField();
-        textFieldCountry.setColumns(10);
-        textFieldCountry.setBounds(480, 286, 222, 33);
-        panel.add(textFieldCountry);
+        textFieldcounty = new JTextField();
+        textFieldcounty.setColumns(10);
+        textFieldcounty.setBounds(480, 286, 222, 33);
+        panel.add(textFieldcounty);
 
         JButton addButton = new JButton("Add");
         addButton.setBounds(448, 352, 117, 29);
@@ -80,14 +91,27 @@ public class CustomerAddPanel extends JPanel {
                 String name = textFieldName.getText();
                 String address = textFieldAddress.getText();
                 String city = textFieldCity.getText();
-                String country = textFieldCountry.getText();
+                String county = textFieldcounty.getText();
 
-                if (!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !country.isEmpty()) {
-                    tableModel.addRow(new Object[] { idCounter++, name, address, city, country });
-                    textFieldName.setText("");
-                    textFieldAddress.setText("");
-                    textFieldCity.setText("");
-                    textFieldCountry.setText("");
+                if (!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !county.isEmpty()) {
+                    try {
+                        
+                        customerDAO.addCustomer(name, address, city, county);
+
+                        tableModel.addRow(new Object[]{idCounter++, name, address, city, county});
+
+                        textFieldName.setText("");
+                        textFieldAddress.setText("");
+                        textFieldCity.setText("");
+                        textFieldcounty.setText("");
+
+                        JOptionPane.showMessageDialog(null, "Customer added successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Failed to add customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please fill all fields.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
@@ -100,7 +124,19 @@ public class CustomerAddPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
                 if (selectedRow != -1) {
-                    tableModel.removeRow(selectedRow);
+                    String name = (String) tableModel.getValueAt(selectedRow, 1);
+                    try {
+                        customerDAO.deleteCustomer(name);
+
+                        tableModel.removeRow(selectedRow);
+
+                        JOptionPane.showMessageDialog(null, "Customer deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Failed to delete customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a customer to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });
