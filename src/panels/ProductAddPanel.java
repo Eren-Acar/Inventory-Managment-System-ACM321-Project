@@ -2,10 +2,18 @@ package panels;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import databaseoperations.CategoryDAO;
+import databaseoperations.DatabaseConnection;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.util.List;
+import classes.Category;
+
 
 public class ProductAddPanel extends JPanel {
 
@@ -18,6 +26,10 @@ public class ProductAddPanel extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
     private JComboBox<String> categoryComboBox;
+    Connection connection = DatabaseConnection.getConnection();
+    CategoryDAO categoryDAO = new CategoryDAO(connection);
+    List<String> categories = categoryDAO.getCategories();
+    
 
     /**
      * Create the panel.
@@ -84,7 +96,13 @@ public class ProductAddPanel extends JPanel {
         lblProductPrice.setBounds(488, 338, 141, 16);
         panel.add(lblProductPrice);
 
-        categoryComboBox = new JComboBox<>(new String[]{"Electronics", "Clothing", "Food", "Books", "Furniture"});
+        if (categories != null && !categories.isEmpty()) {
+            categoryComboBox = new JComboBox<>(categories.toArray(new String[0]));
+        } else {
+            categoryComboBox = new JComboBox<>(new String[]{"Categories are empty"});
+        }
+        
+        
         categoryComboBox.setBounds(488, 366, 224, 26);
         panel.add(categoryComboBox);
 

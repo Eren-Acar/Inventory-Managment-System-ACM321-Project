@@ -68,7 +68,26 @@ public class CategoryDAO {
 	            stmt.executeUpdate();
 	        }
 	    }
-		
-	}
+	
+	 public List<String> getCategories() {
+		 List<String> categories = new ArrayList<>();
+         String sql = "SELECT CategoryName FROM CategoryTable";
+         try (Statement stmt = connection.createStatement();
+                 ResultSet rs = stmt.executeQuery(sql)) {
+             while (rs.next()) {
+                 categories.add(rs.getString("CategoryName"));
+             }
+         } catch (SQLException e) {
+             e.printStackTrace();
+         }
+         return categories;
+	 }
+	 
+	 public CategoryDAO() throws SQLException {
+		    this.connection = DatabaseConnection.getConnection();
+		}
+
+	 }
+	
 
 
