@@ -5,12 +5,14 @@ import javax.swing.table.DefaultTableModel;
 
 import databaseoperations.CategoryDAO;
 import databaseoperations.DatabaseConnection;
+import databaseoperations.ProductDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 import classes.Category;
 
@@ -29,7 +31,7 @@ public class ProductAddPanel extends JPanel {
     Connection connection = DatabaseConnection.getConnection();
     CategoryDAO categoryDAO = new CategoryDAO(connection);
     List<String> categories = categoryDAO.getCategories();
-    
+    ProductDAO productDAO = new ProductDAO(connection);
 
     /**
      * Create the panel.
@@ -113,23 +115,38 @@ public class ProductAddPanel extends JPanel {
         btnAdd.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String productCode = textField_4.getText();
-                String name = textField.getText();
-                String quantity = textField_3.getText();
-                String price = textField_2.getText();
-                String description = textField_1.getText();
-                String category = (String) categoryComboBox.getSelectedItem();
+                try {
+                    String productCode = textField_4.getText();
+                    String productName = textField.getText();
+                    int productQuantity = Integer.parseInt(textField_3.getText());
+                    double productPrice = Double.parseDouble(textField_2.getText());
+                    String productDescription = textField_1.getText();
+                    String categoryName = (String) categoryComboBox.getSelectedItem(); 
 
-                tableModel.addRow(new Object[]{productCode, name, quantity, price, description, category});
+                    
+                    productDAO.addProduct(productCode, productName, productQuantity, productPrice, productDescription, categoryName);
 
-                textField_4.setText("");
-                textField.setText("");
-                textField_3.setText("");
-                textField_2.setText("");
-                textField_1.setText("");
-                categoryComboBox.setSelectedIndex(0);
+                   
+                    tableModel.addRow(new Object[]{productCode, productName, productQuantity, productPrice, productDescription, categoryName});
+
+                    // Clear text fields
+                    textField_4.setText("");
+                    textField.setText("");
+                    textField_3.setText("");
+                    textField_2.setText("");
+                    textField_1.setText("");
+                    categoryComboBox.setSelectedIndex(0);
+
+                    JOptionPane.showMessageDialog(null, "Product added successfully!");
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter valid numeric values for Quantity and Price.", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to add product to the database.", "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
             }
         });
+
 
         JButton btnDelete = new JButton("Delete");
         btnDelete.setBounds(614, 404, 117, 29);

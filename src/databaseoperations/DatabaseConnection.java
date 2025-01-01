@@ -39,15 +39,18 @@ public class DatabaseConnection {
 
             // ProductTable 
             String createProductTable = """
-                CREATE TABLE IF NOT EXISTS ProductTable (
-                  ProductCode TEXT NOT NULL PRIMARY KEY,
-                  ProductDescription TEXT NOT NULL,
-                  ProductPrice DECIMAL NOT NULL,
-                  CategoryID INTEGER NOT NULL,
-                  FOREIGN KEY (CategoryID) REFERENCES CategoryTable (CategoryID)
-                );
-                """;
-            stmt.execute(createProductTable);
+            	    CREATE TABLE IF NOT EXISTS ProductTable (
+            	        ProductID INTEGER PRIMARY KEY AUTOINCREMENT,
+            	        ProductCode TEXT NOT NULL,
+            	        ProductName TEXT NOT NULL,
+            	        ProductQuantity INTEGER NOT NULL,
+            	        ProductPrice DECIMAL(10, 2) NOT NULL,
+            	        ProductDescription TEXT NOT NULL,
+            	        CategoryName TEXT NOT NULL
+            	    );
+            	    """;
+            	stmt.execute(createProductTable);
+
 
             // CategoryTable 
             String createCategoryTable = """

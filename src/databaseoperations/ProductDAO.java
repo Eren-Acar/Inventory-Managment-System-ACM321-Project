@@ -17,14 +17,19 @@ public class ProductDAO {
         this.connection = connection;
     }
 
-    public void addProduct(String productCode, String description, double price, int categoryID) throws SQLException {
-        String sql = "INSERT INTO ProductTable (ProductCode, ProductDescription, ProductPrice, CategoryID) VALUES (?, ?, ?, ?)";
+    public void addProduct(String productCode, String productName, int productQuantity, double productPrice, String productDescription, String categoryName) throws SQLException {
+        String sql = "INSERT INTO ProductTable (ProductCode, ProductName, ProductQuantity, ProductPrice, ProductDescription, CategoryName) VALUES (?, ?, ?, ?, ?, ?)";
+
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, productCode);
-            stmt.setString(2, description);
-            stmt.setDouble(3, price);
-            stmt.setInt(4, categoryID);
+            stmt.setString(2, productName);
+            stmt.setInt(3, productQuantity);
+            stmt.setDouble(4, productPrice);
+            stmt.setString(5, productDescription);
+            stmt.setString(6, categoryName);
+
             stmt.executeUpdate();
         }
     }
+
 }
