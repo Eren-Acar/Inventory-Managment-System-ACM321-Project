@@ -20,19 +20,17 @@ public class OrderListPanel extends JPanel {
         add(panel);
         panel.setLayout(null);
         
-        // Tabloyu görüntüleyecek ScrollPane
         JScrollPane cartScrollPane = new JScrollPane();
         cartScrollPane.setBounds(131, 70, 515, 274);
         panel.add(cartScrollPane);
-
-        // Tabloyu oluştur
+        
         JTable cartTable = new JTable(orderListModel);
         cartScrollPane.setViewportView(cartTable);
         
-        // Hücre düzenleme engelle
-        cartTable.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
-        cartTable.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
-        cartTable.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+     
+        cartTable.setDefaultEditor(Object.class, null); 
+        cartTable.setCellSelectionEnabled(false);
+        cartTable.setRowSelectionAllowed(true); 
 
         // Çift tıklama engelle
         cartTable.addMouseListener(new MouseAdapter() {

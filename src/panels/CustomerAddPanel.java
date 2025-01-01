@@ -113,18 +113,17 @@ public class CustomerAddPanel extends JPanel {
 
         table = new JTable(tableModel);
 
-        table.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
-        table.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
-        table.setRowSelectionAllowed(true); // Sadece satır seçimine izin verir
+        table.setDefaultEditor(Object.class, null); 
+        table.setCellSelectionEnabled(false); 
+        table.setRowSelectionAllowed(true); 
 
         scrollPane.setViewportView(table);
 
-        // Çift tıklamayı engellemek için MouseListener ekle
+        
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    // Çift tıklamayı engelle
                     e.consume();
                 }
             }

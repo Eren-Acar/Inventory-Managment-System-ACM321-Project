@@ -30,17 +30,16 @@ public class CategoryListPanel extends JPanel {
 
         categoryTable = new JTable(tableModel);
         
-        // Hücre düzenleme engelle
-        categoryTable.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
-        categoryTable.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
-        categoryTable.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+    
+        categoryTable.setDefaultEditor(Object.class, null); 
+        categoryTable.setCellSelectionEnabled(false);
+        categoryTable.setRowSelectionAllowed(true); 
 
-        // Çift tıklama engelle
+        
         categoryTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    // Çift tıklama engelleniyor
                     e.consume();
                 }
             }
