@@ -188,6 +188,10 @@ public class ProductAddPanel extends JPanel {
         table.setDefaultEditor(Object.class, null);
         table.setCellSelectionEnabled(false);
         table.setRowSelectionAllowed(true);
+        
+        JButton editButton = new JButton("Edit");
+        editButton.setBounds(547, 445, 117, 29);
+        panel.add(editButton);
 
         table.addMouseListener(new MouseAdapter() {
             @Override

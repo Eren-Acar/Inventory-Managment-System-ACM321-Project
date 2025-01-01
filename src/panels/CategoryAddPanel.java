@@ -24,7 +24,7 @@ public class CategoryAddPanel extends JPanel {
         setLayout(null);
 
         JPanel panel = new JPanel();
-        panel.setBounds(0, 0, 793, 463);
+        panel.setBounds(0, 0, 793, 467);
         add(panel);
         panel.setLayout(null);
 
@@ -107,6 +107,32 @@ public class CategoryAddPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(19, 51, 407, 310);
         panel.add(scrollPane);
+        
+        JButton editButton = new JButton("Edit");
+        editButton.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if (selectedRow >= 0) {
+                String currentName = (String) tableModel.getValueAt(selectedRow, 1);
+
+                // Create the CategoryEditPanel
+                CategoryEditPanel editPanel = new CategoryEditPanel(currentName);
+
+                // Show the CategoryEditPanel in a JOptionPane
+                int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Category", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (result == JOptionPane.OK_OPTION) {
+                    // Get the updated name from the CategoryEditPanel
+                    String updatedName = editPanel.getUpdatedName();
+
+                    // Update the table with the new category name
+                    tableModel.setValueAt(updatedName, selectedRow, 1);
+                    JOptionPane.showMessageDialog(null, "Category updated successfully!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a category to edit.");
+            }
+        });
+        editButton.setBounds(534, 292, 117, 46);
+        panel.add(editButton);
     }
 
     private void refreshTable() { // Refresh the table after adding or deleting a category
