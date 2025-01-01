@@ -321,8 +321,7 @@ import java.awt.event.ActionEvent;
 	            } else if (categoryName.equals("Orders")) {
 	                
 
-	               
-	                String[] cartColumns = { "Product Name", "Quantity", "Total Price" };
+	               String[] cartColumns = { "Product Name", "Quantity", "Total Price" };
 	                DefaultTableModel orderAddModel = new DefaultTableModel(cartColumns, 0);
 
 	               

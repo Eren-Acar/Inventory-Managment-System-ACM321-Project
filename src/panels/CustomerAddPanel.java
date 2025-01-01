@@ -71,9 +71,9 @@ public class CustomerAddPanel extends JPanel {
         textFieldCountry.setBounds(480, 286, 222, 33);
         panel.add(textFieldCountry);
 
-        JButton btnAdd = new JButton("Add");
-        btnAdd.setBounds(448, 352, 117, 29);
-        btnAdd.addActionListener(new ActionListener() {
+        JButton addButton = new JButton("Add");
+        addButton.setBounds(448, 352, 117, 29);
+        addButton.addActionListener(new ActionListener() {
             private int idCounter = 1;
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,11 +91,11 @@ public class CustomerAddPanel extends JPanel {
                 }
             }
         });
-        panel.add(btnAdd);
+        panel.add(addButton);
 
-        JButton btnDelete = new JButton("Delete");
-        btnDelete.setBounds(601, 352, 117, 29);
-        btnDelete.addActionListener(new ActionListener() {
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.setBounds(601, 352, 117, 29);
+        deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
@@ -105,7 +105,7 @@ public class CustomerAddPanel extends JPanel {
             }
         });
 
-        panel.add(btnDelete);
+        panel.add(deleteButton);
 
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(21, 71, 407, 310);

@@ -43,13 +43,12 @@ public class OrderListPanel extends JPanel {
             }
         });
 
-        // Import ve Export butonları
-        JButton btnNewButton = new JButton("Import");
-        btnNewButton.setBounds(170, 396, 117, 29);
-        panel.add(btnNewButton);
+        JButton importButton = new JButton("Import");
+        importButton.setBounds(170, 396, 117, 29);
+        panel.add(importButton);
         
-        JButton btnNewButton_1 = new JButton("Export");
-        btnNewButton_1.setBounds(464, 396, 117, 29);
-        panel.add(btnNewButton_1);
+        JButton exportButton = new JButton("Export");
+        exportButton.setBounds(464, 396, 117, 29);
+        panel.add(exportButton);
     }
 }
