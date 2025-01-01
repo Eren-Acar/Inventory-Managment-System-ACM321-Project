@@ -33,31 +33,31 @@ public class DashboardPanel extends JPanel {
 		lblBaşlık.setBounds(6, 6, 136, 32);
 		CustomerNumbers.add(lblBaşlık);
 		
-		JLabel lblNewLabel_1 = new JLabel("Total Customer :\n");
-		lblNewLabel_1.setBounds(39, 50, 126, 16);
-		CustomerNumbers.add(lblNewLabel_1);
+		JLabel totalCustomerlbl = new JLabel("Total Customer :\n");
+		totalCustomerlbl.setBounds(39, 50, 126, 16);
+		CustomerNumbers.add(totalCustomerlbl);
 		
-		JLabel lblNewLabel_2 = new JLabel("17");
-		lblNewLabel_2.setBounds(162, 50, 95, 16);
-		CustomerNumbers.add(lblNewLabel_2);
+		JLabel totalCustomerTextField = new JLabel("17");
+		totalCustomerTextField.setBounds(162, 50, 95, 16);
+		CustomerNumbers.add(totalCustomerTextField);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Last Added :\n");
-		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setBounds(39, 79, 100, 16);
-		CustomerNumbers.add(lblNewLabel_1_1);
+		JLabel lastAddedCustomerlbl = new JLabel("Last Added :\n");
+		lastAddedCustomerlbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lastAddedCustomerlbl.setBounds(39, 79, 100, 16);
+		CustomerNumbers.add(lastAddedCustomerlbl);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("Eren Acar");
-		lblNewLabel_2_1.setBounds(151, 79, 95, 16);
-		CustomerNumbers.add(lblNewLabel_2_1);
+		JLabel lastAddedTextField = new JLabel("Eren Acar");
+		lastAddedTextField.setBounds(151, 79, 95, 16);
+		CustomerNumbers.add(lastAddedTextField);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel(" Most Active :\n");
-		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1.setBounds(30, 107, 112, 16);
-		CustomerNumbers.add(lblNewLabel_1_1_1);
+		JLabel mostActivelbl = new JLabel(" Most Active :\n");
+		mostActivelbl.setHorizontalAlignment(SwingConstants.CENTER);
+		mostActivelbl.setBounds(30, 107, 112, 16);
+		CustomerNumbers.add(mostActivelbl);
 		
-		JLabel lblNewLabel_2_1_1 = new JLabel("Mehmet");
-		lblNewLabel_2_1_1.setBounds(151, 107, 95, 16);
-		CustomerNumbers.add(lblNewLabel_2_1_1);
+		JLabel mostActiveTextField = new JLabel("Mehmet");
+		mostActiveTextField.setBounds(151, 107, 95, 16);
+		CustomerNumbers.add(mostActiveTextField);
 		
 		 JLabel lblActiveCustomerRatio = new JLabel("Active Customer Ratio:");
 	        lblActiveCustomerRatio.setBounds(39, 140, 150, 16);
@@ -84,31 +84,31 @@ public class DashboardPanel extends JPanel {
 		lblBaşlık2.setBounds(6, 6, 136, 32);
 		ProductNumbers.add(lblBaşlık2);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("Total Product :\n");
-		lblNewLabel_1_2.setBounds(37, 62, 105, 16);
-		ProductNumbers.add(lblNewLabel_1_2);
+		JLabel totalProductlbl = new JLabel("Total Product :\n");
+		totalProductlbl.setBounds(37, 62, 105, 16);
+		ProductNumbers.add(totalProductlbl);
 		
-		JLabel lblNewLabel_2_2 = new JLabel("17");
-		lblNewLabel_2_2.setBounds(145, 62, 95, 16);
-		ProductNumbers.add(lblNewLabel_2_2);
+		JLabel totalProductTextField = new JLabel("17");
+		totalProductTextField.setBounds(145, 62, 95, 16);
+		ProductNumbers.add(totalProductTextField);
 		
-		JLabel lblNewLabel_1_1_2 = new JLabel("Most Sold :\n");
-		lblNewLabel_1_1_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_2.setBounds(33, 90, 100, 16);
-		ProductNumbers.add(lblNewLabel_1_1_2);
+		JLabel mostSoldlbl = new JLabel("Most Sold :\n");
+		mostSoldlbl.setHorizontalAlignment(SwingConstants.CENTER);
+		mostSoldlbl.setBounds(33, 90, 100, 16);
+		ProductNumbers.add(mostSoldlbl);
 		
-		JLabel lblNewLabel_2_1_2 = new JLabel("Table");
-		lblNewLabel_2_1_2.setBounds(145, 90, 44, 16);
-		ProductNumbers.add(lblNewLabel_2_1_2);
+		JLabel mostSoldTextField = new JLabel("Table");
+		mostSoldTextField.setBounds(145, 90, 44, 16);
+		ProductNumbers.add(mostSoldTextField);
 		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("Last Added :\n");
-		lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1_1_1.setBounds(30, 118, 112, 16);
-		ProductNumbers.add(lblNewLabel_1_1_1_1);
+		JLabel lastAddedProductlbl = new JLabel("Last Added :\n");
+		lastAddedProductlbl.setHorizontalAlignment(SwingConstants.CENTER);
+		lastAddedProductlbl.setBounds(30, 118, 112, 16);
+		ProductNumbers.add(lastAddedProductlbl);
 		
-		JLabel lblNewLabel_2_1_1_1 = new JLabel("Chair ");
-		lblNewLabel_2_1_1_1.setBounds(145, 118, 44, 16);
-		ProductNumbers.add(lblNewLabel_2_1_1_1);
+		JLabel lastAddedProductTextField = new JLabel("Chair ");
+		lastAddedProductTextField.setBounds(145, 118, 44, 16);
+		ProductNumbers.add(lastAddedProductTextField);
 		
 		JPanel CategoriesNumber = new JPanel();
 		CategoriesNumber.setBackground(new Color(197, 232, 177));
