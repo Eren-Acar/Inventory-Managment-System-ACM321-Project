@@ -28,17 +28,16 @@ public class CustomerListPanel extends JPanel {
         customerTable = new JTable(tableModel); 
         scrollPane.setViewportView(customerTable);
 
-        // Hücre düzenleme engelleniyor
-        customerTable.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
-        customerTable.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
-        customerTable.setRowSelectionAllowed(true); // Sadece satır seçimine izin verir
 
-        // Çift tıklamayı engellemek için MouseListener ekle
+        customerTable.setDefaultEditor(Object.class, null);
+        customerTable.setCellSelectionEnabled(false);
+        customerTable.setRowSelectionAllowed(true); 
+
+     
         customerTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    // Çift tıklamayı engelle
                     e.consume();
                 }
             }

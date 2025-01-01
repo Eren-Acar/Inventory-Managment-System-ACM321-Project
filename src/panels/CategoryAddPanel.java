@@ -89,17 +89,16 @@ public class CategoryAddPanel extends JPanel {
         String[] columnNames = {"ID", "Name"};
         table = new JTable(tableModel);
         
-        // Hücre düzenleme engelle
-        table.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
-        table.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
-        table.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+        
+        table.setDefaultEditor(Object.class, null); 
+        table.setCellSelectionEnabled(false);
+        table.setRowSelectionAllowed(true); 
 
-        // Çift tıklama engelle
+      
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    // Çift tıklama engelleniyor
                     e.consume();
                 }
             }

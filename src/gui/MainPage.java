@@ -264,7 +264,7 @@ import java.awt.event.ActionEvent;
 	            cardLayout.show(mainContentPanel, "CategoryAdd");
 	
 	        } else if (categoryName.equals("Customer")) {
-	            String[] columnNames = { "ID", "Name", "Address", "City", "Country" };
+	            String[] columnNames = { "ID", "Name", "Address", "City", "County" };
 	            DefaultTableModel customerTableModel = new DefaultTableModel(columnNames, 0);
 	
 	            customerAddPanel = new CustomerAddPanel(customerTableModel);
@@ -292,7 +292,7 @@ import java.awt.event.ActionEvent;
 	            cardLayout.show(mainContentPanel, "CustomerAdd");
 	        } else if (categoryName.equals("Product")) {
 	            DefaultTableModel productTableModel = new DefaultTableModel(
-	                    new String[] { "Name", "Quantity", "Price", "Description", "Category" }, 0
+	                    new String[] { "Product Code","Name", "Quantity", "Price", "Description", "Category" }, 0
 	                );
 	
 	                productAddPanel = new ProductAddPanel(productTableModel);
@@ -319,30 +319,30 @@ import java.awt.event.ActionEvent;
 	                CardLayout cardLayout = (CardLayout) mainContentPanel.getLayout();
 	                cardLayout.show(mainContentPanel, "ProductAdd");
 	            } else if (categoryName.equals("Orders")) {
-	                // 'Orders' kategorisi için OrderAddPanel ve OrderListPanel setup işlemleri
+	                
 
-	                // OrderAddPanel için model
+	               
 	                String[] cartColumns = { "Product Name", "Quantity", "Total Price" };
 	                DefaultTableModel orderAddModel = new DefaultTableModel(cartColumns, 0);
 
-	                // OrderListPanel için model (farklı sütunlar)
+	               
 	                String[] orderListColumns = { "Invoice Number", "Customer Number", "Total Price" };
 	                DefaultTableModel orderListModel = new DefaultTableModel(orderListColumns, 0);
 
-	                // OrderAddPanel ve OrderListPanel nesnelerini oluşturma
+	                
 	                orderAddPanel = new OrderAddPanel(orderAddModel); 
 	                mainContentPanel.add(orderAddPanel, "OrderAdd");
 
 	                orderListPanel = new OrderListPanel(orderListModel); 
 	                mainContentPanel.add(orderListPanel, "OrderList");
 
-	                // Butonların görünürlüğünü ayarlama
+	               
 	                btnAdd.setVisible(true); 
 	                btnList.setVisible(true); 
 	                btnAdd.setText("Order Add"); 
 	                btnList.setText("Invoices ");
 
-	                // Butonlara tıklama işlemleri
+	             
 	                btnAdd.addActionListener(e -> {
 	                    CardLayout cardLayout = (CardLayout) mainContentPanel.getLayout();
 	                    cardLayout.show(mainContentPanel, "OrderAdd"); 
@@ -353,7 +353,7 @@ import java.awt.event.ActionEvent;
 	                    cardLayout.show(mainContentPanel, "OrderList"); 
 	                });
 
-	                // Varsayılan olarak OrderAdd panelini göster
+	              
 	                CardLayout cardLayout = (CardLayout) mainContentPanel.getLayout();
 	                cardLayout.show(mainContentPanel, "OrderAdd"); 
 	            }

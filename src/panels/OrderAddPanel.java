@@ -17,7 +17,6 @@ public class OrderAddPanel extends JPanel {
 
         setLayout(null);
 
-        // Tablo sütun başlıkları
         String[] cartColumns = { "Invoice Number", "Customer Name", "Product Name", "Quantity", "Total Price" };
         cartModel.setColumnIdentifiers(cartColumns);
         JTable cartTable = new JTable(cartModel);
@@ -25,23 +24,22 @@ public class OrderAddPanel extends JPanel {
         cartScrollPane.setBounds(21, 45, 445, 303);
         add(cartScrollPane);
 
-        // Hücre düzenleme engelle
-        cartTable.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
-        cartTable.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
-        cartTable.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+      
+        cartTable.setDefaultEditor(Object.class, null); 
+        cartTable.setCellSelectionEnabled(false); 
+        cartTable.setRowSelectionAllowed(true);
 
-        // Çift tıklama engelle
+      
         cartTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    // Çift tıklama engelleniyor
                     e.consume();
                 }
             }
         });
 
-        // Müşteri seçim alanı
+
         JLabel customerLabel = new JLabel("Customer:");
         customerLabel.setBounds(518, 75, 100, 25);
         add(customerLabel);
@@ -52,7 +50,7 @@ public class OrderAddPanel extends JPanel {
         customerComboBox.addItem("Jane Smith");
         add(customerComboBox);
 
-        // Ürün seçim alanı
+
         JLabel productLabel = new JLabel("Product:");
         productLabel.setBounds(518, 119, 100, 25);
         add(productLabel);
@@ -63,7 +61,6 @@ public class OrderAddPanel extends JPanel {
         productComboBox.addItem("Chair - $120");
         add(productComboBox);
 
-        // Miktar girişi
         JLabel quantityLabel = new JLabel("Quantity:");
         quantityLabel.setBounds(518, 165, 100, 25);
         add(quantityLabel);
@@ -72,7 +69,6 @@ public class OrderAddPanel extends JPanel {
         quantityTextField.setBounds(619, 164, 141, 25);
         add(quantityTextField);
 
-        // Sepete ekleme butonu
         JButton addToCartButton = new JButton("Add to Cart");
         addToCartButton.setBounds(478, 210, 140, 30);
         addToCartButton.addActionListener(new ActionListener() {
@@ -104,7 +100,6 @@ public class OrderAddPanel extends JPanel {
         });
         add(addToCartButton);
 
-        // Sipariş tamamlama butonu
         JButton completeOrderButton = new JButton("Complete Order");
         completeOrderButton.setBounds(629, 210, 141, 30);
         completeOrderButton.addActionListener(new ActionListener() {
