@@ -109,28 +109,45 @@ public class CategoryAddPanel extends JPanel {
         panel.add(scrollPane);
         
         JButton editButton = new JButton("Edit");
-        editButton.addActionListener(e -> {
-            int selectedRow = table.getSelectedRow();
-            if (selectedRow >= 0) {
-                String currentName = (String) tableModel.getValueAt(selectedRow, 1);
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+                if (selectedRow >= 0) {
+                    int categoryId = (int) tableModel.getValueAt(selectedRow, 0);
+                    String currentName = (String) tableModel.getValueAt(selectedRow, 1);
 
-                // Create the CategoryEditPanel
-                CategoryEditPanel editPanel = new CategoryEditPanel(currentName);
+                    // Create the CategoryEditPanel
+                    CategoryEditPanel editPanel = new CategoryEditPanel(currentName);
 
-                // Show the CategoryEditPanel in a JOptionPane
-                int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Category", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                if (result == JOptionPane.OK_OPTION) {
-                    // Get the updated name from the CategoryEditPanel
-                    String updatedName = editPanel.getUpdatedName();
+                    // Show the CategoryEditPanel in a JOptionPane
+                    int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Category", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    if (result == JOptionPane.OK_OPTION) {
+                        String updatedName = editPanel.getUpdatedName();
 
-                    // Update the table with the new category name
-                    tableModel.setValueAt(updatedName, selectedRow, 1);
-                    JOptionPane.showMessageDialog(null, "Category updated successfully!");
+                        if (!updatedName.isEmpty()) {
+                            try {
+                                // Update the category in the database
+                                categoryDAO.updateCategory(categoryId, updatedName);
+
+                                // Update the table to reflect the change
+                                tableModel.setValueAt(updatedName, selectedRow, 1);
+
+                                JOptionPane.showMessageDialog(null, "Category updated successfully!");
+                            } catch (Exception ex) {
+                                JOptionPane.showMessageDialog(null, "Error updating category: " + ex.getMessage());
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Category name cannot be empty.");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a category to edit.");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select a category to edit.");
             }
         });
+
+
         editButton.setBounds(534, 292, 117, 46);
         panel.add(editButton);
     }

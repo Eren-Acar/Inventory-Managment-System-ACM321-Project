@@ -86,6 +86,15 @@ public class CategoryDAO {
 	 public CategoryDAO() throws SQLException {
 		    this.connection = DatabaseConnection.getConnection();
 		}
+	 
+		public void updateCategory(int categoryId, String categoryName) throws SQLException {
+			String sql = "UPDATE CategoryTable SET CategoryName = ? WHERE CategoryID = ?";
+			try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+				stmt.setString(1, categoryName);
+				stmt.setInt(2, categoryId);
+				stmt.executeUpdate();
+			}
+		}
 
 	 }
 	

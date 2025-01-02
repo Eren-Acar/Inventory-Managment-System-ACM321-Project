@@ -2,8 +2,6 @@ package panels;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class CategoryEditPanel extends JPanel {
 
@@ -12,18 +10,29 @@ public class CategoryEditPanel extends JPanel {
 
     public CategoryEditPanel(String currentName) {
         setLayout(null);
-        setPreferredSize(new Dimension(400, 200));
+        setPreferredSize(new Dimension(400, 150));
 
-        JLabel nameLabel = new JLabel("Name:");
-        nameLabel.setBounds(20, 20, 150, 25);
+        // Name label
+        JLabel nameLabel = new JLabel("Category Name:");
+        nameLabel.setBounds(50, 40, 120, 25);
         add(nameLabel);
 
+        // Text field to edit name
         nameTextField = new JTextField(currentName);
-        nameTextField.setBounds(180, 20, 180, 25);
+        nameTextField.setBounds(180, 40, 150, 25);
         add(nameTextField);
+
+        // Optional: Add a border for better visualization
+        setBorder(BorderFactory.createTitledBorder("Edit Category"));
     }
 
+    // Method to get the updated name entered by the user
     public String getUpdatedName() {
         return nameTextField.getText();
+    }
+
+    // Optional validation method (can be used externally)
+    public boolean validateInput() {
+        return !nameTextField.getText().trim().isEmpty();
     }
 }
