@@ -18,6 +18,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public class CustomerAddPanel extends JPanel {
 
@@ -29,9 +30,11 @@ public class CustomerAddPanel extends JPanel {
     private JTable table;
     private DefaultTableModel tableModel;
     private CustomerDAO customerDAO;
+    private CustomerListPanel customerListPanel;
 
-    public CustomerAddPanel(DefaultTableModel tableModel) {
+    public CustomerAddPanel(DefaultTableModel tableModel, CustomerListPanel customerListPanel) {
         this.tableModel = tableModel; 
+        this.customerListPanel = customerListPanel;
         Connection connection = DatabaseConnection.getConnection();
         customerDAO = new CustomerDAO(connection);
         
@@ -85,7 +88,6 @@ public class CustomerAddPanel extends JPanel {
         JButton addButton = new JButton("Add");
         addButton.setBounds(448, 352, 117, 29);
         addButton.addActionListener(new ActionListener() {
-            private int idCounter = 1;
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = textFieldName.getText();
@@ -95,11 +97,15 @@ public class CustomerAddPanel extends JPanel {
 
                 if (!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !county.isEmpty()) {
                     try {
-                        
+                        // Veritabanına müşteri ekleme
                         customerDAO.addCustomer(name, address, city, county);
+                        
+                        tableModel.addRow(new Object[] { customerDAO.getCustomerID(name), name, address, city, county });
 
-                        tableModel.addRow(new Object[]{idCounter++, name, address, city, county});
+                        // Tablonun güncellenmesi için CustomerListPanel'i yenile
+                        customerListPanel.refreshTable();
 
+                        // Alanları temizle
                         textFieldName.setText("");
                         textFieldAddress.setText("");
                         textFieldCity.setText("");
@@ -115,6 +121,7 @@ public class CustomerAddPanel extends JPanel {
                 }
             }
         });
+
         panel.add(addButton);
 
         JButton deleteButton = new JButton("Delete");
@@ -127,6 +134,9 @@ public class CustomerAddPanel extends JPanel {
                     String name = (String) tableModel.getValueAt(selectedRow, 1);
                     try {
                         customerDAO.deleteCustomer(name);
+
+                        // CustomerListPanel'i yenile
+                        customerListPanel.refreshTable();
 
                         tableModel.removeRow(selectedRow);
 
@@ -141,6 +151,7 @@ public class CustomerAddPanel extends JPanel {
             }
         });
 
+        
         panel.add(deleteButton);
 
         JScrollPane scrollPane = new JScrollPane();
@@ -196,6 +207,11 @@ public class CustomerAddPanel extends JPanel {
                 }
             }
         });
+        
+        List<Object[]> customers = customerDAO.getAllCustomers();
+		for (Object[] customer : customers) {
+		    tableModel.addRow(customer);
+		}
 
         
         table.addMouseListener(new MouseAdapter() {

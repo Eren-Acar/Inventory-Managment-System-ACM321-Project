@@ -27,17 +27,22 @@ public class ProductAddPanel extends JPanel {
     private JTextField productCodeTextField; // Product Code
     private JTable table;
     private DefaultTableModel tableModel;
+    private ProductListPanel productList;
     private JComboBox<String> categoryComboBox;
     Connection connection = DatabaseConnection.getConnection();
     CategoryDAO categoryDAO = new CategoryDAO(connection);
     List<String> categories = categoryDAO.getCategories();
     ProductDAO productDAO = new ProductDAO(connection);
+    
 
     /**
      * Create the panel.
      */
-    public ProductAddPanel(DefaultTableModel tableModel) {
+    public ProductAddPanel(DefaultTableModel tableModel, ProductListPanel productListPanel) {
         this.tableModel = tableModel; 
+        this.productList = productListPanel;
+        Connection connection = DatabaseConnection.getConnection();
+        ProductDAO productDAO = new ProductDAO(connection);
         setLayout(null);
 
         JPanel panel = new JPanel();
@@ -104,6 +109,16 @@ public class ProductAddPanel extends JPanel {
             categoryComboBox = new JComboBox<>(new String[]{"Categories are empty"});
         }
         
+        try {
+            List<Object[]> products = productDAO.getAllProducts();
+            for (Object[] product : products) {
+                tableModel.addRow(product);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Failed to load products: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+        
         
         categoryComboBox.setBounds(488, 366, 224, 26);
         panel.add(categoryComboBox);
@@ -123,6 +138,12 @@ public class ProductAddPanel extends JPanel {
                     String productDescription = descriptionTextField.getText();
                     String categoryName = (String) categoryComboBox.getSelectedItem();
                     
+					if ("Categories are empty".equals(categoryName)) {
+						JOptionPane.showMessageDialog(null, "Please add a category first.", "Error",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
+                    
                     productDAO.addProduct(productCode, productName, productQuantity, productPrice, productDescription, categoryName);
 
                     tableModel.addRow(new Object[]{productCode, productName, productQuantity, productPrice, productDescription, categoryName});
@@ -136,6 +157,9 @@ public class ProductAddPanel extends JPanel {
                     
                     
                     categoryComboBox.setSelectedIndex(0);
+                    
+                    //refresh ListPanel
+                    productListPanel.refreshTable();
 
                     JOptionPane.showMessageDialog(null, "Product added successfully!");
                 } catch (NumberFormatException ex) {
@@ -162,6 +186,10 @@ public class ProductAddPanel extends JPanel {
                        
                         String productCode = (String) tableModel.getValueAt(selectedRow, 0); 
                         productDAO.deleteProduct(productCode);
+                        
+                        //refresh ListPanel
+                        productListPanel.refreshTable();
+						
 
                      
                         tableModel.removeRow(selectedRow);

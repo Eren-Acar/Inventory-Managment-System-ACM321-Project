@@ -6,26 +6,37 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+import databaseoperations.CustomerDAO;
+import databaseoperations.DatabaseConnection;
+import databaseoperations.InvoiceDAO;
+import databaseoperations.ProductDAO;
 
 public class OrderAddPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private DefaultTableModel cartModel;
+    private String currentInvoiceNumber; // Mevcut Invoice Number
+    private OrderListPanel orderListPanel;
 
-    public OrderAddPanel(DefaultTableModel cartModel) {
+    public OrderAddPanel(DefaultTableModel cartModel, OrderListPanel orderListPanel) {
         this.cartModel = cartModel;
+        this.orderListPanel = orderListPanel;
 
         setLayout(null);
 
-        String[] cartColumns = { "Invoice Number", "Customer Name", "Product Name", "Quantity", "Total Price" };
+        String[] cartColumns = {"Invoice Number", "Customer Name", "Product Name", "Quantity", "Total Price"};
         cartModel.setColumnIdentifiers(cartColumns);
         JTable cartTable = new JTable(cartModel);
         JScrollPane cartScrollPane = new JScrollPane(cartTable);
         cartScrollPane.setBounds(21, 45, 445, 303);
         add(cartScrollPane);
 
-        cartTable.setDefaultEditor(Object.class, null); 
-        cartTable.setCellSelectionEnabled(false); 
+        cartTable.setDefaultEditor(Object.class, null);
+        cartTable.setCellSelectionEnabled(false);
         cartTable.setRowSelectionAllowed(true);
 
         cartTable.addMouseListener(new MouseAdapter() {
@@ -43,8 +54,6 @@ public class OrderAddPanel extends JPanel {
 
         JComboBox<String> customerComboBox = new JComboBox<>();
         customerComboBox.setBounds(619, 76, 141, 25);
-        customerComboBox.addItem("John Doe");
-        customerComboBox.addItem("Jane Smith");
         add(customerComboBox);
 
         JLabel productLabel = new JLabel("Product:");
@@ -53,8 +62,6 @@ public class OrderAddPanel extends JPanel {
 
         JComboBox<String> productComboBox = new JComboBox<>();
         productComboBox.setBounds(619, 120, 141, 25);
-        productComboBox.addItem("Laptop - $800");
-        productComboBox.addItem("Chair - $120");
         add(productComboBox);
 
         JLabel quantityLabel = new JLabel("Quantity:");
@@ -65,81 +72,119 @@ public class OrderAddPanel extends JPanel {
         quantityTextField.setBounds(619, 164, 141, 25);
         add(quantityTextField);
 
+        // Veritabanı bağlantısı ve DAO'lar
+        Connection connection = DatabaseConnection.getConnection();
+        CustomerDAO customerDAO = new CustomerDAO(connection);
+        ProductDAO productDAO = new ProductDAO(connection);
+        InvoiceDAO invoiceDAO = new InvoiceDAO(connection);
+
+        try {
+            // Müşterileri combobox'a yükle
+            List<String> customers = customerDAO.getCustomerNames();
+            for (String customer : customers) {
+                customerComboBox.addItem(customer);
+            }
+
+            // Ürünleri combobox'a yükle
+            List<Object[]> products = productDAO.getAllProducts();
+            for (Object[] product : products) {
+                String productName = (String) product[1];
+                double productPrice = (double) product[3];
+                productComboBox.addItem(productName + " - " + productPrice + " TL");
+            }
+
+            // İlk Invoice Number'ı al
+            currentInvoiceNumber = "INV-" + invoiceDAO.getNextInvoiceID();
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Failed to load data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+
         JButton addToCartButton = new JButton("Add to Cart");
         addToCartButton.setBounds(478, 210, 140, 30);
-        addToCartButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String selectedCustomer = (String) customerComboBox.getSelectedItem();
-                String selectedProduct = (String) productComboBox.getSelectedItem();
-                String quantityText = quantityTextField.getText();
+        addToCartButton.addActionListener(e -> {
+            String selectedCustomer = (String) customerComboBox.getSelectedItem();
+            String selectedProduct = (String) productComboBox.getSelectedItem();
+            String quantityText = quantityTextField.getText();
 
-                if (selectedCustomer != null && selectedProduct != null && !quantityText.isEmpty()) {
-                    try {
-                        int quantity = Integer.parseInt(quantityText);
-                        String productName = selectedProduct.split(" - ")[0];
-                        double productPrice = Double.parseDouble(selectedProduct.split("\\$")[1]);
+            if (selectedCustomer != null && selectedProduct != null && !quantityText.isEmpty()) {
+                try {
+                    int quantity = Integer.parseInt(quantityText);
+                    String productName = selectedProduct.split(" - ")[0];
+
+                    // Stok miktarını kontrol et
+                    int currentStock = productDAO.getProductQuantity(productName);
+
+                    if (quantity > currentStock) {
+                        JOptionPane.showMessageDialog(null, 
+                            "Not enough stock for " + productName + ". Current stock: " + currentStock, 
+                            "Error", JOptionPane.ERROR_MESSAGE);
+                    } else {
+                        double productPrice = Double.parseDouble(selectedProduct.split(" - ")[1].replace(" TL", ""));
                         double totalPrice = quantity * productPrice;
 
-                        // Fatura numarasını dışarıdan alıyoruz
-                        String invoiceNumber = "YOUR_INVOICE_NUMBER"; // Bunu dışarıdan set edeceksiniz
+                        // Sepete ekle
+                        cartModel.addRow(new Object[]{currentInvoiceNumber, selectedCustomer, productName, quantity, totalPrice + " TL"});
 
-                        // Tabloya veri ekle
-                        cartModel.addRow(new Object[] { invoiceNumber, selectedCustomer, productName, quantity, "$" + totalPrice });
+                        // Stok miktarını güncelle
+                        productDAO.updateProductQuantity(productName, quantity);
+
                         JOptionPane.showMessageDialog(null, "Product added to cart successfully!");
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(null, "Please enter a valid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Please select a customer, a product, and enter quantity!", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "Please enter a valid quantity!", "Error", JOptionPane.ERROR_MESSAGE);
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Error checking stock: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a customer, a product, and enter quantity!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+
         add(addToCartButton);
 
         JButton completeOrderButton = new JButton("Complete Order");
         completeOrderButton.setBounds(629, 210, 141, 30);
-        completeOrderButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (cartModel.getRowCount() > 0) {
-                    JOptionPane.showMessageDialog(null, "Order completed successfully!");
-                    cartModel.setRowCount(0); // Tabloyu temizle
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cart is empty. Please add products to complete the order.", "Error", JOptionPane.ERROR_MESSAGE);
+        completeOrderButton.addActionListener(e -> {
+            if (cartModel.getRowCount() > 0) {
+                double totalPayment = 0.0;
+                for (int i = 0; i < cartModel.getRowCount(); i++) {
+                    String totalPriceString = (String) cartModel.getValueAt(i, 4);
+                    double totalPrice = Double.parseDouble(totalPriceString.replace(" TL", ""));
+                    totalPayment += totalPrice;
                 }
+
+                String selectedCustomerName = (String) cartModel.getValueAt(0, 1);
+                int customerID = customerDAO.getCustomerID(selectedCustomerName);
+
+                try {
+                    invoiceDAO.addInvoiceAndGetID(customerID, totalPayment);
+
+                    // Stok miktarını güncelle
+                    for (int i = 0; i < cartModel.getRowCount(); i++) {
+                        String productName = (String) cartModel.getValueAt(i, 2);
+                        int quantity = (int) cartModel.getValueAt(i, 3);
+                        productDAO.updateProductQuantity(productName, quantity);
+                    }
+
+                    // Tabloyu temizle ve Invoice numarasını sıfırla
+                    cartModel.setRowCount(0);
+                    currentInvoiceNumber = "INV-" + invoiceDAO.getNextInvoiceID();
+
+                    JOptionPane.showMessageDialog(null, "Order completed successfully! New Invoice Number: " + currentInvoiceNumber);
+
+                    // OrderListPanel'i yenile
+                    orderListPanel.refreshTable();
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Failed to complete order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    ex.printStackTrace();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Cart is empty. Please add products to complete the order.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
         add(completeOrderButton);
-
-        JButton editButton = new JButton("Edit");
-        editButton.setBounds(569, 252, 117, 29);
-        editButton.addActionListener(e -> {
-            int selectedRow = cartTable.getSelectedRow();
-            if (selectedRow >= 0) {
-                String currentCustomer = (String) cartModel.getValueAt(selectedRow, 1);
-                String currentProduct = (String) cartModel.getValueAt(selectedRow, 2);
-                int currentQuantity = (int) cartModel.getValueAt(selectedRow, 3);
-
-                OrderEditPanel editPanel = new OrderEditPanel(currentCustomer, currentProduct, currentQuantity);
-
-                int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Order", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-                if (result == JOptionPane.OK_OPTION) {
-                    String updatedCustomer = editPanel.getUpdatedCustomer();
-                    String updatedProduct = editPanel.getUpdatedProduct();
-                    int updatedQuantity = editPanel.getUpdatedQuantity();
-                    double productPrice = Double.parseDouble(updatedProduct.split("\\$")[1]);
-                    double updatedTotalPrice = updatedQuantity * productPrice;
-
-                    cartModel.setValueAt(updatedCustomer, selectedRow, 1);
-                    cartModel.setValueAt(updatedProduct, selectedRow, 2);
-                    cartModel.setValueAt(updatedQuantity, selectedRow, 3);
-                    cartModel.setValueAt("$" + updatedTotalPrice, selectedRow, 4);
-
-                    JOptionPane.showMessageDialog(null, "Order updated successfully!");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select an order to edit.");
-            }
-        });
-        add(editButton);
     }
 }

@@ -39,6 +39,57 @@ public class ProductDAO {
             stmt.executeUpdate();
         }
     }
+    
+    //Get all products
+    public List<Object[]> getAllProducts() throws SQLException {
+        List<Object[]> products = new ArrayList<>();
+        String sql = "SELECT ProductCode, ProductName, ProductQuantity, ProductPrice, ProductDescription, CategoryName FROM ProductTable";
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                products.add(new Object[]{
+                    rs.getString("ProductCode"),
+                    rs.getString("ProductName"),
+                    rs.getInt("ProductQuantity"),
+                    rs.getDouble("ProductPrice"),
+                    rs.getString("ProductDescription"),
+                    rs.getString("CategoryName")
+                });
+            }
+        }
+        return products;
+    }
+
+	
+	
+    public int getProductQuantity(String productName) throws SQLException {
+        String sql = "SELECT productQuantity FROM ProductTable WHERE ProductName = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, productName);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("productQuantity");
+            } else {
+                throw new SQLException("Product not found: " + productName);
+            }
+        }
+    }
 
 
-}
+	
+    public void updateProductQuantity(String productName, int quantityChange) throws SQLException {
+        String sql = "UPDATE ProductTable SET productQuantity = productQuantity - ? WHERE ProductName = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, quantityChange);
+            stmt.setString(2, productName);
+            stmt.executeUpdate();
+        }
+    }
+
+
+
+		
+	}
+
+
+
