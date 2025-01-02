@@ -17,6 +17,7 @@ public class CustomerListPanel extends JPanel {
     private JTable customerTable;
     private DefaultTableModel tableModel;
     private CustomerDAO customerDAO;
+    private CustomerAddPanel customerAddPanel;
 
     public CustomerListPanel(Connection connection) throws SQLException {
         setLayout(null);
@@ -109,25 +110,58 @@ public class CustomerListPanel extends JPanel {
             File file = fileChooser.getSelectedFile();
 
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                // Clear the table
-                tableModel.setRowCount(0);
+                String line = reader.readLine(); // Ignore the header line
 
-                // To read the column names
-                String line = reader.readLine();
+                int updatedCount = 0;
+                int insertedCount = 0;
 
-                // To read the data
                 while ((line = reader.readLine()) != null) {
                     String[] values = line.split(",");
-                    tableModel.addRow(values);
-                }
 
-                JOptionPane.showMessageDialog(this, "Customers imported successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    if (values.length >= 5) { // Ensure all required fields are present
+                        int customerId = Integer.parseInt(values[0]);
+                        String name = values[1];
+                        String address = values[2];
+                        String city = values[3];
+                        String county = values[4];
+
+                        if (customerDAO.customerExists(customerId)) {
+                            customerDAO.updateCustomer(customerId, name, address, city, county);
+                            updatedCount++;
+                        } else {
+                            customerDAO.addCustomerwithID(customerId, name, address, city, county);
+                            insertedCount++;
+                        }
+                        tableModel.addRow(new Object[]{customerId, name, address, city, county});
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Invalid data format in file.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+                
+             // Refresh the table
+                refreshTable();
+                JOptionPane.showMessageDialog(this, 
+                    "Import completed:\n" +
+                    "Inserted: " + insertedCount + "\n" +
+                    "Updated: " + updatedCount, 
+                    "Import Summary", JOptionPane.INFORMATION_MESSAGE);
+                
+                
+
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Invalid ID format: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(this, "Failed to import customers: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(this, "Database error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 e.printStackTrace();
             }
         }
     }
+
+
     
 	public void refreshTable() {
 		tableModel.setRowCount(0);

@@ -96,7 +96,21 @@ public class CategoryDAO {
 			}
 		}
 
-	 }
+
+		public void addCategoryWithId(int categoryId, String categoryName) throws SQLException {
+		    String sql = "INSERT OR REPLACE INTO CategoryTable (CategoryID, CategoryName) VALUES (?, ?)";
+		    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+		        stmt.setInt(1, categoryId);
+		        stmt.setString(2, categoryName);
+		        stmt.executeUpdate();
+		    }
+		}
+
+			
+		}
+		
+
+	 
 	
 
 

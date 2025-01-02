@@ -94,6 +94,29 @@ public class CustomerDAO {
 	            stmt.executeUpdate();
 	        }
 	    }
+	 
+	 public boolean customerExists(int id) throws SQLException {
+		    String query = "SELECT COUNT(*) FROM CustomerTable WHERE CustomerID = ?";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setInt(1, id);
+		        try (ResultSet rs = pstmt.executeQuery()) {
+		            return rs.next() && rs.getInt(1) > 0;
+		        }
+		    }
+		}
+	 
+	 public void addCustomerwithID(int id, String name, String address, String city, String county) throws SQLException { //For Import-Export
+		    String query = "INSERT INTO CustomerTable (CustomerID, CustomerName, CustomerAdress, CustomerCity, CustomerCounty) VALUES (?, ?, ?, ?, ?)";
+		    try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+		        pstmt.setInt(1, id);
+		        pstmt.setString(2, name);
+		        pstmt.setString(3, address);
+		        pstmt.setString(4, city);
+		        pstmt.setString(5, county);
+		        pstmt.executeUpdate();
+		    }
+		}
+
 	
 	}
 	
