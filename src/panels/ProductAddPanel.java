@@ -29,6 +29,7 @@ public class ProductAddPanel extends JPanel {
     private DefaultTableModel tableModel;
     private ProductListPanel productList;
     private JComboBox<String> categoryComboBox;
+    private ProductEditPanel editPanel = new ProductEditPanel();
     Connection connection = DatabaseConnection.getConnection();
     CategoryDAO categoryDAO = new CategoryDAO(connection);
     List<String> categories = categoryDAO.getCategories();
@@ -235,23 +236,42 @@ public class ProductAddPanel extends JPanel {
 
                     // ProductEditPanel'i oluştur ve verileri yükle
                     ProductEditPanel editPanel = new ProductEditPanel();
-                    editPanel.loadProductData(productCode, name, quantity, price, description, category);
+                    editPanel.loadCategories(categoryDAO.getCategories()); // Kategorileri yükle
+                    editPanel.loadProductData(productCode, name, quantity, price, description, category); // Mevcut verileri yükle
 
                     // ProductEditPanel'i JOptionPane içinde göster
-                    int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Product", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+                    int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Product", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                     if (result == JOptionPane.OK_OPTION) {
                         try {
                             Object[] updatedData = editPanel.getUpdatedProductData();
 
-                            for (int i = 0; i < updatedData.length; i++) {
-                                tableModel.setValueAt(updatedData[i], selectedRow, i);
-                            }
+                            // Veritabanında güncelleme işlemi
+                            productDAO.updateProduct(
+                                (String) updatedData[0], // ProductCode
+                                (String) updatedData[1], // Name
+                                (int) updatedData[2],    // Quantity
+                                (double) updatedData[3], // Price
+                                (String) updatedData[4], // Description
+                                (String) updatedData[5]  // Category
+                            );
+
+                            // Tabloyu güncelle
+                            tableModel.setValueAt(updatedData[0], selectedRow, 0); // Product Code
+                            tableModel.setValueAt(updatedData[1], selectedRow, 1); // Name
+                            tableModel.setValueAt(updatedData[2], selectedRow, 2); // Quantity
+                            tableModel.setValueAt(updatedData[3], selectedRow, 3); // Price
+                            tableModel.setValueAt(updatedData[4], selectedRow, 4); // Description
+                            tableModel.setValueAt(updatedData[5], selectedRow, 5); // Category
+                            
 
                             JOptionPane.showMessageDialog(null, "Product updated successfully!");
 
                         } catch (NumberFormatException ex) {
                             JOptionPane.showMessageDialog(null, "Please enter valid numeric values for Quantity and Price.", "Error", JOptionPane.ERROR_MESSAGE);
+                        } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Failed to update product in the database: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            ex.printStackTrace();
                         }
                     }
                 } else {
@@ -259,6 +279,8 @@ public class ProductAddPanel extends JPanel {
                 }
             }
         });
+
+
         
         panel.add(editButton);
         

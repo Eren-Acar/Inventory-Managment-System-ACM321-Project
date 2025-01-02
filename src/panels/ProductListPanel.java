@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.List;
 
 public class ProductListPanel extends JPanel {
@@ -57,16 +58,16 @@ public class ProductListPanel extends JPanel {
 
   
     public void refreshTable() {
-        // Delete all rows from the table
+        System.out.println("Refreshing table...");
         tableModel.setRowCount(0);
 
-        // Database Connection
         try {
             Connection connection = DatabaseConnection.getConnection();
             ProductDAO productDAO = new ProductDAO(connection);
             List<Object[]> products = productDAO.getAllProducts();
             for (Object[] product : products) {
-                tableModel.addRow(product); // Adding new products to the table
+                System.out.println("Loaded Product: " + Arrays.toString(product));
+                tableModel.addRow(product);
             }
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(
@@ -78,6 +79,7 @@ public class ProductListPanel extends JPanel {
             e.printStackTrace();
         }
     }
+
 
     
     private void loadProducts() {

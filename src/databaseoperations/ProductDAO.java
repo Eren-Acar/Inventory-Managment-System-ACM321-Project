@@ -86,6 +86,25 @@ public class ProductDAO {
         }
     }
 
+    public void updateProduct(String productCode, String productName, int productQuantity, double productPrice, String productDescription, String categoryName) throws SQLException {
+        String sql = "UPDATE ProductTable SET ProductName = ?, ProductQuantity = ?, ProductPrice = ?, ProductDescription = ?, CategoryName = ? WHERE ProductCode = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, productName);
+            stmt.setInt(2, productQuantity);
+            stmt.setDouble(3, productPrice);
+            stmt.setString(4, productDescription);
+            stmt.setString(5, categoryName);
+            stmt.setString(6, productCode);
+            stmt.executeUpdate();
+            
+        } catch (SQLException e) {
+            //Throw an exception
+        	
+        	e.printStackTrace();
+            
+        }
+    }
+
 
 
 		
