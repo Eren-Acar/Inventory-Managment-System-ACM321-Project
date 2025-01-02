@@ -31,12 +31,12 @@ public class ProductListPanel extends JPanel {
         JTable table = new JTable(tableModel);
         scrollPane.setViewportView(table);
         
-        // Hücre düzenleme engelle
-        table.setDefaultEditor(Object.class, null); // Düzenleme yapılmasını engeller
-        table.setCellSelectionEnabled(false); // Hücre seçim özelliğini engeller
-        table.setRowSelectionAllowed(true); // Yalnızca satır seçimi yapılabilir
+       
+        table.setDefaultEditor(Object.class, null);
+        table.setCellSelectionEnabled(false); 
+        table.setRowSelectionAllowed(true); 
 
-        // Çift tıklama engelle
+      
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

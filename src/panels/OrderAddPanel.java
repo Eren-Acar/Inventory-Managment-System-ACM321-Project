@@ -24,12 +24,10 @@ public class OrderAddPanel extends JPanel {
         cartScrollPane.setBounds(21, 45, 445, 303);
         add(cartScrollPane);
 
-      
         cartTable.setDefaultEditor(Object.class, null); 
         cartTable.setCellSelectionEnabled(false); 
         cartTable.setRowSelectionAllowed(true);
 
-      
         cartTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -38,7 +36,6 @@ public class OrderAddPanel extends JPanel {
                 }
             }
         });
-
 
         JLabel customerLabel = new JLabel("Customer:");
         customerLabel.setBounds(518, 75, 100, 25);
@@ -49,7 +46,6 @@ public class OrderAddPanel extends JPanel {
         customerComboBox.addItem("John Doe");
         customerComboBox.addItem("Jane Smith");
         add(customerComboBox);
-
 
         JLabel productLabel = new JLabel("Product:");
         productLabel.setBounds(518, 119, 100, 25);
@@ -113,5 +109,37 @@ public class OrderAddPanel extends JPanel {
             }
         });
         add(completeOrderButton);
+
+        JButton editButton = new JButton("Edit");
+        editButton.setBounds(569, 252, 117, 29);
+        editButton.addActionListener(e -> {
+            int selectedRow = cartTable.getSelectedRow();
+            if (selectedRow >= 0) {
+                String currentCustomer = (String) cartModel.getValueAt(selectedRow, 1);
+                String currentProduct = (String) cartModel.getValueAt(selectedRow, 2);
+                int currentQuantity = (int) cartModel.getValueAt(selectedRow, 3);
+
+                OrderEditPanel editPanel = new OrderEditPanel(currentCustomer, currentProduct, currentQuantity);
+
+                int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Order", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (result == JOptionPane.OK_OPTION) {
+                    String updatedCustomer = editPanel.getUpdatedCustomer();
+                    String updatedProduct = editPanel.getUpdatedProduct();
+                    int updatedQuantity = editPanel.getUpdatedQuantity();
+                    double productPrice = Double.parseDouble(updatedProduct.split("\\$")[1]);
+                    double updatedTotalPrice = updatedQuantity * productPrice;
+
+                    cartModel.setValueAt(updatedCustomer, selectedRow, 1);
+                    cartModel.setValueAt(updatedProduct, selectedRow, 2);
+                    cartModel.setValueAt(updatedQuantity, selectedRow, 3);
+                    cartModel.setValueAt("$" + updatedTotalPrice, selectedRow, 4);
+
+                    JOptionPane.showMessageDialog(null, "Order updated successfully!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select an order to edit.");
+            }
+        });
+        add(editButton);
     }
 }

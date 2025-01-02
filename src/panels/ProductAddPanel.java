@@ -191,7 +191,49 @@ public class ProductAddPanel extends JPanel {
         
         JButton editButton = new JButton("Edit");
         editButton.setBounds(547, 445, 117, 29);
+        editButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table.getSelectedRow();
+
+                if (selectedRow != -1) {
+                    // Seçilen satırdaki verileri al
+                    String productCode = (String) tableModel.getValueAt(selectedRow, 0);
+                    String name = (String) tableModel.getValueAt(selectedRow, 1);
+                    int quantity = (int) tableModel.getValueAt(selectedRow, 2);
+                    double price = (double) tableModel.getValueAt(selectedRow, 3);
+                    String description = (String) tableModel.getValueAt(selectedRow, 4);
+                    String category = (String) tableModel.getValueAt(selectedRow, 5);
+
+                    // ProductEditPanel'i oluştur ve verileri yükle
+                    ProductEditPanel editPanel = new ProductEditPanel();
+                    editPanel.loadProductData(productCode, name, quantity, price, description, category);
+
+                    // ProductEditPanel'i JOptionPane içinde göster
+                    int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Product", JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE);
+
+                    if (result == JOptionPane.OK_OPTION) {
+                        try {
+                            Object[] updatedData = editPanel.getUpdatedProductData();
+
+                            for (int i = 0; i < updatedData.length; i++) {
+                                tableModel.setValueAt(updatedData[i], selectedRow, i);
+                            }
+
+                            JOptionPane.showMessageDialog(null, "Product updated successfully!");
+
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(null, "Please enter valid numeric values for Quantity and Price.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please select a product to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+        
         panel.add(editButton);
+        
 
         table.addMouseListener(new MouseAdapter() {
             @Override
