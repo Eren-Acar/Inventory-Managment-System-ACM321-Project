@@ -173,40 +173,49 @@ public class CustomerAddPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
-                if (selectedRow != -1) {
+                if (selectedRow >= 0) {
+                    int customerId = (int) tableModel.getValueAt(selectedRow, 0);
                     String currentName = (String) tableModel.getValueAt(selectedRow, 1);
                     String currentAddress = (String) tableModel.getValueAt(selectedRow, 2);
                     String currentCity = (String) tableModel.getValueAt(selectedRow, 3);
                     String currentCounty = (String) tableModel.getValueAt(selectedRow, 4);
 
-                    
                     CustomerEditPanel editPanel = new CustomerEditPanel(currentName, currentAddress, currentCity, currentCounty);
                     int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Customer", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                     if (result == JOptionPane.OK_OPTION) {
-                       
-                        String newName = editPanel.getName();
-                        String newAddress = editPanel.getAddress();
-                        String newCity = editPanel.getCity();
-                        String newCounty = editPanel.getCounty();
+                        if (editPanel.validateFields()) {
+                            String newName = editPanel.getName();
+                            String newAddress = editPanel.getAddress();
+                            String newCity = editPanel.getCity();
+                            String newCounty = editPanel.getCounty();
 
-                  
-                        if (newName.isEmpty() || newAddress.isEmpty() || newCity.isEmpty() || newCounty.isEmpty()) {
-                            JOptionPane.showMessageDialog(null, "All fields must be filled.", "Warning", JOptionPane.WARNING_MESSAGE);
+                            try {
+                                customerDAO.updateCustomer(customerId, newName, newAddress, newCity, newCounty);
+
+                                tableModel.setValueAt(newName, selectedRow, 1);
+                                tableModel.setValueAt(newAddress, selectedRow, 2);
+                                tableModel.setValueAt(newCity, selectedRow, 3);
+                                tableModel.setValueAt(newCounty, selectedRow, 4);
+
+                                JOptionPane.showMessageDialog(null, "Customer updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            } catch (SQLException ex) {
+                                JOptionPane.showMessageDialog(null, "Error updating customer: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            }
                         } else {
-                            tableModel.setValueAt(newName, selectedRow, 1);
-                            tableModel.setValueAt(newAddress, selectedRow, 2);
-                            tableModel.setValueAt(newCity, selectedRow, 3);
-                            tableModel.setValueAt(newCounty, selectedRow, 4);
-
-                            JOptionPane.showMessageDialog(null, "Customer updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "All fields must be filled.", "Warning", JOptionPane.WARNING_MESSAGE);
                         }
                     }
                 } else {
                     JOptionPane.showMessageDialog(null, "Please select a row to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
                 }
+             // Refresh the table in CustomerListPanel
+                customerListPanel.refreshTable();
             }
         });
+
+
+
         
         List<Object[]> customers = customerDAO.getAllCustomers();
 		for (Object[] customer : customers) {

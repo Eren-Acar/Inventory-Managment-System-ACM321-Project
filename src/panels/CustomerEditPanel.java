@@ -43,8 +43,12 @@ public class CustomerEditPanel extends JPanel {
         txtCounty = new JTextField(county);
         txtCounty.setBounds(120, 130, 250, 25);
         add(txtCounty);
+
+        // Optional: Add a border for visual distinction
+        setBorder(BorderFactory.createTitledBorder("Edit Customer"));
     }
 
+    // Getter methods to retrieve updated values
     public String getName() {
         return txtName.getText();
     }
@@ -59,5 +63,13 @@ public class CustomerEditPanel extends JPanel {
 
     public String getCounty() {
         return txtCounty.getText();
+    }
+
+    // Optional validation method
+    public boolean validateFields() {
+        return !getName().trim().isEmpty() &&
+               !getAddress().trim().isEmpty() &&
+               !getCity().trim().isEmpty() &&
+               !getCounty().trim().isEmpty();
     }
 }

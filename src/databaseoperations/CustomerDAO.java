@@ -83,6 +83,17 @@ public class CustomerDAO {
         return customers;
     }
 
+	 public void updateCustomer(int customerId, String name, String address, String city, String county) throws SQLException {
+	        String sql = "UPDATE CustomerTable SET CustomerName = ?, CustomerAdress = ?, CustomerCity = ?, CustomerCounty = ? WHERE CustomerID = ?";
+	        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+	            stmt.setString(1, name);
+	            stmt.setString(2, address);
+	            stmt.setString(3, city);
+	            stmt.setString(4, county);
+	            stmt.setInt(5, customerId);
+	            stmt.executeUpdate();
+	        }
+	    }
 	
 	}
 	

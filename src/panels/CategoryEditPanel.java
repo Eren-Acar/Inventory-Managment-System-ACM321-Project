@@ -22,8 +22,6 @@ public class CategoryEditPanel extends JPanel {
         nameTextField.setBounds(180, 40, 150, 25);
         add(nameTextField);
 
-        // Optional: Add a border for better visualization
-        setBorder(BorderFactory.createTitledBorder("Edit Category"));
     }
 
     // Method to get the updated name entered by the user
