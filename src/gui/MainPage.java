@@ -6,15 +6,7 @@ import javax.swing.table.DefaultTableModel;
 
 import databaseoperations.DatabaseConnection;
 import databaseoperations.InvoiceDAO;
-import panels.CategoryAddPanel;
-import panels.CategoryListPanel;
-import panels.CustomerAddPanel;
-import panels.CustomerListPanel;
-import panels.DashboardPanel;
-import panels.OrderAddPanel;
-import panels.OrderListPanel;
-import panels.ProductAddPanel;
-import panels.ProductListPanel;
+import panels.*;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -40,21 +32,23 @@ public class MainPage extends JFrame {
     private Connection conn = DatabaseConnection.getConnection();
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            try {
-                MainPage frame = new MainPage();
-                frame.setResizable(false);
-                frame.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MainPage frame = new MainPage();
+                    frame.setResizable(false);
+                    frame.setVisible(true);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
 
     public MainPage() {
-    	//Call the DatabaseConnection to run main method
-    	        DatabaseConnection.main(null);
-    	
+        DatabaseConnection.main(null);
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 640);
         contentPane = new JPanel();
@@ -100,23 +94,48 @@ public class MainPage extends JFrame {
     }
 
     private void addLeftPanelButtons(JPanel leftPanel) {
-        JButton productButton = createSidebarButton("  PRODUCT", "/resourcess/product 1.png", e -> updateMainPanel("Product"));
+        JButton productButton = createSidebarButton("  PRODUCT", "/resourcess/product 1.png", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateMainPanel("Product");
+            }
+        });
         productButton.setBounds(25, 314, 194, 51);
         leftPanel.add(productButton);
 
-        JButton categoriesButton = createSidebarButton("CATEGORIES", "/resourcess/category 1.png", e -> updateMainPanel("Category"));
+        JButton categoriesButton = createSidebarButton("CATEGORIES", "/resourcess/category 1.png", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateMainPanel("Category");
+            }
+        });
         categoriesButton.setBounds(25, 368, 196, 51);
         leftPanel.add(categoriesButton);
 
-        JButton customersButton = createSidebarButton(" CUSTOMERS", "/resourcess/usersss 1.png", e -> updateMainPanel("Customer"));
+        JButton customersButton = createSidebarButton(" CUSTOMERS", "/resourcess/usersss 1.png", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateMainPanel("Customer");
+            }
+        });
         customersButton.setBounds(25, 420, 194, 51);
         leftPanel.add(customersButton);
 
-        JButton ordersButton = createSidebarButton("  ORDERS", "/resourcess/orderIcon.png", e -> updateMainPanel("Orders"));
+        JButton ordersButton = createSidebarButton("  ORDERS", "/resourcess/orderIcon.png", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateMainPanel("Orders");
+            }
+        });
         ordersButton.setBounds(25, 472, 194, 51);
         leftPanel.add(ordersButton);
 
-        JButton dashboardButton = createSidebarButton("DASHBOARD", "/resourcess/dashboardIcon 1.png", e -> updateMainPanel("Dashboard"));
+        JButton dashboardButton = createSidebarButton("DASHBOARD", "/resourcess/dashboardIcon 1.png", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                updateMainPanel("Dashboard");
+            }
+        });
         dashboardButton.setBounds(23, 260, 194, 51);
         leftPanel.add(dashboardButton);
     }
@@ -146,10 +165,13 @@ public class MainPage extends JFrame {
         JButton btnNewButton = new JButton("Log Out");
         btnNewButton.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/logOutIcon.png")));
         btnNewButton.setBounds(883, 6, 117, 51);
-        btnNewButton.addActionListener(e -> {
-            LoginPage loginPage = new LoginPage();
-            loginPage.setVisible(true);
-            dispose();
+        btnNewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginPage loginPage = new LoginPage();
+                loginPage.setVisible(true);
+                dispose();
+            }
         });
         bottomPanel.add(btnNewButton);
 
@@ -159,7 +181,6 @@ public class MainPage extends JFrame {
         lblNewLabel_3.setBounds(265, 6, 527, 51);
         bottomPanel.add(lblNewLabel_3);
     }
-
     private void createTopPanel(JPanel panel) {
         JPanel topPanel = new JPanel();
         topPanel.setBackground(new Color(182, 182, 182));
@@ -282,8 +303,19 @@ public class MainPage extends JFrame {
         btnAdd.setText(addText);
         btnList.setText(listText);
 
-        btnAdd.addActionListener(e -> showPanel(addPanel));
-        btnList.addActionListener(e -> showPanel(listPanel));
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showPanel(addPanel);
+            }
+        });
+
+        btnList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                showPanel(listPanel);
+            }
+        });
 
         showPanel(addPanel);
     }
