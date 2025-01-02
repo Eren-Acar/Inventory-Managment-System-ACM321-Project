@@ -41,12 +41,12 @@ public class OrderListPanel extends JPanel {
         orderTable = new JTable(orderListModel);
         orderScrollPane.setViewportView(orderTable);
 
-        // Hücre düzenlemesini devre dışı bırak
+        // Disable cell editing
         orderTable.setDefaultEditor(Object.class, null);
         orderTable.setCellSelectionEnabled(false);
         orderTable.setRowSelectionAllowed(true);
 
-        // Çift tıklama engelle
+        // Disable double click editing
         orderTable.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -64,15 +64,13 @@ public class OrderListPanel extends JPanel {
         exportButton.setBounds(464, 396, 117, 29);
         panel.add(exportButton);
 
-        // Tabloyu yükle
+        
         loadOrders();
     }
 
-    /**
-     * Veritabanından siparişleri yükler ve tabloyu günceller.
-     */
+    
     public void loadOrders() {
-        //orderListModel.setRowCount(0); // Tabloyu temizle
+        //orderListModel.setRowCount(0);
         try (Statement stmt = connection.createStatement()) {
             String query = "SELECT InvoiceID, CustomerID, Payment FROM InvoiceTable";
             ResultSet rs = stmt.executeQuery(query);
@@ -89,12 +87,10 @@ public class OrderListPanel extends JPanel {
         }
     }
 
-    /**
-     * Tabloyu yeniler.
-     */
+    
     public void refreshTable() {
     	try {
-		orderListModel.setRowCount(0); // Tabloyu temizle
+		orderListModel.setRowCount(0); 
 		
 		List<Object[]> invoices = invoiceDAO.getAllInvoices();
 		for (Object[] invoice : invoices) {

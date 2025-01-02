@@ -39,12 +39,12 @@ public class CustomerListPanel extends JPanel {
         customerTable = new JTable(tableModel);
         scrollPane.setViewportView(customerTable);
 
-        // Tablo düzenlemelerini devre dışı bırak
+        // Disable cell editing
         customerTable.setDefaultEditor(Object.class, null);
         customerTable.setCellSelectionEnabled(false);
         customerTable.setRowSelectionAllowed(true);
 
-        // Veritabanından müşteri verilerini yükle
+        // Load customers from database
         loadCustomers();
 
         JButton importButton = new JButton("Import");
@@ -58,9 +58,7 @@ public class CustomerListPanel extends JPanel {
         panel.add(exportButton);
     }
 
-    /**
-     * Veritabanından müşteri verilerini yükler.
-     */
+    
     private void loadCustomers() throws SQLException {
         List<Object[]> customers = customerDAO.getAllCustomers();
 		for (Object[] customer : customers) {
@@ -69,9 +67,7 @@ public class CustomerListPanel extends JPanel {
     }
 
 
-    /**
-     * Müşteri verilerini dışa aktarır (Export).
-     */
+   
     private void exportCustomers() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Export Customers");
@@ -81,13 +77,13 @@ public class CustomerListPanel extends JPanel {
             File file = fileChooser.getSelectedFile();
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-                // Tablo başlıklarını yaz
+                // To write the column names
                 for (int i = 0; i < tableModel.getColumnCount(); i++) {
                     writer.write(tableModel.getColumnName(i) + (i < tableModel.getColumnCount() - 1 ? "," : ""));
                 }
                 writer.newLine();
 
-                // Tablo verilerini yaz
+                // To write the data
                 for (int row = 0; row < tableModel.getRowCount(); row++) {
                     for (int col = 0; col < tableModel.getColumnCount(); col++) {
                         writer.write(tableModel.getValueAt(row, col).toString() + (col < tableModel.getColumnCount() - 1 ? "," : ""));
@@ -103,9 +99,7 @@ public class CustomerListPanel extends JPanel {
         }
     }
 
-    /**
-     * Müşteri verilerini içe aktarır (Import).
-     */
+    
     private void importCustomers() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setDialogTitle("Import Customers");
@@ -115,13 +109,13 @@ public class CustomerListPanel extends JPanel {
             File file = fileChooser.getSelectedFile();
 
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                // Tabloyu temizle
+                // Clear the table
                 tableModel.setRowCount(0);
 
-                // İlk satır başlık olduğu için atlanır
+                // To read the column names
                 String line = reader.readLine();
 
-                // Verileri satır satır oku ve tabloya ekle
+                // To read the data
                 while ((line = reader.readLine()) != null) {
                     String[] values = line.split(",");
                     tableModel.addRow(values);

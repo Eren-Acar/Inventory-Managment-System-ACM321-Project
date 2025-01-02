@@ -97,15 +97,15 @@ public class CustomerAddPanel extends JPanel {
 
                 if (!name.isEmpty() && !address.isEmpty() && !city.isEmpty() && !county.isEmpty()) {
                     try {
-                        // Veritabanına müşteri ekleme
+                        // Add customer to database
                         customerDAO.addCustomer(name, address, city, county);
                         
                         tableModel.addRow(new Object[] { customerDAO.getCustomerID(name), name, address, city, county });
 
-                        // Tablonun güncellenmesi için CustomerListPanel'i yenile
+                        // Refresh the table in CustomerListPanel
                         customerListPanel.refreshTable();
 
-                        // Alanları temizle
+                        // Clear text fields
                         textFieldName.setText("");
                         textFieldAddress.setText("");
                         textFieldCity.setText("");
@@ -135,7 +135,7 @@ public class CustomerAddPanel extends JPanel {
                     try {
                         customerDAO.deleteCustomer(name);
 
-                        // CustomerListPanel'i yenile
+                        // Refresh the table in CustomerListPanel
                         customerListPanel.refreshTable();
 
                         tableModel.removeRow(selectedRow);

@@ -19,7 +19,7 @@ public class OrderAddPanel extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private DefaultTableModel cartModel;
-    private String currentInvoiceNumber; // Mevcut Invoice Number
+    private String currentInvoiceNumber; // Invoice Number
     private OrderListPanel orderListPanel;
 
     public OrderAddPanel(DefaultTableModel cartModel, OrderListPanel orderListPanel) {
@@ -72,20 +72,20 @@ public class OrderAddPanel extends JPanel {
         quantityTextField.setBounds(619, 164, 141, 25);
         add(quantityTextField);
 
-        // Veritabanı bağlantısı ve DAO'lar
+        // Database connection and DAO objects
         Connection connection = DatabaseConnection.getConnection();
         CustomerDAO customerDAO = new CustomerDAO(connection);
         ProductDAO productDAO = new ProductDAO(connection);
         InvoiceDAO invoiceDAO = new InvoiceDAO(connection);
 
         try {
-            // Müşterileri combobox'a yükle
+            // Load customers to combobox
             List<String> customers = customerDAO.getCustomerNames();
             for (String customer : customers) {
                 customerComboBox.addItem(customer);
             }
 
-            // Ürünleri combobox'a yükle
+            // Load products to combobox
             List<Object[]> products = productDAO.getAllProducts();
             for (Object[] product : products) {
                 String productName = (String) product[1];
@@ -93,7 +93,7 @@ public class OrderAddPanel extends JPanel {
                 productComboBox.addItem(productName + " - " + productPrice + " TL");
             }
 
-            // İlk Invoice Number'ı al
+            // Get next invoice number
             currentInvoiceNumber = "INV-" + invoiceDAO.getNextInvoiceID();
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Failed to load data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -112,7 +112,7 @@ public class OrderAddPanel extends JPanel {
                     int quantity = Integer.parseInt(quantityText);
                     String productName = selectedProduct.split(" - ")[0];
 
-                    // Stok miktarını kontrol et
+                    // Check stock
                     int currentStock = productDAO.getProductQuantity(productName);
 
                     if (quantity > currentStock) {
@@ -123,10 +123,10 @@ public class OrderAddPanel extends JPanel {
                         double productPrice = Double.parseDouble(selectedProduct.split(" - ")[1].replace(" TL", ""));
                         double totalPrice = quantity * productPrice;
 
-                        // Sepete ekle
+                        // Add to cart
                         cartModel.addRow(new Object[]{currentInvoiceNumber, selectedCustomer, productName, quantity, totalPrice + " TL"});
 
-                        // Stok miktarını güncelle
+                        // Update stock
                         productDAO.updateProductQuantity(productName, quantity);
 
                         JOptionPane.showMessageDialog(null, "Product added to cart successfully!");
@@ -162,20 +162,20 @@ public class OrderAddPanel extends JPanel {
                 try {
                     invoiceDAO.addInvoiceAndGetID(customerID, totalPayment);
 
-                    // Stok miktarını güncelle
+                    // Update invoice number
                     for (int i = 0; i < cartModel.getRowCount(); i++) {
                         String productName = (String) cartModel.getValueAt(i, 2);
                         int quantity = (int) cartModel.getValueAt(i, 3);
                         productDAO.updateProductQuantity(productName, quantity);
                     }
 
-                    // Tabloyu temizle ve Invoice numarasını sıfırla
+                    // Clear crat and update invoice number
                     cartModel.setRowCount(0);
                     currentInvoiceNumber = "INV-" + invoiceDAO.getNextInvoiceID();
 
                     JOptionPane.showMessageDialog(null, "Order completed successfully! New Invoice Number: " + currentInvoiceNumber);
 
-                    // OrderListPanel'i yenile
+                    // Refresh order list
                     orderListPanel.refreshTable();
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Failed to complete order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);

@@ -62,7 +62,7 @@ public class CategoryListPanel extends JPanel {
 
     private void refreshTable() {
         try {
-            tableModel.setRowCount(0); // Tablodaki mevcut satırları temizle
+            tableModel.setRowCount(0); // Clear the table
             categoryDAO.getAllCategories().forEach(category ->
                     tableModel.addRow(new Object[]{category.getCategoryID(), category.getCategoryName()})
             );
