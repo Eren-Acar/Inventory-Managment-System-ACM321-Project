@@ -186,5 +186,9 @@ public class OrderAddPanel extends JPanel {
             }
         });
         add(completeOrderButton);
+        
+        JButton deleteButton = new JButton("Delete");
+        deleteButton.setBounds(570, 252, 117, 29);
+        add(deleteButton);
     }
 }

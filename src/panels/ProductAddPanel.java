@@ -125,7 +125,7 @@ public class ProductAddPanel extends JPanel {
         panel.add(categoryComboBox);
 
         JButton btnAdd = new JButton("Add");
-        btnAdd.setBounds(468, 404, 117, 29);
+        btnAdd.setBounds(468, 393, 117, 29);
         panel.add(btnAdd);
 
         btnAdd.addActionListener(new ActionListener() {
@@ -175,7 +175,7 @@ public class ProductAddPanel extends JPanel {
 
 
         JButton btnDelete = new JButton("Delete");
-        btnDelete.setBounds(614, 404, 117, 29);
+        btnDelete.setBounds(612, 393, 117, 29);
         panel.add(btnDelete);
 
         btnDelete.addActionListener(new ActionListener() {
@@ -219,7 +219,7 @@ public class ProductAddPanel extends JPanel {
         table.setRowSelectionAllowed(true);
         
         JButton editButton = new JButton("Edit");
-        editButton.setBounds(547, 445, 117, 29);
+        editButton.setBounds(545, 429, 117, 29);
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

@@ -56,12 +56,8 @@ public class OrderListPanel extends JPanel {
             }
         });
 
-        JButton importButton = new JButton("Import");
-        importButton.setBounds(170, 396, 117, 29);
-        panel.add(importButton);
-
         JButton exportButton = new JButton("Export");
-        exportButton.setBounds(464, 396, 117, 29);
+        exportButton.setBounds(351, 393, 117, 29);
         panel.add(exportButton);
 
         
