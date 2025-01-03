@@ -36,7 +36,7 @@ public class DashboardPanel extends JPanel {
 		CustomerNumbers.add(totalCustomerlbl);
 		
 		JLabel totalCustomerTextField = new JLabel("17");
-		totalCustomerTextField.setBounds(188, 110, 95, 16);
+		totalCustomerTextField.setBounds(166, 110, 95, 16);
 		CustomerNumbers.add(totalCustomerTextField);
 		
 		JLabel lblNewLabel = new JLabel("DASHBOARD ");
@@ -59,8 +59,9 @@ public class DashboardPanel extends JPanel {
 		ProductNumbers.add(totalProductlbl);
 		
 		JLabel totalProductTextField = new JLabel("17");
-		totalProductTextField.setBounds(218, 108, 95, 16);
+		totalProductTextField.setBounds(187, 108, 95, 16);
 		ProductNumbers.add(totalProductTextField);
+		
 		
 		JPanel CategoriesNumber = new JPanel();
 		CategoriesNumber.setBackground(new Color(255, 230, 109));
@@ -73,7 +74,7 @@ public class DashboardPanel extends JPanel {
 		CategoriesNumber.add(lblNewLabel_5);
 		
 		JLabel totalCategoriesTextField = new JLabel("12");
-		totalCategoriesTextField.setBounds(196, 120, 68, 16);
+		totalCategoriesTextField.setBounds(182, 120, 68, 16);
 		CategoriesNumber.add(totalCategoriesTextField);
 		
 		JPanel TotalOrder = new JPanel();
@@ -87,7 +88,7 @@ public class DashboardPanel extends JPanel {
 		TotalOrder.add(lblNewLabel_5_3);
 		
 		JLabel totalCostTextField = new JLabel("1500TL");
-		totalCostTextField.setBounds(233, 113, 61, 16);
+		totalCostTextField.setBounds(191, 113, 61, 16);
 		TotalOrder.add(totalCostTextField);
 
 	}
