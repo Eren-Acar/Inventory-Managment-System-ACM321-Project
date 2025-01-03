@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseConnection {
-    private static final String URL = "jdbc:sqlite:example.db";
+    private static final String URL = "jdbc:sqlite:database.db";
 
     public static Connection getConnection() {
 		try {
@@ -20,7 +20,7 @@ public class DatabaseConnection {
 	
     public static void main(String[] args) {
         
-        String url = "jdbc:sqlite:example.db";
+        String url = "jdbc:sqlite:database.db";
 
         
         try (Connection conn = DriverManager.getConnection(url);
@@ -117,7 +117,7 @@ public class DatabaseConnection {
     
     //Delete all tables
 	public static void deleteTables() {
-        String url = "jdbc:sqlite:example.db";
+        String url = "jdbc:sqlite:database.db";
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
 

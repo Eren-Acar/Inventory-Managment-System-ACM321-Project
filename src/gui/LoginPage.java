@@ -17,6 +17,8 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import databaseoperations.DatabaseConnection;
 import databaseoperations.UserDAO;
 
 public class LoginPage extends JFrame {
@@ -50,6 +52,7 @@ public class LoginPage extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginPage() {
+		DatabaseConnection.main(null);
 		setTitle("Inventory Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 684, 341);
@@ -89,17 +92,17 @@ public class LoginPage extends JFrame {
 		        String email = emailTextField.getText();
 		        String password = new String(passwordField.getPassword());
 
-		        // Kullanıcı doğrulama
+		        // Check if the user exists in the database
 		        boolean success = UserDAO.loginUser(email, password);
 
 		        if (success) {
-		            // Kullanıcı bilgilerini al
-		            String[] userInfo = UserDAO.getUserInfo(email);  // Ad ve soyad bilgisi
+		            // Get user information from the database
+		            String[] userInfo = UserDAO.getUserInfo(email);  // Name and surname
 
 		            if (userInfo != null) {
-		                MainPage mainPage = new MainPage(userInfo[0], userInfo[1]);  // Ad ve soyadı gönder
+		                MainPage mainPage = new MainPage(userInfo[0], userInfo[1]);  // Send name and surname to the main page
 		                mainPage.setVisible(true);
-		                dispose();  // Login sayfasını kapat
+		                dispose();  // Close the login
 		            }
 		        } else {
 		            JOptionPane.showMessageDialog(null, "Invalid email or password.");

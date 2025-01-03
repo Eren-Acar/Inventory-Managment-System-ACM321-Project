@@ -121,19 +121,20 @@ public class RegisterPage extends JFrame {
 		        String phone = phoneTextField.getText();
 		        String password = new String(passwordField.getPassword());
 
-		        // Register the user
-		        boolean success = UserDAO.registerUser(firstName, lastName, email, phone, password);
-
-		        if (success) {
-		            JOptionPane.showMessageDialog(null, "Registration successful!");
-		            LoginPage loginPage = new LoginPage();
-		            loginPage.setVisible(true);  // It will open the login page
-		            dispose();  // Close the current
-		        } else {
-		            JOptionPane.showMessageDialog(null, "Registration failed. Please try again.");
+		        try {
+		            boolean success = UserDAO.registerUser(firstName, lastName, email, phone, password);
+		            if (success) {
+		                JOptionPane.showMessageDialog(null, "Registration successful!");
+		                LoginPage loginPage = new LoginPage();
+		                loginPage.setVisible(true);
+		                dispose();  // Close the registration
+		            }
+		        } catch (Exception ex) {
+		            JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		        }
 		    }
 		});
+
 
 		signUpButton.setBounds(480, 433, 312, 29);
 		panel.add(signUpButton);

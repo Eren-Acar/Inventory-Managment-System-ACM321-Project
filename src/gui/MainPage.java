@@ -51,7 +51,7 @@ public class MainPage extends JFrame {
     }
 
     public MainPage(String firstName, String lastName) {
-        DatabaseConnection.main(null);
+        //DatabaseConnection.main(null);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 640);
@@ -85,13 +85,15 @@ public class MainPage extends JFrame {
         leftPanel.add(imageView);
 
         nameTextView = new JLabel(firstName);
+        nameTextView.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         nameTextView.setHorizontalAlignment(SwingConstants.CENTER);
-        nameTextView.setBounds(82, 200, 74, 23);
+        nameTextView.setBounds(50, 200, 150, 23);
         leftPanel.add(nameTextView);
 
         surnameTextView = new JLabel(lastName);
+        surnameTextView.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
         surnameTextView.setHorizontalAlignment(SwingConstants.CENTER);
-        surnameTextView.setBounds(82, 229, 74, 23);
+        surnameTextView.setBounds(50, 229, 150, 23);
         leftPanel.add(surnameTextView);
 
         addLeftPanelButtons(leftPanel);
@@ -160,12 +162,6 @@ public class MainPage extends JFrame {
         panel.add(bottomPanel);
         bottomPanel.setLayout(null);
 
-        JLabel lblNewLabel_2 = new JLabel("Powered by InvenTech");
-        lblNewLabel_2.setBounds(29, 6, 168, 51);
-        bottomPanel.add(lblNewLabel_2);
-        lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel_2.setFont(new Font("Apple Chancery", Font.PLAIN, 12));
-
         JButton btnNewButton = new JButton("Log Out");
         btnNewButton.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/logOutIcon.png")));
         btnNewButton.setBounds(883, 6, 117, 51);
@@ -179,8 +175,8 @@ public class MainPage extends JFrame {
         });
         bottomPanel.add(btnNewButton);
 
-        JLabel lblNewLabel_3 = new JLabel("2024@InvenTech");
-        lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 19));
+        JLabel lblNewLabel_3 = new JLabel("CopyRight InvenTech - 2025");
+        lblNewLabel_3.setFont(new Font("Lucida Grande", Font.PLAIN, 21));
         lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel_3.setBounds(265, 6, 527, 51);
         bottomPanel.add(lblNewLabel_3);
