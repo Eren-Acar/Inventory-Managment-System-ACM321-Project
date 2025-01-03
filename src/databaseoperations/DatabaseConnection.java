@@ -89,12 +89,30 @@ public class DatabaseConnection {
                 CREATE INDEX IF NOT EXISTS index_1 ON InvoiceTable (InvoiceID);
                 """;
             stmt.execute(createIndex);
+            
+         // UserTable
+            String createUserTable = """
+                CREATE TABLE IF NOT EXISTS UserTable (
+                    UserID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    FirstName TEXT NOT NULL,
+                    LastName TEXT NOT NULL,
+                    Email TEXT UNIQUE NOT NULL,
+                    Phone TEXT,
+                    PasswordHash TEXT NOT NULL
+                );
+                """;
+            stmt.execute(createUserTable);
+
 
             System.out.println("Tables and index created successfully.");
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        
+        
+        
     }
     
     //Delete all tables
@@ -117,6 +135,9 @@ public class DatabaseConnection {
 
             String deleteInvoiceTable = "DROP TABLE IF EXISTS InvoiceTable";
             stmt.execute(deleteInvoiceTable);
+            
+            String deleteUserTable = "DROP TABLE IF EXISTS UserTable";
+            stmt.execute(deleteUserTable);
 
             System.out.println("Tables deleted successfully.");
 

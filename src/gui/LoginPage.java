@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -16,6 +17,7 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import databaseoperations.UserDAO;
 
 public class LoginPage extends JFrame {
 
@@ -24,6 +26,7 @@ public class LoginPage extends JFrame {
 	private JTextField emailTextField;
 	private JLabel lblNewLabel_3;
 	private JPasswordField passwordField;
+	
 
 	/**
 	 * Launch the application.
@@ -82,12 +85,29 @@ public class LoginPage extends JFrame {
 		JButton loginButton = new JButton("Login ");
 		loginButton.setBackground(Color.BLUE);
 		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MainPage mainPage = new MainPage();
-				mainPage.setVisible(true);
-				dispose();
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        String email = emailTextField.getText();
+		        String password = new String(passwordField.getPassword());
+
+		        // Kullanıcı doğrulama
+		        boolean success = UserDAO.loginUser(email, password);
+
+		        if (success) {
+		            // Kullanıcı bilgilerini al
+		            String[] userInfo = UserDAO.getUserInfo(email);  // Ad ve soyad bilgisi
+
+		            if (userInfo != null) {
+		                MainPage mainPage = new MainPage(userInfo[0], userInfo[1]);  // Ad ve soyadı gönder
+		                mainPage.setVisible(true);
+		                dispose();  // Login sayfasını kapat
+		            }
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Invalid email or password.");
+		        }
+		    }
 		});
+
+
 		loginButton.setBackground(new Color(254, 255, 255));
 		loginButton.setBounds(19, 162, 234, 34);
 		contentPane.add(loginButton);

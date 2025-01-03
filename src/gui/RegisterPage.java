@@ -1,12 +1,15 @@
 package gui;
 
 import java.awt.EventQueue;
+import databaseoperations.UserDAO;
+
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.Font;
 import javax.swing.JTextField;
@@ -111,12 +114,27 @@ public class RegisterPage extends JFrame {
 		
 		JButton signUpButton = new JButton("Sign Up");
 		signUpButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				MainPage mainPage = new MainPage();
-				mainPage.setVisible(true);
-				dispose();
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        String firstName = firstNameTextField.getText();
+		        String lastName = lastNameTextField.getText();
+		        String email = emailTextField.getText();
+		        String phone = phoneTextField.getText();
+		        String password = new String(passwordField.getPassword());
+
+		        // Register the user
+		        boolean success = UserDAO.registerUser(firstName, lastName, email, phone, password);
+
+		        if (success) {
+		            JOptionPane.showMessageDialog(null, "Registration successful!");
+		            LoginPage loginPage = new LoginPage();
+		            loginPage.setVisible(true);  // It will open the login page
+		            dispose();  // Close the current
+		        } else {
+		            JOptionPane.showMessageDialog(null, "Registration failed. Please try again.");
+		        }
+		    }
 		});
+
 		signUpButton.setBounds(480, 433, 312, 29);
 		panel.add(signUpButton);
 		

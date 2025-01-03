@@ -1,6 +1,7 @@
 package gui;
 
 import javax.swing.*;
+import databaseoperations.DatabaseConnection;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -30,13 +31,16 @@ public class MainPage extends JFrame {
     private DashboardPanel dashboardPanel;
     private DefaultTableModel categoryTableModel, cartModel;
     private Connection conn = DatabaseConnection.getConnection();
+    private JLabel nameTextView;
+    private JLabel surnameTextView;
+
 
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
                 try {
-                    MainPage frame = new MainPage();
+                    MainPage frame = new MainPage("DefaultName", "DefaultSurname");
                     frame.setResizable(false);
                     frame.setVisible(true);
                 } catch (Exception e) {
@@ -46,7 +50,7 @@ public class MainPage extends JFrame {
         });
     }
 
-    public MainPage() {
+    public MainPage(String firstName, String lastName) {
         DatabaseConnection.main(null);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,13 +66,13 @@ public class MainPage extends JFrame {
         contentPane.add(panel);
         panel.setLayout(null);
 
-        createLeftPanel(panel);
+        createLeftPanel(panel, firstName, lastName);
         createBottomPanel(panel);
         createTopPanel(panel);
         createContentPanel(panel);
     }
 
-    private void createLeftPanel(JPanel panel) {
+    private void createLeftPanel(JPanel panel, String firstName, String lastName) {
         JPanel leftPanel = new JPanel();
         leftPanel.setBackground(new Color(153, 153, 153));
         leftPanel.setBounds(-22, -11, 223, 547);
@@ -80,12 +84,12 @@ public class MainPage extends JFrame {
         imageView.setIcon(new ImageIcon(MainPage.class.getResource("/resourcess/defaultProfilePhoto.png")));
         leftPanel.add(imageView);
 
-        JLabel nameTextView = new JLabel("Rauf Kutay");
+        nameTextView = new JLabel(firstName);
         nameTextView.setHorizontalAlignment(SwingConstants.CENTER);
         nameTextView.setBounds(82, 200, 74, 23);
         leftPanel.add(nameTextView);
 
-        JLabel surnameTextView = new JLabel("AKYILDIZ");
+        surnameTextView = new JLabel(lastName);
         surnameTextView.setHorizontalAlignment(SwingConstants.CENTER);
         surnameTextView.setBounds(82, 229, 74, 23);
         leftPanel.add(surnameTextView);
