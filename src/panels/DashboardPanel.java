@@ -104,7 +104,7 @@ public class DashboardPanel extends JPanel {
             totalCustomerTextField.setText(String.valueOf(totalCustomers));
             totalProductTextField.setText(String.valueOf(totalProducts));
             totalCategoriesTextField.setText(String.valueOf(totalCategories));
-            totalInvoiceTextField.setText(String.valueOf(totalInvoices) + " TL");
+            totalInvoiceTextField.setText(String.valueOf(totalInvoices));
 
         } catch (SQLException e) {
             e.printStackTrace();
