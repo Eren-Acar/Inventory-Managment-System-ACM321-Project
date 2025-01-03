@@ -28,6 +28,7 @@ public class CustomerListPanel extends JPanel {
         add(panel);
         panel.setLayout(null);
 
+        
         JScrollPane scrollPane = new JScrollPane();
         scrollPane.setBounds(21, 71, 750, 310);
         panel.add(scrollPane);

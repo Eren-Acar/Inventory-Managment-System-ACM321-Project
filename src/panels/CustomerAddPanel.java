@@ -38,6 +38,7 @@ public class CustomerAddPanel extends JPanel {
         Connection connection = DatabaseConnection.getConnection();
         customerDAO = new CustomerDAO(connection);
         
+        
         setLayout(null);
 
         JPanel panel = new JPanel();

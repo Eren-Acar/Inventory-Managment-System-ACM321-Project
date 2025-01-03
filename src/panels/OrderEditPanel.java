@@ -24,6 +24,7 @@ public class OrderEditPanel extends JPanel {
         customerComboBox.addItem("Jane Smith");
         customerComboBox.setSelectedItem(currentCustomer);
         add(customerComboBox);
+        
 
         JLabel productLabel = new JLabel("Product:");
         productLabel.setBounds(20, 60, 100, 25);

@@ -25,6 +25,7 @@ public class ProductEditPanel extends JPanel {
         add(panel);
         panel.setLayout(null);
         
+        
         JLabel lblProductCode = new JLabel("Product Code : ");
         lblProductCode.setBounds(24, 19, 112, 16);
         panel.add(lblProductCode);

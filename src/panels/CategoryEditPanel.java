@@ -11,7 +11,6 @@ public class CategoryEditPanel extends JPanel {
     public CategoryEditPanel(String currentName) {
         setLayout(null);
         setPreferredSize(new Dimension(400, 150));
-
         // Name label
         JLabel nameLabel = new JLabel("Category Name:");
         nameLabel.setBounds(50, 40, 120, 25);

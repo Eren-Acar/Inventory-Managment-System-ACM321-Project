@@ -37,6 +37,7 @@ public class OrderListPanel extends JPanel {
         JScrollPane orderScrollPane = new JScrollPane();
         orderScrollPane.setBounds(131, 70, 515, 274);
         panel.add(orderScrollPane);
+        
 
         orderTable = new JTable(orderListModel);
         orderScrollPane.setViewportView(orderTable);

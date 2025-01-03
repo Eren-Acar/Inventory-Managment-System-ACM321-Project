@@ -23,6 +23,7 @@ public class CategoryAddPanel extends JPanel {
         this.categoryDAO = new CategoryDAO(conn); // DAO connection
         setLayout(null);
 
+        
         JPanel panel = new JPanel();
         panel.setBounds(0, 0, 793, 467);
         add(panel);

@@ -94,6 +94,7 @@ public class ProductAddPanel extends JPanel {
         JLabel lblProductQuantity = new JLabel("Description");
         lblProductQuantity.setBounds(488, 258, 141, 16);
         panel.add(lblProductQuantity);
+        
 
         descriptionTextField = new JTextField();
         descriptionTextField.setBounds(488, 275, 224, 54);

@@ -26,6 +26,7 @@ public class CategoryListPanel extends JPanel {
 
         JPanel panel = new JPanel();
         panel.setBounds(0, 0, 793, 493);
+        
         add(panel);
         panel.setLayout(null);
 

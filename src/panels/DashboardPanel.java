@@ -23,6 +23,7 @@ public class DashboardPanel extends JPanel {
 		add(panel);
 		panel.setLayout(null);
 		
+		
 		JPanel CustomerNumbers = new JPanel();
 		CustomerNumbers.setBackground(new Color(133, 156, 240));
 		CustomerNumbers.setBounds(35, 6, 322, 227);

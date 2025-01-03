@@ -19,6 +19,7 @@ public class CustomerEditPanel extends JPanel {
         txtName = new JTextField(name);
         txtName.setBounds(120, 10, 250, 25);
         add(txtName);
+        
 
         JLabel lblAddress = new JLabel("Address:");
         lblAddress.setBounds(10, 50, 100, 25);

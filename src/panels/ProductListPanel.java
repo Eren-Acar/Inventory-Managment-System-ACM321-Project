@@ -38,6 +38,7 @@ public class ProductListPanel extends JPanel {
         // Disable editing of cells in the table
         table.setDefaultEditor(Object.class, null);
         table.setRowSelectionAllowed(true);
+        
 
         
         JPanel buttonPanel = new JPanel();

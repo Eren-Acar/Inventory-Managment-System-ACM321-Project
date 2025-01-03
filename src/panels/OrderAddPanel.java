@@ -34,6 +34,7 @@ public class OrderAddPanel extends JPanel {
         JScrollPane cartScrollPane = new JScrollPane(cartTable);
         cartScrollPane.setBounds(21, 45, 445, 303);
         add(cartScrollPane);
+        
 
         cartTable.setDefaultEditor(Object.class, null);
         cartTable.setCellSelectionEnabled(false);
