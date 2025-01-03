@@ -148,44 +148,42 @@ public class OrderAddPanel extends JPanel {
 
         JButton completeOrderButton = new JButton("Complete Order");
         completeOrderButton.setBounds(629, 210, 141, 30);
-        completeOrderButton.addActionListener(e -> {
-            if (cartModel.getRowCount() > 0) {
-                double totalPayment = 0.0;
-                for (int i = 0; i < cartModel.getRowCount(); i++) {
-                    String totalPriceString = (String) cartModel.getValueAt(i, 4);
-                    double totalPrice = Double.parseDouble(totalPriceString.replace(" TL", ""));
-                    totalPayment += totalPrice;
-                }
-
-                String selectedCustomerName = (String) cartModel.getValueAt(0, 1);
-                int customerID = customerDAO.getCustomerID(selectedCustomerName);
-
-                try {
-                    invoiceDAO.addInvoiceAndGetID(customerID, totalPayment);
-
-                    // Update invoice number
+        completeOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (cartModel.getRowCount() > 0) {
+                    double totalPayment = 0.0;
                     for (int i = 0; i < cartModel.getRowCount(); i++) {
-                        String productName = (String) cartModel.getValueAt(i, 2);
-                        int quantity = (int) cartModel.getValueAt(i, 3);
-                        productDAO.updateProductQuantity(productName, quantity);
+                        String totalPriceString = (String) cartModel.getValueAt(i, 4);
+                        double totalPrice = Double.parseDouble(totalPriceString.replace(" TL", ""));
+                        totalPayment += totalPrice;
                     }
 
-                    // Clear crat and update invoice number
-                    cartModel.setRowCount(0);
-                    currentInvoiceNumber = "INV-" + invoiceDAO.getNextInvoiceID();
+                    String selectedCustomerName = (String) cartModel.getValueAt(0, 1);
+                    int customerID = customerDAO.getCustomerID(selectedCustomerName);
 
-                    JOptionPane.showMessageDialog(null, "Order completed successfully! New Invoice Number: " + currentInvoiceNumber);
+                    try {
+                        invoiceDAO.addInvoiceAndGetID(customerID, totalPayment);
 
-                    // Refresh order list
-                    orderListPanel.refreshTable();
-                } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, "Failed to complete order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                    ex.printStackTrace();
+                        
+                        cartModel.setRowCount(0);
+                        currentInvoiceNumber = "INV-" + invoiceDAO.getNextInvoiceID();
+
+                        JOptionPane.showMessageDialog(null, "Order completed successfully! New Invoice Number: " + currentInvoiceNumber);
+
+                        
+                        orderListPanel.refreshTable();
+                    } catch (SQLException ex) {
+                        JOptionPane.showMessageDialog(null, "Failed to complete order: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        ex.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cart is empty. Please add products to complete the order.", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Cart is empty. Please add products to complete the order.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         });
+
+
         add(completeOrderButton);
         
         JButton deleteButton = new JButton("Delete");
