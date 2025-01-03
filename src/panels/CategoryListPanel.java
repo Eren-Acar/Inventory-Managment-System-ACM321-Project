@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class CategoryListPanel extends JPanel {
 
@@ -62,6 +63,7 @@ public class CategoryListPanel extends JPanel {
 
         JButton exportButton = new JButton("Export");
         exportButton.setBounds(479, 390, 117, 29);
+        exportButton.addActionListener(e -> exportCategories());
         panel.add(exportButton);
 
         refreshTable();
@@ -148,6 +150,32 @@ public class CategoryListPanel extends JPanel {
             tableModel.addRow(new Object[]{categoryId, categoryName});
         }
     }
+    
+    //Exporting categories to a file
+	private void exportCategories() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Export Categories");
+
+		int userSelection = fileChooser.showSaveDialog(this);
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+			File file = fileChooser.getSelectedFile();
+
+			try (PrintWriter writer = new PrintWriter(file)) {
+				writer.println("CategoryID,CategoryName");
+
+				for (int i = 0; i < tableModel.getRowCount(); i++) {
+					writer.println(tableModel.getValueAt(i, 0) + "," + tableModel.getValueAt(i, 1));
+				}
+
+				JOptionPane.showMessageDialog(this, "Categories exported successfully.", "Export",
+						JOptionPane.INFORMATION_MESSAGE);
+			} catch (IOException e) {
+				JOptionPane.showMessageDialog(this, "Failed to export categories: " + e.getMessage(), "Error",
+						JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			}
+		}
+	}
 
 
 }

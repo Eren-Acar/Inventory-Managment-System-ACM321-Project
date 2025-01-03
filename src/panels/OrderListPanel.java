@@ -59,6 +59,7 @@ public class OrderListPanel extends JPanel {
 
         JButton exportButton = new JButton("Export");
         exportButton.setBounds(351, 393, 117, 29);
+        exportButton.addActionListener(e -> exportOrders());
         panel.add(exportButton);
 
         
@@ -99,4 +100,39 @@ public class OrderListPanel extends JPanel {
 		
     }
 }
+    //Export
+	public void exportOrders() {
+		JFileChooser fileChooser = new JFileChooser();
+		fileChooser.setDialogTitle("Export Orders");
+
+		int userSelection = fileChooser.showSaveDialog(this);
+		if (userSelection == JFileChooser.APPROVE_OPTION) {
+			java.io.File file = fileChooser.getSelectedFile();
+
+			try (java.io.BufferedWriter writer = new java.io.BufferedWriter(new java.io.FileWriter(file))) {
+				// To write the column names
+				for (int i = 0; i < orderListModel.getColumnCount(); i++) {
+					writer.write(
+							orderListModel.getColumnName(i) + (i < orderListModel.getColumnCount() - 1 ? "," : ""));
+				}
+				writer.newLine();
+
+				// To write the data
+				for (int row = 0; row < orderListModel.getRowCount(); row++) {
+					for (int col = 0; col < orderListModel.getColumnCount(); col++) {
+						writer.write(orderListModel.getValueAt(row, col).toString()
+								+ (col < orderListModel.getColumnCount() - 1 ? "," : ""));
+					}
+					writer.newLine();
+				}
+
+				JOptionPane.showMessageDialog(this, "Orders exported successfully!", "Success",
+						JOptionPane.INFORMATION_MESSAGE);
+			} catch (java.io.IOException e) {
+				JOptionPane.showMessageDialog(this, "Failed to export orders: " + e.getMessage(), "Error",
+						JOptionPane.ERROR_MESSAGE);
+				e.printStackTrace();
+			}
+		}
+	}	
 }
