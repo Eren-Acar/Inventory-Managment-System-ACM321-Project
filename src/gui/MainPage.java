@@ -70,6 +70,7 @@ public class MainPage extends JFrame {
         createBottomPanel(panel);
         createTopPanel(panel);
         createContentPanel(panel);
+        updateMainPanel("Dashboard");
     }
 
     private void createLeftPanel(JPanel panel, String firstName, String lastName) {

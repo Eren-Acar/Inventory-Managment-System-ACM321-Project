@@ -35,7 +35,7 @@ public class CustomerListPanel extends JPanel {
 
         tableModel = new DefaultTableModel(
                 new Object[][]{},
-                new String[]{"Customer ID", "Name", "Address", "City", "Country"}
+                new String[]{"Customer ID", "Name", "Address", "City", "County"}
         );
 
         customerTable = new JTable(tableModel);
