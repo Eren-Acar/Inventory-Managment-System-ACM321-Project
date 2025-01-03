@@ -17,6 +17,8 @@ import java.awt.Font;
 import javax.swing.JPasswordField;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import databaseoperations.DatabaseConnection;
 import databaseoperations.UserDAO;
 
 public class LoginPage extends JFrame {
@@ -50,6 +52,7 @@ public class LoginPage extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginPage() {
+		DatabaseConnection.main(null);
 		setTitle("Inventory Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 684, 341);

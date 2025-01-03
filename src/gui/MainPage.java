@@ -51,7 +51,7 @@ public class MainPage extends JFrame {
     }
 
     public MainPage(String firstName, String lastName) {
-        DatabaseConnection.main(null);
+        //DatabaseConnection.main(null);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1000, 640);

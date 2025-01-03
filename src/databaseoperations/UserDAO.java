@@ -59,7 +59,7 @@ public class UserDAO {
         }
     }
 
-    // Password hashing with SHA-256 (https://www.baeldung.com/sha-256-hashing-java)
+    // Password hashing with SHA-256 (for more detail: https://www.baeldung.com/sha-256-hashing-java)
     private static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
