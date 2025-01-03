@@ -39,19 +39,18 @@ public class InvoiceDAO {
         throw new SQLException("Failed to retrieve last inserted ID.");
     }
 
-	public String getNextInvoiceID() {
-        String sql = "SELECT MAX(InvoiceID) + 1 AS NextInvoiceNumber FROM InvoiceTable";
-        try (Statement stmt = connection.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+    public int getNextInvoiceID() {
+        String sql = "SELECT COALESCE(MAX(InvoiceID), 0) + 1 AS NextInvoiceNumber FROM InvoiceTable";
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
             if (rs.next()) {
-                return rs.getString("NextInvoiceNumber");
+                return rs.getInt("NextInvoiceNumber");
             }
         } catch (SQLException e) {
-            e.printStackTrace();}
-        
-        return "1";
+            e.printStackTrace();
+        }
+        return 1;  // For first invoice
+    }
 
-}
 
 	
 
