@@ -18,14 +18,14 @@ public class DashboardPanel extends JPanel {
 		setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(196, 255, 187));
+		panel.setBackground(new Color(240, 240, 240));
 		panel.setBounds(0, 0, 793, 493);
 		add(panel);
 		panel.setLayout(null);
 		
 		
 		JPanel CustomerNumbers = new JPanel();
-		CustomerNumbers.setBackground(new Color(133, 156, 240));
+		CustomerNumbers.setBackground(new Color(168, 218, 220));
 		CustomerNumbers.setBounds(35, 6, 322, 227);
 		panel.add(CustomerNumbers);
 		CustomerNumbers.setLayout(null);
@@ -76,7 +76,7 @@ public class DashboardPanel extends JPanel {
 	        progressBar.setStringPainted(true);
 		
 		JPanel ProductNumbers = new JPanel();
-		ProductNumbers.setBackground(new Color(231, 233, 157));
+		ProductNumbers.setBackground(new Color(161, 193, 129));
 		ProductNumbers.setBounds(434, 6, 322, 227);
 		panel.add(ProductNumbers);
 		ProductNumbers.setLayout(null);
@@ -112,7 +112,7 @@ public class DashboardPanel extends JPanel {
 		ProductNumbers.add(lastAddedProductTextField);
 		
 		JPanel CategoriesNumber = new JPanel();
-		CategoriesNumber.setBackground(new Color(197, 232, 177));
+		CategoriesNumber.setBackground(new Color(255, 230, 109));
 		CategoriesNumber.setBounds(35, 245, 322, 215);
 		panel.add(CategoriesNumber);
 		CategoriesNumber.setLayout(null);
@@ -147,7 +147,7 @@ public class DashboardPanel extends JPanel {
 		CategoriesNumber.add(lastAddedCategoriesTextField);
 		
 		JPanel TotalOrder = new JPanel();
-		TotalOrder.setBackground(new Color(230, 192, 212));
+		TotalOrder.setBackground(new Color(255, 181, 167));
 		TotalOrder.setBounds(434, 245, 322, 215);
 		panel.add(TotalOrder);
 		TotalOrder.setLayout(null);
