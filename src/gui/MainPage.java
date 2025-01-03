@@ -157,7 +157,7 @@ public class MainPage extends JFrame {
 
     private void createBottomPanel(JPanel panel) {
         JPanel bottomPanel = new JPanel();
-        bottomPanel.setBackground(new Color(126, 170, 253));
+        bottomPanel.setBackground(new Color(153, 156, 156));
         bottomPanel.setBounds(-12, 536, 1006, 70);
         panel.add(bottomPanel);
         bottomPanel.setLayout(null);
