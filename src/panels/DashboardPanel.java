@@ -19,14 +19,14 @@ public class DashboardPanel extends JPanel {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(240, 240, 240));
-		panel.setBounds(0, 0, 793, 493);
+		panel.setBounds(0, 0, 812, 493);
 		add(panel);
 		panel.setLayout(null);
 		
 		
 		JPanel CustomerNumbers = new JPanel();
 		CustomerNumbers.setBackground(new Color(168, 218, 220));
-		CustomerNumbers.setBounds(35, 6, 322, 227);
+		CustomerNumbers.setBounds(0, 0, 391, 247);
 		panel.add(CustomerNumbers);
 		CustomerNumbers.setLayout(null);
 		
@@ -77,7 +77,7 @@ public class DashboardPanel extends JPanel {
 		
 		JPanel ProductNumbers = new JPanel();
 		ProductNumbers.setBackground(new Color(161, 193, 129));
-		ProductNumbers.setBounds(434, 6, 322, 227);
+		ProductNumbers.setBounds(389, 0, 417, 247);
 		panel.add(ProductNumbers);
 		ProductNumbers.setLayout(null);
 		
@@ -113,7 +113,7 @@ public class DashboardPanel extends JPanel {
 		
 		JPanel CategoriesNumber = new JPanel();
 		CategoriesNumber.setBackground(new Color(255, 230, 109));
-		CategoriesNumber.setBounds(35, 245, 322, 215);
+		CategoriesNumber.setBounds(0, 245, 391, 248);
 		panel.add(CategoriesNumber);
 		CategoriesNumber.setLayout(null);
 		
@@ -148,7 +148,7 @@ public class DashboardPanel extends JPanel {
 		
 		JPanel TotalOrder = new JPanel();
 		TotalOrder.setBackground(new Color(255, 181, 167));
-		TotalOrder.setBounds(434, 245, 322, 215);
+		TotalOrder.setBounds(389, 245, 417, 248);
 		panel.add(TotalOrder);
 		TotalOrder.setLayout(null);
 		
@@ -178,7 +178,7 @@ public class DashboardPanel extends JPanel {
 		TotalOrder.add(mostCostOrderTextField);
 		
 		JLabel lastOrderTextField = new JLabel("Kutay");
-		lastOrderTextField.setBounds(164, 125, 61, 16);
+		lastOrderTextField.setBounds(163, 125, 61, 16);
 		TotalOrder.add(lastOrderTextField);
 
 	}
