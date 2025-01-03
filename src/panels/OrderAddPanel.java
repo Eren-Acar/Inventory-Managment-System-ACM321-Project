@@ -189,6 +189,28 @@ public class OrderAddPanel extends JPanel {
         add(completeOrderButton);
         
         JButton deleteButton = new JButton("Delete");
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int selectedRow = cartTable.getSelectedRow();
+				if (selectedRow != -1) {
+					String productName = (String) cartModel.getValueAt(selectedRow, 2);
+					int quantity = (int) cartModel.getValueAt(selectedRow, 3);
+
+					try {
+						productDAO.updateProductQuantity(productName, -quantity);
+						cartModel.removeRow(selectedRow);
+						JOptionPane.showMessageDialog(null, "Product deleted from cart successfully!");
+					} catch (SQLException ex) {
+						JOptionPane.showMessageDialog(null, "Failed to delete product: " + ex.getMessage(), "Error",
+								JOptionPane.ERROR_MESSAGE);
+						ex.printStackTrace();
+					}
+				} else {
+					JOptionPane.showMessageDialog(null, "Please select a product to delete!", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
         deleteButton.setBounds(570, 252, 117, 29);
         add(deleteButton);
     }

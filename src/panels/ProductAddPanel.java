@@ -227,7 +227,7 @@ public class ProductAddPanel extends JPanel {
                 int selectedRow = table.getSelectedRow();
 
                 if (selectedRow != -1) {
-                    // Seçilen satırdaki verileri al
+                    // Get the selected product's data
                     String productCode = (String) tableModel.getValueAt(selectedRow, 0);
                     String name = (String) tableModel.getValueAt(selectedRow, 1);
                     int quantity = (int) tableModel.getValueAt(selectedRow, 2);
@@ -235,19 +235,19 @@ public class ProductAddPanel extends JPanel {
                     String description = (String) tableModel.getValueAt(selectedRow, 4);
                     String category = (String) tableModel.getValueAt(selectedRow, 5);
 
-                    // ProductEditPanel'i oluştur ve verileri yükle
+                    // Create a new ProductEditPanel
                     ProductEditPanel editPanel = new ProductEditPanel();
-                    editPanel.loadCategories(categoryDAO.getCategories()); // Kategorileri yükle
-                    editPanel.loadProductData(productCode, name, quantity, price, description, category); // Mevcut verileri yükle
+                    editPanel.loadCategories(categoryDAO.getCategories());
+                    editPanel.loadProductData(productCode, name, quantity, price, description, category); 
 
-                    // ProductEditPanel'i JOptionPane içinde göster
+                    // Show the ProductEditPanel in a JOptionPane
                     int result = JOptionPane.showConfirmDialog(null, editPanel, "Edit Product", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 
                     if (result == JOptionPane.OK_OPTION) {
                         try {
                             Object[] updatedData = editPanel.getUpdatedProductData();
 
-                            // Veritabanında güncelleme işlemi
+                            // Update the product in the database
                             productDAO.updateProduct(
                                 (String) updatedData[0], // ProductCode
                                 (String) updatedData[1], // Name
@@ -257,7 +257,7 @@ public class ProductAddPanel extends JPanel {
                                 (String) updatedData[5]  // Category
                             );
 
-                            // Tabloyu güncelle
+                            
                             tableModel.setValueAt(updatedData[0], selectedRow, 0); // Product Code
                             tableModel.setValueAt(updatedData[1], selectedRow, 1); // Name
                             tableModel.setValueAt(updatedData[2], selectedRow, 2); // Quantity
