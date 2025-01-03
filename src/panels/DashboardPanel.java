@@ -83,7 +83,7 @@ public class DashboardPanel extends JPanel {
 		panel.add(TotalOrder);
 		TotalOrder.setLayout(null);
 		
-		JLabel lblNewLabel_5_3 = new JLabel("Total Cost :");
+		JLabel lblNewLabel_5_3 = new JLabel("Total Invoice :");
 		lblNewLabel_5_3.setBounds(102, 58, 95, 127);
 		TotalOrder.add(lblNewLabel_5_3);
 		
