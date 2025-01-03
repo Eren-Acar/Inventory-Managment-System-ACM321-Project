@@ -14,7 +14,7 @@ public class CustomerDAO {
         this.connection = connection;
     }
 
-    public void addCustomer(String name, String address, String city, String county) throws SQLException {
+    public void addCustomer(String name, String address, String city, String county) throws SQLException { //without ID
         String sql = "INSERT INTO CustomerTable (CustomerName, CustomerAdress, CustomerCity, CustomerCounty) VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, name);

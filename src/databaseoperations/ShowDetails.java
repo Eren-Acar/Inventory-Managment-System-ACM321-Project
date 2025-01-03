@@ -9,11 +9,11 @@ public class ShowDetails {
 
     public void printAllTableCounts() {
         try (Connection connection = DriverManager.getConnection(DATABASE_URL)) {
-            printTableCount(connection, "CustomerTable", "Toplam Müşteri Sayısı");
-            printTableCount(connection, "CategoryTable", "Toplam Kategori Sayısı");
-            printTableCount(connection, "ProductTable", "Toplam Ürün Sayısı");
-            printTableCount(connection, "InvoiceTable", "Toplam Fatura Sayısı");
-            printTableCount(connection, "ListOfItemsTable", "Toplam Sipariş Kalemi Sayısı");
+            printTableCount(connection, "CustomerTable", "Total Customer Count: ");
+            printTableCount(connection, "CategoryTable", "Total Category Count: ");
+            printTableCount(connection, "ProductTable", "Total Product Count: ");
+            printTableCount(connection, "InvoiceTable", "Total Invoice Count: ");
+            //printTableCount(connection, "ListOfItemsTable", "Toplam Sipariş Kalemi Sayısı");
         } catch (SQLException e) {
             System.out.println("Veritabanına bağlanırken bir hata oluştu: " + e.getMessage());
             //System.err.println("Database connection error: " + e.getMessage());
