@@ -94,8 +94,21 @@ public class InvoiceDAO {
 	    }
 	}
 
+	public int getTotalInvoices() {
+		String sql = "SELECT COUNT(*) FROM InvoiceTable";
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+	}
+
 
 		
-	}
+	
 
 

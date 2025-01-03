@@ -117,8 +117,21 @@ public class CustomerDAO {
 		    }
 		}
 
-	
+	public int getTotalCustomers() {
+		String sql = "SELECT COUNT(*) FROM CustomerTable";
+        try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 	}
+
+	
+	
 	
 	
     

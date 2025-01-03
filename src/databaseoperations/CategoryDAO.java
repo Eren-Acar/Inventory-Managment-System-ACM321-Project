@@ -105,7 +105,16 @@ public class CategoryDAO {
 		        stmt.executeUpdate();
 		    }
 		}
-
+		
+		public int getTotalCategories() throws SQLException {
+			String sql = "SELECT COUNT(*) FROM CategoryTable";
+			try (Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(sql)) {
+				if (rs.next()) {
+					return rs.getInt(1);
+				}
+			}
+			return 0;
+		}
 			
 		}
 		

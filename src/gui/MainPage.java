@@ -234,7 +234,7 @@ public class MainPage extends JFrame {
         btnAdd.setVisible(false);
         btnList.setVisible(false);
 
-        dashboardPanel = new DashboardPanel();
+        dashboardPanel = new DashboardPanel(conn);
         mainContentPanel.add(dashboardPanel, "Dashboard");
         CardLayout cardLayout = (CardLayout) mainContentPanel.getLayout();
         cardLayout.show(mainContentPanel, "Dashboard");
