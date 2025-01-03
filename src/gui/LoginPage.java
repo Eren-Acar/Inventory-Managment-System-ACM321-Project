@@ -89,17 +89,17 @@ public class LoginPage extends JFrame {
 		        String email = emailTextField.getText();
 		        String password = new String(passwordField.getPassword());
 
-		        // Kullanıcı doğrulama
+		        // Check if the user exists in the database
 		        boolean success = UserDAO.loginUser(email, password);
 
 		        if (success) {
-		            // Kullanıcı bilgilerini al
-		            String[] userInfo = UserDAO.getUserInfo(email);  // Ad ve soyad bilgisi
+		            // Get user information from the database
+		            String[] userInfo = UserDAO.getUserInfo(email);  // Name and surname
 
 		            if (userInfo != null) {
-		                MainPage mainPage = new MainPage(userInfo[0], userInfo[1]);  // Ad ve soyadı gönder
+		                MainPage mainPage = new MainPage(userInfo[0], userInfo[1]);  // Send name and surname to the main page
 		                mainPage.setVisible(true);
-		                dispose();  // Login sayfasını kapat
+		                dispose();  // Close the login
 		            }
 		        } else {
 		            JOptionPane.showMessageDialog(null, "Invalid email or password.");
