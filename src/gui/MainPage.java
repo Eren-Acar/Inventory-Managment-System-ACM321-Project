@@ -204,7 +204,8 @@ public class MainPage extends JFrame {
         contentPanel.setBounds(201, 70, 793, 467);
         panel.add(contentPanel);
         contentPanel.setLayout(new CardLayout(0, 0));
-
+        
+        //That panel main dynamic panel for our content(Example-->CategoryAddPanel,CustomerAddPanel...)
         mainContentPanel = new JPanel(new CardLayout());
         contentPanel.add(mainContentPanel, "mainContentPanel");
     }

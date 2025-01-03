@@ -79,6 +79,7 @@ public class LoginPage extends JFrame {
 		passwordText.setBounds(47, 105, 61, 16);
 		contentPane.add(passwordText);
 		
+		//Label for Image
 		lblNewLabel_3 = new JLabel("New label");
 		lblNewLabel_3.setBackground(new Color(254, 255, 255));
 		lblNewLabel_3.setIcon(new ImageIcon(LoginPage.class.getResource("/resourcess/loginPageImage.png")));
