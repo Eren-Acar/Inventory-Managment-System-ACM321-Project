@@ -52,7 +52,7 @@ public class LoginPage extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginPage() {
-		DatabaseConnection.main(null);
+		//DatabaseConnection.main(null);
 		
 		setTitle("Inventory Management System");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
