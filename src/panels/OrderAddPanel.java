@@ -50,19 +50,19 @@ public class OrderAddPanel extends JPanel {
         });
 
         JLabel customerLabel = new JLabel("Customer:");
-        customerLabel.setBounds(478, 75, 100, 25);
+        customerLabel.setBounds(478, 75, 70, 25);
         add(customerLabel);
 
         JComboBox<String> customerComboBox = new JComboBox<>();
-        customerComboBox.setBounds(570, 76, 200, 25);
+        customerComboBox.setBounds(548, 76, 222, 25);
         add(customerComboBox);
 
         JLabel productLabel = new JLabel("Product:");
-        productLabel.setBounds(478, 119, 89, 25);
+        productLabel.setBounds(478, 119, 58, 25);
         add(productLabel);
 
         JComboBox<String> productComboBox = new JComboBox<>();
-        productComboBox.setBounds(570, 120, 200, 25);
+        productComboBox.setBounds(548, 120, 222, 25);
         add(productComboBox);
 
         JLabel quantityLabel = new JLabel("Quantity:");
@@ -70,7 +70,7 @@ public class OrderAddPanel extends JPanel {
         add(quantityLabel);
 
         JTextField quantityTextField = new JTextField();
-        quantityTextField.setBounds(570, 164, 190, 25);
+        quantityTextField.setBounds(548, 164, 212, 25);
         add(quantityTextField);
 
         // Database connection and DAO objects
